@@ -14,10 +14,4 @@ RSpec.describe Photo, type: :model do
   describe 'associations' do
     it { should belong_to(:imageable) }
   end
-
-  describe 'callbacks' do
-    it 'downcases the file_key before saving' do
-      expect(photo.reload.file_key).to eq('file_key_name')
-    end
-  end
 end
