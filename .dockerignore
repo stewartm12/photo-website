@@ -1,0 +1,54 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+
+# Ignore git directory.
+/services/api/.git/
+/services/api/.gitignore
+
+# Ignore bundler config.
+/services/api/.bundle
+
+# Ignore all environment files.
+/services/api/.env*
+
+# Ignore all default key files.
+/services/api/config/master.key
+/services/api/config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/services/api/log/*
+/services/api/tmp/*
+!/services/api/log/.keep
+!/services/api/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/services/api/tmp/pids/*
+!/services/api/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/services/api/storage/*
+!/services/api/storage/.keep
+/services/api/tmp/storage/*
+!/services/api/tmp/storage/.keep
+
+# Ignore CI service files.
+/services/api/.github
+
+# Ignore development files
+/services/api/.devcontainer
+
+# Ignore Docker-related files
+/services/api/.dockerignore
+/services/api/Dockerfile*
+
+
+/config/dockerfiles/dockerfile-nextjs
+/config/dockerfiles/dockerfile-ruby
+.dockerignore
+
+/services/web/.git
+/services/web/.next
+!/services/web/.next/static
+!/services/web/.next/standalone
+/services/web/node_modules
+/services/web/npm-debug.log
+README.md

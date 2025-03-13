@@ -1,0 +1,30 @@
+# Dockerfile-ruby
+
+# Use official Ruby base image with Ruby 3.4.2
+FROM ruby:3.4.2
+
+# Set the working directory
+WORKDIR /app
+
+# Install dependencies for Rails and PostgreSQL
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  libpq-dev \
+  nodejs \
+  yarn \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy Gemfile and Gemfile.lock
+COPY services/api/Gemfile services/api/Gemfile.lock ./
+
+# Install bundler and only install gems if missing
+RUN gem install bundler && bundle check || bundle install
+
+# Copy the Rails application files
+COPY services/api ./
+
+# Expose the port
+EXPOSE 3000
+
+# Start Rails server by default
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
