@@ -83,7 +83,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
 
     # Load category seeds
-    # require Rails.root.join('db', 'seeds', 'categories_seeds.rb')
+    require Rails.root.join('db', 'seeds', 'gallery_seeds.rb')
   end
 
   config.before(:each) do
