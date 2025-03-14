@@ -13,7 +13,20 @@ require 'webmock/rspec'
 require 'simplecov'
 
 SimpleCov.start 'rails' do
-  # any custom configs like groups and filters can be here at a central place
+   # Exclude specific files
+   %w[
+    app/controllers/graphql_controller.rb
+    app/graphql/api_schema.rb
+    app/graphql/types/node_type.rb
+    app/graphql/types/mutation_type.rb
+    app/graphql/types/query_type.rb
+    app/graphql/types/imageable_union.rb
+  ].each { |path| add_filter path }
+
+  # Exclude base files in GraphQL directories
+  %w[types mutations resolvers].each do |dir|
+    add_filter %r{app/graphql/#{dir}/base.*\.rb$}
+  end
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -95,6 +108,9 @@ RSpec.configure do |config|
     # Clean the database after each test
     DatabaseCleaner.clean
   end
+
+  # Load custom matchers
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 end
 
 Shoulda::Matchers.configure do |config|
