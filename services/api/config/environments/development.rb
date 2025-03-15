@@ -3,6 +3,9 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # White-listing the frontend web domain to allow requests from the Rails server.
+  config.hosts << /api:\d+/
+
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 

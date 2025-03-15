@@ -27,12 +27,20 @@ module Types
       argument :id, ID, required: true, description: 'ID of the gallery.'
     end
 
+    field :slideshow, Types::SlideshowType, null: true, description: 'Fetches a slideshow by name' do
+      argument :name, String, required: true, description: 'Name of the slideshow.'
+    end
+
     def galleries
       Gallery.includes(collections: :photos)
     end
 
     def gallery(id:)
       Gallery.includes(collections: :photos).find_by(id: id)
+    end
+
+    def slideshow(name:)
+      Slideshow.find_by(name: name)
     end
   end
 end
