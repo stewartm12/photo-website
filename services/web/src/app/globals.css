@@ -42,6 +42,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-caramel-400: var(--caramel-400);
+  --color-caramel-500: var(--caramel-500);
+  --color-caramel-600: var(--caramel-600);
+  --color-footer-100: var(--footer-100);
 }
 
 :root {
@@ -77,6 +81,10 @@
   --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
   --sidebar-border: oklch(0.923 0.003 48.717);
   --sidebar-ring: oklch(0.709 0.01 56.259);
+  --caramel-400: oklch(73.12% 0.0661 72.71);
+  --caramel-500: oklch(66.14% 0.0661 72.71);
+  --caramel-600: oklch(58.09% 0.09 72.71);
+  --footer-100: oklch(47.18% 0.0754 254.58);
 }
 
 .dark {

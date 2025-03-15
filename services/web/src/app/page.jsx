@@ -1,11 +1,11 @@
-import { slideshowQuery } from "@/graphql/queries/slideshow-query";
+import { slideshowQuery } from "@/graphql/queries/slideshows";
 import { ArrowRight, Camera, Heart, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Slideshow from "@/app/components/slideshow";
+import ServiceCard from "@/app/components/home-service-card";
 import Image from "next/image";
-import Link from "next/link";
 
 async function getHomepageSlideshow() {
   return await slideshowQuery();
@@ -36,7 +36,7 @@ export default async function Home() {
             of a hand to the tears, laughter, and every intimate moment in between, I artfully document the true essence
             of your love story.
           </p>
-          <Button className="mt-6 bg-stone-800 hover:bg-stone-700 text-white">
+          <Button className="mt-6 bg-caramel-500 hover:bg-caramel-600 text-white hover:scale-102 cursor-pointer">
             View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
           </Button> {/* Replace with dynamic link to gallery */}
         </div>
@@ -92,7 +92,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-stone-800 text-white">
+      <section className="py-16 md:py-24 text-white bg-caramel-500">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -108,7 +108,7 @@ export default async function Home() {
                 My approach blends technical expertise with a passion for storytelling, ensuring each photograph conveys
                 emotion and depth. I strive to create images that not only meet but exceed your expectations.
               </p>
-              <Button className="mt-6 bg-white text-stone-800 hover:bg-stone-200">Learn More</Button>
+              <Button variant="ghost" className="mt-6 text-white bg-caramel-500 hover:scale-102 cursor-pointer">Learn More</Button>
             </div>
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
@@ -130,24 +130,24 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
-              image='/selfie-1.jpg'  // Replace with dynamic image and link to gallery
-              title="View Galleries"
-              description="Check out my work"
-              link="#"
+              imgSrc={'Damla-Selen-Demir-4.jpg'}  // Replace with dynamic image and link to gallery
+              title={"View Galleries"}
+              description={"Check out my work"}
+              link={"#"}
             />
 
             <ServiceCard
-              image='/selfie-2.jpg'  // Replace with dynamic image and link to contact page
-              title="Contact Me"
-              description="Let's get you booked"
-              link="#"
+              imgSrc={'Damla-Selen-Demir-3.jpg'}  // Replace with dynamic image and link to contact page
+              title={"Contact Me"}
+              description={"Let's get you booked"}
+              link={"#"}
             />
 
             <ServiceCard
-              image='/selfie-3.jpg'  // Replace with dynamic image and link to services page
-              title="Services"
-              description="Pricing and packages"
-              link="#"
+              imgSrc={'Damla-Selen-Demir-1.jpg'}  // Replace with dynamic image and link to services page
+              title={"Services"}
+              description={"Pricing and packages"}
+              link={"#"}
             />
           </div>
         </div>
@@ -161,36 +161,9 @@ export default async function Home() {
             Let's create timeless memories together. Contact me today to discuss your photography needs and book your
             session.
           </p>
-          <Button className="bg-stone-800 hover:bg-stone-700 text-white px-8 py-6 text-lg">Get in Touch</Button> {/* Replace with dynamic link to contact page */}
+          <Button className="bg-caramel-400 hover:bg-caramel-500 text-white px-8 py-6 text-lg hover:scale-102 cursor-pointer">Get in Touch</Button> {/* Replace with dynamic link to contact page */}
         </div>
       </section>
     </div>
   );
 };
-
-function ServiceCard({ image, title, description, link }) {
-  return (
-    <Link href={link} className="group">
-      <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl">
-        <div className="relative overflow-hidden aspect-square">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-4.jpg`} // Replace with dynamic image
-            alt={title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-        <CardContent className="p-6 text-center">
-          <h3 className="text-xl font-semibold text-stone-800 mb-2">{title}</h3>
-          <p className="text-stone-600">{description}</p>
-        </CardContent>
-        <CardFooter className="pt-0 pb-6 flex justify-center">
-          <Button variant="ghost" className="text-stone-800 group-hover:text-stone-600">
-            Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </CardFooter>
-      </Card>
-    </Link>
-  );
-};
-

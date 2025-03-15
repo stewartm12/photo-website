@@ -11,5 +11,18 @@ RSpec.describe Gallery, type: :model do
       it { should validate_presence_of(:name) }
       it { should validate_uniqueness_of(:name).case_insensitive }
     end
+
+    context 'slug' do
+      it { should validate_presence_of(:slug) }
+      it { should validate_uniqueness_of(:slug).case_insensitive }
+
+      context 'before validation' do
+        let(:gallery) { create(:gallery, name: 'My Gallery') }
+
+        it 'generates slug from name' do
+          expect(gallery.slug).to eq('my-gallery')
+        end
+      end
+    end
   end
 end
