@@ -9,12 +9,12 @@
 #   end
 # Load gallery_seeds.rb first
 load Rails.root.join('db', 'seeds', 'gallery_seeds.rb')
-load Rails.root.join('db', 'seeds', 'slideshow_seeds.rb')
+load Rails.root.join('db', 'seeds', 'showcase_seeds.rb')
 
 # Load the rest of the seed files (excluding gallery_seeds.rb since it's already loaded)
 if Rails.env.development?
   Dir[Rails.root.join('db', 'seeds', '*.rb')].each do |file|
-    next if file.include?('gallery_seeds.rb') || file.include?('slideshow_seeds.rb')
+    next if file.include?('gallery_seeds.rb') || file.include?('showcase_seeds.rb')
     load file
   end
 end
