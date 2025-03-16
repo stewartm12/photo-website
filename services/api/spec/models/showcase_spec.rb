@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Slideshow, type: :model do
-  let!(:slideshow) { create(:slideshow) }
+RSpec.describe Showcase, type: :model do
+  let!(:showcase) { create(:showcase) }
 
   describe 'validations' do
     context 'name' do

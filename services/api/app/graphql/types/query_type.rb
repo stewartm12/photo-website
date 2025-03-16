@@ -27,8 +27,8 @@ module Types
       argument :id, ID, required: true, description: 'ID of the gallery.'
     end
 
-    field :slideshow, Types::SlideshowType, null: true, description: 'Fetches a slideshow by name' do
-      argument :name, String, required: true, description: 'Name of the slideshow.'
+    field :showcase, Types::ShowcaseType, null: true, description: 'Fetches a showcase by name' do
+      argument :name, String, required: true, description: 'Name of the showcase.'
     end
 
     def galleries
@@ -39,8 +39,8 @@ module Types
       Gallery.includes(collections: :photos).find_by(id: id)
     end
 
-    def slideshow(name:)
-      Slideshow.find_by(name: name)
+    def showcase(name:)
+      Showcase.find_by(name: name)
     end
   end
 end

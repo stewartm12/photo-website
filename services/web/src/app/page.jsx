@@ -1,4 +1,4 @@
-import { slideshowQuery } from "@/graphql/queries/slideshows";
+import { slideshowQuery, serviceCardQuery } from "@/graphql/queries/showcases";
 import { ArrowRight, Camera, Heart, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -7,17 +7,23 @@ import Slideshow from "@/app/components/slideshow";
 import ServiceCard from "@/app/components/home-service-card";
 import Image from "next/image";
 
-async function getHomepageSlideshow() {
-  return await slideshowQuery();
+async function getHomepagePhotos() {
+  const serviceCardPhotos = await serviceCardQuery();
+  const slideshowPhotos =  await slideshowQuery();
+
+  return {
+    serviceCardPhotos,
+    slideshowPhotos,
+  }
 }
 
 export default async function Home() {
-  const data = await getHomepageSlideshow();
+  const { serviceCardPhotos, slideshowPhotos} = await getHomepagePhotos();
 
   return (
     <div className="relative">
       <section className="relative w-full">
-        <Slideshow photos={data.photos} />
+        <Slideshow photos={slideshowPhotos.photos} />
         <div className="absolute inset-0 bg-black/30 flex items-center">
           <div className="text-center px-4 py-8 bg-white/10 rounded-lg mx-auto">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-white">Warm, Timeless, & Intimate</h1>
@@ -36,13 +42,13 @@ export default async function Home() {
             of a hand to the tears, laughter, and every intimate moment in between, I artfully document the true essence
             of your love story.
           </p>
-          <Button className="mt-6 bg-caramel-500 hover:bg-caramel-600 text-white hover:scale-102 cursor-pointer">
+          <Button className="mt-6 bg-caramel-600 hover:bg-footer-100 text-white hover:scale-102 cursor-pointer">
             View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
           </Button> {/* Replace with dynamic link to gallery */}
         </div>
       </section>
 
-      <section className="py-16 bg-stone-50">
+      <section className="py-16 bg-footer-100">
         <div className="max-w-4xl mx-auto px-4">
           <Card className="border-none shadow-xl bg-white relative overflow-hidden">
             <CardContent className="pt-10 pb-8 px-6 md:px-10 relative z-10">
@@ -92,7 +98,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 text-white bg-caramel-500">
+      <section className="py-16 md:py-24 text-white bg-caramel-600">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -108,7 +114,9 @@ export default async function Home() {
                 My approach blends technical expertise with a passion for storytelling, ensuring each photograph conveys
                 emotion and depth. I strive to create images that not only meet but exceed your expectations.
               </p>
-              <Button variant="ghost" className="mt-6 text-white bg-caramel-500 hover:scale-102 cursor-pointer">Learn More</Button>
+              <Button variant="ghost" className="mt-6 text-white group-hover:scale-102 cursor-pointer">
+                Learn More  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
             </div>
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
@@ -130,21 +138,21 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
-              imgSrc={'Damla-Selen-Demir-4.jpg'}  // Replace with dynamic image and link to gallery
+              imgSrc={serviceCardPhotos.photos[0].fileKey}
               title={"View Galleries"}
               description={"Check out my work"}
               link={"#"}
             />
 
             <ServiceCard
-              imgSrc={'Damla-Selen-Demir-3.jpg'}  // Replace with dynamic image and link to contact page
+              imgSrc={serviceCardPhotos.photos[1].fileKey}
               title={"Contact Me"}
               description={"Let's get you booked"}
               link={"#"}
             />
 
             <ServiceCard
-              imgSrc={'Damla-Selen-Demir-1.jpg'}  // Replace with dynamic image and link to services page
+              imgSrc={serviceCardPhotos.photos[2].fileKey}
               title={"Services"}
               description={"Pricing and packages"}
               link={"#"}
@@ -161,7 +169,9 @@ export default async function Home() {
             Let's create timeless memories together. Contact me today to discuss your photography needs and book your
             session.
           </p>
-          <Button className="bg-caramel-400 hover:bg-caramel-500 text-white px-8 py-6 text-lg hover:scale-102 cursor-pointer">Get in Touch</Button> {/* Replace with dynamic link to contact page */}
+          <Button className="bg-caramel-600 hover:bg-footer-100 text-white cursor-pointer">
+            Get In Touch   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
         </div>
       </section>
     </div>

@@ -29,7 +29,7 @@ export default function ServiceCard({ imgSrc, title, description, link }) {
           <p className="text-white">{description}</p>
         </CardContent>
         <CardFooter className="pt-0 pb-6 flex justify-center">
-          <Button variant="ghost" className="text-white">
+          <Button variant="ghost" className="text-white cursor-pointer">
             Learn More <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /> {/* Replace with dynamic link to contact page */}
           </Button>
         </CardFooter>

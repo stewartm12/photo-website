@@ -3,7 +3,7 @@ module Types
   class ImageableUnion < Types::BaseUnion
     description 'Objects that can have photos'
 
-    possible_types Types::PhotoType, Types::CollectionType, Types::GalleryType, Types::SlideshowType
+    possible_types Types::PhotoType, Types::CollectionType, Types::GalleryType, Types::ShowcaseType
 
     def self.resolve_type(object, _context)
       case object
@@ -13,8 +13,8 @@ module Types
         Types::CollectionType
       when Gallery
         Types::GalleryType
-      when Slideshow
-        Types::SlideshowType
+      when Showcase
+        Types::ShowcaseType
       else
         raise "Unexpected imageable type: #{object.class}"
       end
