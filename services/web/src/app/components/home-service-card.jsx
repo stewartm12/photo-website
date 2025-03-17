@@ -1,10 +1,10 @@
 "use client";
 
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 
 export default function ServiceCard({ imgSrc, title, description, link }) {
   const imageLoader = ({ src, width, quality }) => {
@@ -16,7 +16,7 @@ export default function ServiceCard({ imgSrc, title, description, link }) {
       <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl max-w-xs mx-auto bg-caramel-400">
         <div className="relative overflow-hidden aspect-square">
           <Image
-            src={`${imgSrc}`}
+            src={imgSrc}
             alt={title}
             loader={imageLoader}
             fill

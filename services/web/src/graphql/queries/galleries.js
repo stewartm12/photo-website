@@ -1,4 +1,4 @@
-export const gallerySlugQueries = async(name) => {
+export const gallerySlugsQuery = async(name) => {
   const apiUrl = process.env.RAILS_API_URL;
 
   const response = await fetch(apiUrl, {
@@ -12,6 +12,7 @@ export const gallerySlugQueries = async(name) => {
           galleries {
             id
             name
+            description
             slug
           }
         }
@@ -20,4 +21,42 @@ export const gallerySlugQueries = async(name) => {
   }).then((res) => res.json());
 
   return response.data.galleries
+};
+
+export const photosBySlugQuery = async(name) => {
+  const apiUrl = process.env.RAILS_API_URL;
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          gallery(slug: "${name}") {
+            id
+            name
+            description
+            collections {
+              id
+              name
+              photos {
+                id
+                fileKey
+                altText
+              }
+            }
+            photo {
+              id
+              fileKey
+              altText
+            }
+          }
+        }
+      `,
+    }),
+  }).then((res) => res.json());
+
+  return response.data.gallery
 };

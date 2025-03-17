@@ -1,0 +1,44 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import NextImage from "next/image";
+
+export default function ImageContainer({ photo }) {
+  const [naturalWidth, setNaturalWidth] = useState(0);
+  const [naturalHeight, setNaturalHeight] = useState(0);
+  const [photoSpans, setPhotoSpans] = useState(1);
+
+  useEffect(() => {
+    if (naturalWidth && naturalHeight) {
+      const widthHeightRatio = naturalHeight / naturalWidth;
+      const calculatedGalleryHeight = Math.ceil(250 * widthHeightRatio);
+      const calculatedPhotoSpans = Math.ceil(calculatedGalleryHeight / 10) + 1;
+      setPhotoSpans(calculatedPhotoSpans);
+    }
+  }, [naturalWidth, naturalHeight]);
+
+  const imageLoader = ({ src, width, quality }) => {
+    return `${process.env.NEXT_PUBLIC_AWS_S3_URL}/${src}?w=${width}&q=${quality || 75}`
+  };
+
+  return (
+    <div className="w-full justify-self-center" style={{gridRow: `span ${photoSpans}`}}>
+        <NextImage
+          src={photo.fileKey}
+          loader={imageLoader}
+          alt={photo.altText}
+          width={0}
+          height={250}
+          sizes="250px"
+          placeholder="blur"
+          blurDataURL={photo.blurredDataUrl}
+          onLoad={({ target }) => {
+            const { naturalWidth, naturalHeight } = target;
+            setNaturalWidth(naturalWidth);
+            setNaturalHeight(naturalHeight);
+          }}
+          className="w-full h-auto object-cover"
+        />
+    </div>
+  );
+};
