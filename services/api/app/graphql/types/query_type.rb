@@ -23,8 +23,8 @@ module Types
 
     field :galleries, [Types::GalleryType], null: false, description: 'Fetches all galleries.'
 
-    field :gallery, Types::GalleryType, null: true, description: 'Fetches a gallery by ID.' do
-      argument :id, ID, required: true, description: 'ID of the gallery.'
+    field :gallery, Types::GalleryType, null: true, description: 'Fetches a gallery by slug.' do
+      argument :slug, String, required: true, description: 'Slug of the gallery.'
     end
 
     field :showcase, Types::ShowcaseType, null: true, description: 'Fetches a showcase by name' do
@@ -35,8 +35,8 @@ module Types
       Gallery.includes(collections: :photos)
     end
 
-    def gallery(id:)
-      Gallery.includes(collections: :photos).find_by(id: id)
+    def gallery(slug:)
+      Gallery.includes(collections: :photos).find_by(slug: slug)
     end
 
     def showcase(name:)

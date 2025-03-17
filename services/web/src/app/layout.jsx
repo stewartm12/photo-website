@@ -1,7 +1,7 @@
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import { Roboto_Flex } from 'next/font/google';
-import { gallerySlugQueries } from '@/graphql/queries/galleries';
+import { gallerySlugsQuery } from '@/graphql/queries/galleries';
 import "./globals.css";
 
 const roboto = Roboto_Flex({
@@ -58,7 +58,7 @@ export const metadata = {
 };
 
 async function navbarSlugs() {
-  const galleries = await gallerySlugQueries();
+  const galleries = await gallerySlugsQuery();
   return galleries;
 }
 
