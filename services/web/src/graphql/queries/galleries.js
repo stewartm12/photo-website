@@ -60,3 +60,44 @@ export const photosBySlugQuery = async(name) => {
 
   return response.data.gallery
 };
+
+export const galleryPackageData = async() => {
+  const apiUrl = process.env.RAILS_API_URL;
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          galleries {
+            id
+            name
+            description
+            photo {
+              id
+              fileKey
+            }
+            packages {
+              id
+              name
+              price
+              popular
+              duration
+              features
+            }
+            addOns {
+              id
+              name
+              price
+            }
+          }
+        }
+      `
+    })
+  }).then((res) => res.json());
+
+  return response.data.galleries
+};

@@ -32,7 +32,7 @@ module Types
     end
 
     def galleries
-      Gallery.includes(collections: :photos)
+      Gallery.includes(collections: :photos, packages: {}, add_ons: {})
     end
 
     def gallery(slug:)
