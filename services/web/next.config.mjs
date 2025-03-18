@@ -1,3 +1,5 @@
+import withPlaiceholder from "@plaiceholder/next";
+
 /** @type {import('next').NextConfig} */
 const bucketName = process.env.NEXT_PUBLIC_AWS_BUCKET_NAME;
 const region = process.env.NEXT_PUBLIC_AWS_REGION;
@@ -14,4 +16,4 @@ const nextConfig = {
 	},
 };
 
-export default nextConfig;
+export default withPlaiceholder(nextConfig);

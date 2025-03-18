@@ -1,6 +1,8 @@
 class Gallery < ApplicationRecord
   has_one :photo, as: :imageable, dependent: :destroy
   has_many :collections, dependent: :destroy
+  has_many :packages, dependent: :destroy
+  has_many :add_ons, dependent: :destroy
 
   validates :name, :slug, presence: true, uniqueness: { case_sensitive: false }
 

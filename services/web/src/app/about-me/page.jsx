@@ -14,7 +14,6 @@ export default function AboutMe() {
           src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-4.jpg`}
           alt="Victoria Gonzales - Professional Photographer"
           fill
-          loading="eager"
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
