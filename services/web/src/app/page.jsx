@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Slideshow from "@/app/components/slideshow";
 import ServiceCard from "@/app/components/home-service-card";
 import Image from "next/image";
+import Link from "next/link";
 
 async function getHomepagePhotos() {
   const serviceCardPhotos = await serviceCardQuery();
@@ -42,9 +43,11 @@ export default async function Home() {
             of a hand to the tears, laughter, and every intimate moment in between, I artfully document the true essence
             of your love story.
           </p>
-          <Button className="mt-6 bg-caramel-600 hover:bg-footer-100 text-white hover:scale-102 cursor-pointer">
-            View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
-          </Button> {/* Replace with dynamic link to gallery */}
+          <Link href="/galleries/individual-family-portraits" className="cursor-pointer">
+            <Button className="mt-6 bg-caramel-600 hover:bg-footer-100 text-white hover:scale-102">
+              View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -114,9 +117,11 @@ export default async function Home() {
                 My approach blends technical expertise with a passion for storytelling, ensuring each photograph conveys
                 emotion and depth. I strive to create images that not only meet but exceed your expectations.
               </p>
-              <Button variant="ghost" className="mt-6 text-white group-hover:scale-102 cursor-pointer">
-                Learn More  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <Link href="/about-me" className="cursor-pointer">
+                <Button variant="ghost" className="mt-6 text-white group-hover:scale-102 cursor-pointer">
+                  Learn More  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
             </div>
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
@@ -169,9 +174,11 @@ export default async function Home() {
             Let's create timeless memories together. Contact me today to discuss your photography needs and book your
             session.
           </p>
-          <Button className="bg-caramel-600 hover:bg-footer-100 text-white cursor-pointer">
-            Get In Touch   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <Link href="/contact" className="cursor-pointer">
+            <Button className="bg-caramel-600 hover:bg-footer-100 text-white cursor-pointer">
+              Get In Touch   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
