@@ -6,6 +6,7 @@ RSpec.describe Package, type: :model do
 
   describe 'associations' do
     it { should belong_to(:gallery) }
+    it { should have_many(:appointments) }
   end
 
   describe 'associations' do

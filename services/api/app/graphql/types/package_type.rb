@@ -11,6 +11,7 @@ module Types
     field :popular, Boolean
     field :features, [String]
     field :gallery, Types::GalleryType, null: false
+    field :appointments, [Types::AppointmentType]
 
     def price
       object.price.to_s

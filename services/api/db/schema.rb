@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_18_191113) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_19_012858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_18_191113) do
     t.index ["gallery_id"], name: "index_add_ons_on_gallery_id"
   end
 
+  create_table "appointment_add_ons", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "add_on_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["add_on_id"], name: "index_appointment_add_ons_on_add_on_id"
+    t.index ["appointment_id"], name: "index_appointment_add_ons_on_appointment_id"
+  end
+
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "package_id", null: false
+    t.datetime "preferred_date_time"
+    t.text "additional_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_appointments_on_customer_id"
+    t.index ["package_id"], name: "index_appointments_on_package_id"
+  end
+
   create_table "collections", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "gallery_id", null: false
@@ -31,6 +52,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_18_191113) do
     t.datetime "updated_at", null: false
     t.index ["gallery_id", "name"], name: "index_collections_on_gallery_id_and_name", unique: true
     t.index ["gallery_id"], name: "index_collections_on_gallery_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
   end
 
   create_table "galleries", force: :cascade do |t|

@@ -297,10 +297,10 @@ export default function AboutMe() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-stone-100">
+      <section className="py-16 md:py-20 bg-caramel-500">
         <div className="max-w-5xl mx-auto px-4 text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-stone-800 mb-4">Fun Facts About Me</h2>
-          <p className="text-lg text-stone-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">Fun Facts About Me</h2>
+          <p className="text-lg text-white max-w-3xl mx-auto">
             When I'm not photographing amazing people, you might find me...
           </p>
         </div>
