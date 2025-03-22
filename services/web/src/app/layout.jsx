@@ -1,7 +1,8 @@
 import Navbar from './components/navbar';
 import Footer from './components/footer';
-import { Roboto_Flex } from 'next/font/google';
 import { gallerySlugsQuery } from '@/graphql/queries/galleries';
+import { Roboto_Flex } from 'next/font/google';
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
 
 const roboto = Roboto_Flex({
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }) {
       <body className={`${roboto.className} antialiased flex flex-col min-h-screen`} >
         <Navbar galleries={galleries} />
         <main className="flex-1">{children}</main>
+        <Toaster position="top-center" richColors />
         <Footer />
       </body>
     </html>
