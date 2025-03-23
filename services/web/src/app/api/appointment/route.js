@@ -12,10 +12,15 @@ export async function POST(request) {
       phoneNumber: params.phoneNumber,
       additionalNotes: params.additionalNotes,
       packageId: parseInt(params.packageId),
+      address: params.address
     };
 
-    if (params.displayDate) {
+    if (params.displayDate && params.preferredDateTime) {
       formattedParams.preferredDateTime = params.preferredDateTime;
+    }
+
+    if (params.displayLocation && params.address) {
+      formattedParams.address = params.address;
     }
 
     if (params.addOns) {
