@@ -11,5 +11,6 @@ RSpec.describe Appointment, type: :model do
     it { should belong_to(:package) }
     it { should have_many(:appointment_add_ons) }
     it { should have_many(:add_ons) }
+    it { should have_many(:locations) }
   end
 end

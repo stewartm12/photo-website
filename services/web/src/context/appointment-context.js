@@ -24,7 +24,9 @@ const initialState = {
   preferredDateTime: undefined,
   additionalNotes: "",
   addOns: [],
-  packageId: null
+  packageId: null,
+  displayLocation: false,
+  address: undefined
 };
 
 const appointmentReducer = (state, action) => {
@@ -38,9 +40,13 @@ const appointmentReducer = (state, action) => {
     case "SET_SUBMITTING":
       return { ...state, isSubmitting: action.payload };
     case "SET_SUCCESS":
-      return { ...initialState, isSuccess: true };
+      return { ...state, isSuccess: true };
+    case "TOGGLE_LOCATION":
+      return { ...state, displayLocation: !state.displayLocation };
+    case "POPULATE_ADDRESS_SUGGESTIONS":
+      return { ...state, address: action.payload };
     case "RESET_FORM":
-      return initialState;
+      return { ...initialState, galleries: state.galleries };
     default:
       return state;
   }

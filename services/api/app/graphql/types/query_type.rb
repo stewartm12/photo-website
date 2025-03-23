@@ -31,6 +31,8 @@ module Types
       argument :name, String, required: true, description: 'Name of the showcase.'
     end
 
+    field :autocomplete_location, resolver: Resolvers::AutocompleteLocation
+
     def galleries
       Gallery.includes(collections: :photos, packages: {}, add_ons: {})
     end

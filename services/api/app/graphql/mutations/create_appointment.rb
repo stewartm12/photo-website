@@ -8,34 +8,27 @@ module Mutations
     argument :additional_notes, String, required: false
     argument :package_id, ID, required: true
     argument :add_on_ids, [ID], required: false
+    argument :address, String, required: false
+    argument :note, String, required: false
 
     field :appointment, Types::AppointmentType, null: false
     field :errors, [String]
 
     def resolve(args)
-      customer = find_or_create_customer(args)
+      ActiveRecord::Base.transaction do
+        customer = find_or_create_customer(args)
+        appointment = build_appointment(args, customer)
 
-      appointment = Appointment.new(
-        customer: customer,
-        package_id: args[:package_id],
-        preferred_date_time: args[:preferred_date_time],
-        additional_notes: args[:additional_notes]
-      )
+        build_appointment_add_ons(appointment, args[:add_on_ids])
+        build_location(appointment, args[:address], args[:note]) if args[:address]
 
-      if appointment.save
-        if args[:add_on_ids]
-          args[:add_on_ids].each do |add_on_id|
-            AppointmentAddOn.create(
-              appointment: appointment,
-              add_on_id: add_on_id,
-            )
-          end
+        if appointment.save!
+          return { appointment: appointment, errors: [] }
+        else
+          return { appointment: nil, errors: appointment.errors.full_messages }
         end
-
-        { appointment: appointment, errors: [] }
-      else
-        { appointment: nil, errors: appointment.errors.full_messages }
       end
+      { appointment: nil, errors: ['Failed to create appointment'] }
     end
 
     private
@@ -49,8 +42,28 @@ module Mutations
         phone_number: args[:phone_number]
       )
 
-      customer.save
+      customer.save!
       customer
+    end
+
+    def build_appointment(args, customer)
+      customer.appointments.new(
+        package_id: args[:package_id],
+        preferred_date_time: args[:preferred_date_time],
+        additional_notes: args[:additional_notes]
+      )
+    end
+
+    def build_appointment_add_ons(appointment, add_on_ids)
+      return unless add_on_ids
+
+      add_on_ids.each do |id|
+        appointment.appointment_add_ons.build(add_on_id: id)
+      end
+    end
+
+    def build_location(appointment, address, note)
+      appointment.locations.build(address: address, note: note)
     end
   end
 end

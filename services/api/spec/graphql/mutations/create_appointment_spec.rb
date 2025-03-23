@@ -44,6 +44,16 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
 
         expect(Customer.last.email).to eq('john@example.com')
       end
+
+      context 'when an address is present' do
+        before { variables[:input][:address] = Faker::Address.full_address }
+
+        it 'successfully creates a new location record' do
+          expect do
+            post '/graphql', params: { query: mutation, variables: variables }
+          end.to change(Location, :count).by(1)
+        end
+      end
     end
 
     context 'when input is invalid' do

@@ -12,6 +12,7 @@ import { CheckCircle } from "lucide-react"
 import { toast } from "sonner"
 import { DateTimePicker } from "@/shared/date-time-picker";
 import MultipleSelector from "@/shared/multiple-selector";
+import SearchLocation from "./search-location";
 
 export default function AppointmentForm() {
   const { state, dispatch } = useAppointment();
@@ -68,7 +69,7 @@ export default function AppointmentForm() {
             <CardDescription className="text-base">
               Thank you for your appointment request. We'll be in touch with you soon to confirm the details.
             </CardDescription>
-            <Button onClick={() => dispatch({ type: "SET_FIELD", field: "isSuccess", value: false })} className="mt-4">
+            <Button onClick={() => dispatch({ type: "RESET_FORM" })} className="mt-4">
               Make Another Appointment
             </Button>
           </div>
@@ -200,6 +201,16 @@ export default function AppointmentForm() {
               />
               <Label htmlFor="displayDate">Date Available? (If Applicable)</Label>
             </div>
+            <div className="flex items-center">
+              <Checkbox
+                id="displayLocation"
+                name="displayLocation"
+                checked={state.displayLocation}
+                onCheckedChange={() => dispatch({ type: "TOGGLE_LOCATION" })}
+                className="mr-2"
+              />
+              <Label htmlFor="displayLocation">Location Available? (If Applicable)</Label>
+            </div>
           </div>
 
           {state.displayDate && (
@@ -214,6 +225,8 @@ export default function AppointmentForm() {
               </Label>
             </div>
           )}
+
+          {state.displayLocation && <SearchLocation /> }
 
           <div className="space-y-2">
             <Label htmlFor="additionalNotes">Additional Notes</Label>
