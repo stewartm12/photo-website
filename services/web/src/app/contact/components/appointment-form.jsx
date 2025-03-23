@@ -14,17 +14,12 @@ import { DateTimePicker } from "@/shared/date-time-picker";
 import MultipleSelector from "@/shared/multiple-selector";
 
 export default function AppointmentForm() {
-  const { formData, setFormData } = useAppointment();
+  const { state, dispatch } = useAppointment();
 
-  const updateFormData = (key, value) => {
-    setFormData(prev => ({ ...prev, [key]: value }));
-  };
+  const galleryPackageData = () => state.galleries.find(obj => obj.id == state.galleryId);
 
-  const galleryPackageData = () => formData.galleries.find(obj => obj.id == formData.galleryId);
-
-
-  const addOnData = () => {
-    const gallery = formData.galleries.find(obj => obj.id == formData.galleryId);
+  const formatAddOnData = () => {
+    const gallery = state.galleries.find(obj => obj.id == state.galleryId);
 
     return gallery?.addOns?.map(addOn => ({
       label: `${addOn.name} ($${parseFloat(addOn.price).toFixed(2)})`,
@@ -35,11 +30,11 @@ export default function AppointmentForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!formData.galleryId) {
+    if (!state.galleryId) {
       return toast.warning('Please select a gallery.')
     }
 
-    updateFormData("isSubmitting", true);
+    dispatch({ type: "SET_FIELD", field: "isSubmitting", value: true })
 
     try {
       const response = await fetch("/api/appointment", {
@@ -47,26 +42,11 @@ export default function AppointmentForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(state),
       })
 
       if (response.ok) {
-        const result = await response.json()
-
-        setFormData({
-          galleries: formData.galleries,
-          galleryId: null,
-          firstName: "",
-          lastName: "",
-          email: "",
-          phoneNumber: "",
-          displayDate: false,
-          isSubmitting: false,
-          isSuccess: true,
-          preferredDateTime: undefined,
-          additionalNotes: "",
-          addOns: []
-        })
+        dispatch({type: 'SET_SUCCESS'})
       } else {
         toast.error("Something went wrong. Your appointment couldn't be submitted. Please try again.")
       }
@@ -74,11 +54,11 @@ export default function AppointmentForm() {
       console.error("Error:", error)
       toast.error("An unexpected error occurred. Please try again later.")
     } finally {
-      updateFormData("isSubmitting", false);
+      dispatch({ type: "SET_FIELD", field: "isSubmitting", value: false })
     }
   }
 
-  if (formData.isSuccess) {
+  if (state.isSuccess) {
     return (
       <Card className="w-full max-w-md mx-auto shadow-lg">
         <CardContent className="pt-6">
@@ -88,7 +68,7 @@ export default function AppointmentForm() {
             <CardDescription className="text-base">
               Thank you for your appointment request. We'll be in touch with you soon to confirm the details.
             </CardDescription>
-            <Button onClick={() => updateFormData("isSuccess", false)} className="mt-4">
+            <Button onClick={() => dispatch({ type: "SET_FIELD", field: "isSuccess", value: false })} className="mt-4">
               Make Another Appointment
             </Button>
           </div>
@@ -110,8 +90,8 @@ export default function AppointmentForm() {
             <Input
               id="firstName"
               name="firstName"
-              value={formData.firstName}
-              onChange={e => updateFormData("firstName", e.target.value)}
+              value={state.firstName}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "firstName", value: e.target.value })}
               placeholder="Jane"
               className="focus-visible:ring-primary"
               required
@@ -123,8 +103,8 @@ export default function AppointmentForm() {
             <Input
               id="lastName"
               name="lastName"
-              value={formData.lastName}
-              onChange={e => updateFormData("lastName", e.target.value)}
+              value={state.lastName}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "lastName", value: e.target.value })}
               placeholder="Doe"
               className="focus-visible:ring-primary"
               required
@@ -137,8 +117,8 @@ export default function AppointmentForm() {
               id="email"
               name="email"
               type="email"
-              value={formData.email}
-              onChange={e => updateFormData("email", e.target.value)}
+              value={state.email}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "email", value: e.target.value })}
               placeholder="jane@example.com"
               className="focus-visible:ring-primary"
               autoComplete="true"
@@ -152,8 +132,8 @@ export default function AppointmentForm() {
               id="phoneNumber"
               name="phoneNumber"
               type="tel"
-              value={formData.phoneNumber}
-              onChange={e => updateFormData("phoneNumber", e.target.value)}
+              value={state.phoneNumber}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "phoneNumber", value: e.target.value })}
               className="focus-visible:ring-primary"
               pattern="^\+?[1-9]\d{1,14}$"
               placeholder="+1234567890"
@@ -162,12 +142,12 @@ export default function AppointmentForm() {
 
           <div className="space-y-2">
             <Label htmlFor="gallery-select">Session Type</Label>
-            <Select onValueChange={value => updateFormData("galleryId", value)} name="gallerySelect">
+            <Select onValueChange={(value) => dispatch({ type: "SET_FIELD", field: "galleryId", value: value })} name="gallerySelect">
               <SelectTrigger className="focus-visible:ring-primary w-[180px]"  id="gallery-select">
                 <SelectValue placeholder="Select a session" />
               </SelectTrigger>
               <SelectContent>
-                {formData.galleries.map(gallery => (
+                {state.galleries.map(gallery => (
                     <SelectItem key={gallery.id} value={gallery.id}>
                       {gallery.name}
                     </SelectItem>
@@ -177,10 +157,10 @@ export default function AppointmentForm() {
             </Select>
           </div>
 
-          {formData.galleryId && (
+          {state.galleryId && (
             <div className="space-y-2">
               <Label htmlFor="gallery-select">Packages</Label>
-              <Select onValueChange={value => updateFormData("packageId", value)} name="gallerySelect">
+              <Select onValueChange={(value) => dispatch({ type: "SET_FIELD", field: "packageId", value: value })} name="gallerySelect">
                 <SelectTrigger className="focus-visible:ring-primary w-[180px]"  id="gallery-select">
                   <SelectValue placeholder="Select a package" />
                 </SelectTrigger>
@@ -196,26 +176,41 @@ export default function AppointmentForm() {
             </div>
           )}
 
-          {formData.galleryId && (
+          {state.galleryId && (
             <div className='space-y-2'>
               <span className='flex items-center gap-2 text-sm leading-none font-medium select-none'>
                 Add On ( If Applicable)
                 </span>
-              <MultipleSelector defaultOptions={addOnData()} onChange={e => updateFormData("addOns", e)} placeholder="Select an add on"/>
+              <MultipleSelector
+                defaultOptions={formatAddOnData()}
+                onChange={(value) => dispatch({ type: "SET_FIELD", field: "addOns", value: value })}
+                placeholder="Select an add on"
+              />
             </div>
           )}
 
           <div className="flex justify-around">
             <div className="flex items-center">
-              <Checkbox id="displayDate" name="displayDate" checked={formData.displayDate} onCheckedChange={value => updateFormData("displayDate", value)} className="mr-2"/>
+              <Checkbox
+                id="displayDate"
+                name="displayDate"
+                checked={state.displayDate}
+                onCheckedChange={() => dispatch({ type: "TOGGLE_DISPLAY_DATE" })}
+                className="mr-2"
+              />
               <Label htmlFor="displayDate">Date Available? (If Applicable)</Label>
             </div>
           </div>
 
-          {formData.displayDate && (
+          {state.displayDate && (
             <div className="space-y-2">
               <Label className="block pb-2">Preferrable Date
-                <DateTimePicker hourCycle={12} value={formData.preferredDateTime} onChange={value => updateFormData("preferredDateTime", value)} className="w-full"/>
+                <DateTimePicker
+                  hourCycle={12}
+                  value={state.preferredDateTime}
+                  onChange={(value) => dispatch({ type: "SET_FIELD", field: "preferredDateTime", value: value })}
+                  className="w-full"
+                />
               </Label>
             </div>
           )}
@@ -225,15 +220,15 @@ export default function AppointmentForm() {
             <Textarea
               id="additionalNotes"
               name="additionalNotes"
-              value={formData.additionalNotes}
-              onChange={e => updateFormData("additionalNotes", e.target.value)}
+              value={state.additionalNotes}
+              onChange={(e) => dispatch({ type: "SET_FIELD", field: "additionalNotes", value: e.target.value })}
               placeholder="Tell us about your vision for the photoshoot..."
               className="min-h-[100px] focus-visible:ring-primary"
             />
           </div>
 
-          <Button type="submit" className="w-full transition-all hover:scale-[1.02]" disabled={formData.isSubmitting}>
-            {formData.isSubmitting ? "Submitting..." : "Book Your Session"}
+          <Button type="submit" className="w-full transition-all hover:scale-[1.02]" disabled={state.isSubmitting}>
+            {state.isSubmitting ? "Submitting..." : "Book Your Session"}
           </Button>
         </form>
       </CardContent>
