@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 export const INDIVIDUAL_AND_FAMILY_GALLERY = "Individual & Family Portraits";
 export const ENGAGEMENT_AND_COUPLE_GALLERY = "Engagement & Couples Portraits";
@@ -11,25 +11,46 @@ export const GRADUATION_AND_SENIOR_GALLERY = "Graduation & Senior Portraits";
 
 const AppointmentContext = createContext();
 
-export function AppointmentProvider({ children, galleries }) {
-  const [formData, setFormData] = useState({
-    galleries: galleries,
-    galleryId: null,
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    displayDate: false,
-    isSubmitting: false,
-    isSuccess: false,
-    preferredDateTime: undefined,
-    additionalNotes: "",
-    addOns: [],
-    packageId: null
-  });
+const initialState = {
+  galleries: [],
+  galleryId: null,
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+  displayDate: false,
+  isSubmitting: false,
+  isSuccess: false,
+  preferredDateTime: undefined,
+  additionalNotes: "",
+  addOns: [],
+  packageId: null
+};
+
+const appointmentReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_GALLERIES":
+      return { ...state, galleries: action.payload };
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "TOGGLE_DISPLAY_DATE":
+      return { ...state, displayDate: !state.displayDate };
+    case "SET_SUBMITTING":
+      return { ...state, isSubmitting: action.payload };
+    case "SET_SUCCESS":
+      return { ...initialState, isSuccess: true };
+    case "RESET_FORM":
+      return initialState;
+    default:
+      return state;
+  }
+};
+
+export function AppointmentProvider({ children, galleries = [] }) {
+  const [state, dispatch] = useReducer(appointmentReducer, { ...initialState, galleries });
 
   return (
-    <AppointmentContext.Provider value={{ formData, setFormData }}>
+    <AppointmentContext.Provider value={{ state, dispatch }}>
       {children}
     </AppointmentContext.Provider>
   );
