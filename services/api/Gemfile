@@ -57,3 +57,4 @@ end
 
 gem 'graphql'
 gem 'httparty'
+gem 'mailgun-ruby'

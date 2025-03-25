@@ -129,7 +129,7 @@ export default async function ServicesPage() {
 
           <FaqItem
             question="Do you travel for sessions or weddings?"
-            answer="Yes! I serve the entire San Diego area at no additional cost. For locations beyond 30 miles, a travel fee applies. I'm also available for destination weddings with custom travel packages."
+            answer="Yes! I serve the entire San Antonio area at no additional cost. For locations beyond San Antonio, a travel fee applies."
           />
         </div>
       </section>

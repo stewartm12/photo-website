@@ -9,6 +9,10 @@ class Customer < ApplicationRecord
 
   before_create :capitalize_names
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def capitalize_names

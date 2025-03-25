@@ -1,21 +1,14 @@
-export async function getLocationSuggestions(query) {
-  const apiUrl = process.env.RAILS_API_URL;
+import { fetchData } from "@/utils/fetch-data";
 
-  const response = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: `
-        query {
-          autocompleteLocation(query: "${query}") {
-            address
-          }
-        }
-      `,
-    }),
-  }).then((res) => res.json());
+export async function getLocationSuggestions(search_query) {
+  const query = `
+    query {
+      autocompleteLocation(query: "${search_query}") {
+        address
+      }
+    }
+  `;
 
+  const response = await fetchData(query)
   return response.data.autocompleteLocation;
 };

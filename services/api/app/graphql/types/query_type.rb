@@ -34,7 +34,7 @@ module Types
     field :autocomplete_location, resolver: Resolvers::AutocompleteLocation
 
     def galleries
-      Gallery.includes(collections: :photos, packages: {}, add_ons: {})
+      Gallery.includes(:photo, collections: :photos, packages: {}, add_ons: {})
     end
 
     def gallery(slug:)

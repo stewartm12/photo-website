@@ -143,8 +143,11 @@ export default function AppointmentForm() {
 
           <div className="space-y-2">
             <Label htmlFor="gallery-select">Session Type</Label>
-            <Select onValueChange={(value) => dispatch({ type: "SET_FIELD", field: "galleryId", value: value })} name="gallerySelect">
-              <SelectTrigger className="focus-visible:ring-primary w-[180px]"  id="gallery-select">
+            <Select
+              name="gallerySelect"
+              onValueChange={(value) => dispatch({ type: "SET_FIELD", field: "galleryId", value: value })}
+              >
+              <SelectTrigger className="focus-visible:ring-primary"  id="gallery-select">
                 <SelectValue placeholder="Select a session" />
               </SelectTrigger>
               <SelectContent>
