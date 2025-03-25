@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { imageLoader } from "@/lib/image-loader";
 import NextImage from "next/image";
 
 export default function ImageContainer({ photo }) {
@@ -16,10 +17,6 @@ export default function ImageContainer({ photo }) {
       setPhotoSpans(calculatedPhotoSpans);
     }
   }, [naturalWidth, naturalHeight]);
-
-  const imageLoader = ({ src, width, quality }) => {
-    return `${process.env.NEXT_PUBLIC_AWS_S3_URL}/${src}?w=${width}&q=${quality || 75}`
-  };
 
   return (
     <div className="w-full justify-self-center" style={{gridRow: `span ${photoSpans}`}}>
