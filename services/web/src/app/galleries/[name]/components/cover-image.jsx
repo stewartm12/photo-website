@@ -1,12 +1,9 @@
 "use client";
 
+import { imageLoader } from "@/lib/image-loader";
 import Image from "next/image";
 
 export default function CoverImage({ coverPhoto, gallery }) {
-  const imageLoader = ({ src, width, quality }) => {
-    return `${process.env.NEXT_PUBLIC_AWS_S3_URL}/${src}?w=${width}&q=${quality || 100}`
-  };
-
   return (
     <section className="relative h-[50vh] md:h-[60vh]">
       <Image

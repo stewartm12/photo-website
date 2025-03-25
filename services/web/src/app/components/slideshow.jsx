@@ -1,17 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import NextImage from 'next/image';
 import { cn } from "@/lib/utils";
+import { imageLoader } from "@/lib/image-loader";
+import NextImage from 'next/image';
 
 export default function Slideshow({ photos }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const slideShowRef = useRef(null);
-
-  const imageLoader = ({ src, width, quality }) => {
-    return `${process.env.NEXT_PUBLIC_AWS_S3_URL}/${src}?w=${width}&q=${quality || 100}`
-  }
 
   // Set up intersection observer to detect when slideshow is in view
   useEffect(() => {

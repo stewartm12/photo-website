@@ -3,14 +3,11 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { imageLoader } from "@/lib/image-loader";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function ServiceCard({ imgSrc, title, description, link }) {
-  const imageLoader = ({ src, width, quality }) => {
-    return `${process.env.NEXT_PUBLIC_AWS_S3_URL}/${src}?w=${width}&q=${quality || 100}`
-  };
-
   return (
     <Link href={link} className="group">
       <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl max-w-xs mx-auto bg-caramel-400">
