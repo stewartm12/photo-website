@@ -8,14 +8,13 @@ import ServiceCard from "@/app/components/home-service-card";
 import Image from "next/image";
 import Link from "next/link";
 
-async function getHomepagePhotos() {
-  const serviceCardPhotos = await serviceCardQuery();
-  const slideshowPhotos =  await slideshowQuery();
+export const dynamic = 'force-dynamic';
 
-  return {
-    serviceCardPhotos,
-    slideshowPhotos,
-  }
+async function getHomepagePhotos() {
+    const serviceCardPhotos = await serviceCardQuery();
+    const slideshowPhotos =  await slideshowQuery();
+  
+    return { serviceCardPhotos, slideshowPhotos }
 }
 
 export default async function Home() {
@@ -44,7 +43,7 @@ export default async function Home() {
             of your love story.
           </p>
           <Link href="/galleries/individual-family-portraits" className="cursor-pointer">
-            <Button className="mt-6 bg-caramel-600 hover:bg-footer-100 text-white hover:scale-102">
+            <Button className="mt-6 bg-caramel-500 hover:bg-caramel-600 text-white hover:scale-102 cursor-pointer">
               View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
@@ -175,7 +174,7 @@ export default async function Home() {
             session.
           </p>
           <Link href="/contact" className="cursor-pointer">
-            <Button className="bg-caramel-600 hover:bg-footer-100 text-white cursor-pointer">
+            <Button className="bg-caramel-500 hover:bg-caramel-600 text-white cursor-pointer">
               Get In Touch   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>

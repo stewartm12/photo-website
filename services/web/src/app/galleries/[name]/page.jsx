@@ -4,6 +4,8 @@ import CoverImage from "./components/cover-image";
 import ImageContainer from "./components/image-container";
 import addBlurredDataUrls from "@/utils/get-base-64";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Gallery({ params }) {
   const { name } = await params;
   const gallery = await photosBySlugQuery(name);

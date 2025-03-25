@@ -23,8 +23,15 @@ RUN gem install bundler && bundle check || bundle install
 # Copy the Rails application files
 COPY services/api ./
 
+# Copy the docker-entrypoint script and make it executable
+COPY services/api/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint for the container to run the script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 # Expose the port
-EXPOSE 3000
+EXPOSE 3001
 
 # Start Rails server by default
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]
