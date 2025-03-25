@@ -59,8 +59,12 @@ export const metadata = {
 };
 
 async function navbarSlugs() {
-  const galleries = await gallerySlugsQuery();
-  return galleries;
+  try {
+    const galleries = await gallerySlugsQuery();
+    return galleries;
+  } catch {
+    return [];
+  }
 }
 
 export default async function RootLayout({ children }) {

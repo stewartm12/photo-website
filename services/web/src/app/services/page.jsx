@@ -4,8 +4,17 @@ import {  MessageSquare, Star } from "lucide-react";
 import PackageTabs from "./package-tabs";
 import Image from "next/image";
 
+async function getPackageData() {
+  try {
+    const galleries = await galleryPackageData();
+    return galleries
+  } catch {
+    return [];
+  }
+}
+
 export default async function ServicesPage() {
-  const galleries = await galleryPackageData();
+  const galleries = await getPackageData();
 
   return (
     <div className="min-h-screen pb-16">

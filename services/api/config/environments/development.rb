@@ -18,8 +18,8 @@ Rails.application.configure do
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
-  # Do not eager load code on boot.
-  config.eager_load = false
+  # Eager load on boot (required since rails routes isnt fully loaded when calling POST /graphql)
+  config.eager_load = true
 
   # Show full error reports.
   config.consider_all_requests_local = true

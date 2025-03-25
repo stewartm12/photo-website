@@ -3,8 +3,17 @@ import Image from "next/image";
 import { galleryPackageData } from "@/graphql/queries/galleries";
 import { AppointmentProvider } from "@/context/appointment-context";
 
+async function getPackageData() {
+  try {
+    const galleries = await galleryPackageData();
+    return galleries;
+  } catch {
+    return [];
+  }
+}
+
 export default async function Contact() {
-  const galleries = await galleryPackageData();
+  const galleries = await getPackageData();
 
   return (
     <AppointmentProvider galleries={galleries} >
