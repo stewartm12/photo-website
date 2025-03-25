@@ -1,34 +1,26 @@
-export const createAppointment = async (input) => {
-  const apiUrl = process.env.RAILS_API_URL;
+import { fetchData } from "@/utils/fetch-data";
 
-  const response = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: `
-        mutation CreateAppointment($input: CreateAppointmentInput!) {
-          createAppointment(input: $input) {
-            appointment {
-              id
-              customer {
-                firstName
-                lastName
-                email
-                phoneNumber
-              }
-            }
-            errors
+export const createAppointment = async (input) => {
+  const mutation = `
+    mutation CreateAppointment($input: CreateAppointmentInput!) {
+      createAppointment(input: $input) {
+        appointment {
+          id
+          customer {
+            firstName
+            lastName
+            email
+            phoneNumber
           }
         }
-      `,
-      variables: { input }
-    }),
-  });
+        errors
+      }
+    }
+  `;
 
-  const result = await response.json();
-  const { data } = result
+  const result = await fetchData(mutation, { input });
+
+  const { data } = result;
 
   if (!data || !data.createAppointment) {
     return { success: false, appointment: null, errors: ['Unexpected response from server'] };
@@ -36,9 +28,9 @@ export const createAppointment = async (input) => {
 
   const { appointment, errors } = data.createAppointment;
 
-    if (errors.length > 0) {
-      return { success: false, appointment: null, errors };
-    }
+  if (errors.length > 0) {
+    return { success: false, appointment: null, errors };
+  }
 
-    return { success: true, appointment, errors: [] };
+  return { success: true, appointment, errors: [] };
 };

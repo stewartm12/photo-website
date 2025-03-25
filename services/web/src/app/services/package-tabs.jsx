@@ -18,12 +18,12 @@ export default function PackageTabs({ galleries }) {
     <Tabs defaultValue='1' className="w-full">
       <div className="mb-8">
         <h2 className="text-2xl sm:text-3xl font-semibold text-stone-800 mb-6">Photography Packages</h2>
-        <TabsList className="flex flex-wrap h-auto bg-caramel-400 p-1 mb-2">
+        <TabsList className="flex flex-wrap h-auto bg-stone-200 p-1 mb-2">
           {galleries.map((gallery) => (
             <TabsTrigger
               key={gallery.id}
               value={gallery.id}
-              className="flex-grow data-[state=active]:bg-caramel-600 py-3 hover:cursor-pointer hover:bg-caramel-600"
+              className="flex-grow data-[state=active]:bg-stone-50 py-3 hover:cursor-pointer hover:bg-stone-50"
             >
               {gallery.name}
             </TabsTrigger>

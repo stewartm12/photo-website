@@ -3,6 +3,18 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Make sure previews are disabled in production
+  config.action_mailer.show_previews = false
+
+  # Configuring action mailer with mailgun
+  config.action_mailer.delivery_method = :mailgun
+
+  config.action_mailer.mailgun_settings = {
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN']
+    # timeout: 20 # Default depends on rest-client, whose default is 60s. Added in 1.2.3.
+  }
+
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
@@ -55,7 +67,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: 'example.com' }
+  config.action_mailer.default_url_options = { host: ENV['API_DOMAIN'] }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {

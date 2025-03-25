@@ -1,0 +1,20 @@
+Appointment Confirmation
+
+Dear <%= @customer.full_name %>,
+
+Thank you for booking an appointment with us! Your appointment has been successfully scheduled.
+
+We will review your request and get in touch with you within 48 hours to confirm any additional details.
+
+Appointment Details:
+--------------------
+Customer Name: <%= @customer.full_name %>
+Phone Number: <%= @customer.phone_number.presence || "N/A" %>
+Session Type: <%= @appointment.package.gallery.name %> (<%= @appointment.package.name %>)
+Preferred Date & Time: <%= @appointment.preferred_date_time&.strftime("%B %d, %Y at %I:%M %p").presence || "N/A" %>
+Additional Notes: <%= @appointment.additional_notes.presence || "No additional notes provided" %>
+
+Looking forward to speaking with you soon!
+
+----------------------------------
+© <%= Time.current.year %> Victoria's Photography. All rights reserved.

@@ -19,64 +19,100 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
   end
 
   describe '#resolve' do
-    context 'when input is valid' do
+    context 'when request is unauthorized' do
+      let(:variables) do
+        {
+          input: {
+            firstName: 'John',
+            lastName: 'Doe'
+          }
+        }
+      end
+
+      it 'returns an unauthorized error' do
+        post '/graphql', params: { query: mutation, variables: variables }
+
+        expect(response.status).to eq(401)
+        expect(JSON.parse(response.body)).to match({ 'error' => 'Unauthorized' })
+      end
+    end
+
+    context 'when request is authorized' do
       let(:variables) do
         {
           input: {
             firstName: 'John',
             lastName: 'Doe',
             email: 'john@example.com',
-            phoneNumber: '1234567890',
-            preferredDateTime: '2025-03-25T21:30:00Z',
-            additionalNotes: 'This is a test note',
-            packageId: package.id.to_s,
-            addOnIds: [add_on.id.to_s]
+            packageId: package.id.to_s
           }
         }
       end
 
-      it 'creates an appointment successfully' do
-        expect do
-          post '/graphql', params: { query: mutation, variables: variables }
-        end.to change(Appointment, :count).by(1)
-         .and change(AppointmentAddOn, :count).by(1)
-         .and change(Customer, :count).by(1)
-
-        expect(Customer.last.email).to eq('john@example.com')
+      it 'returns a 200' do
+        post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'] }
+        expect(response.status).to eq(200)
       end
 
-      context 'when an address is present' do
-        before { variables[:input][:address] = Faker::Address.full_address }
-
-        it 'successfully creates a new location record' do
-          expect do
-            post '/graphql', params: { query: mutation, variables: variables }
-          end.to change(Location, :count).by(1)
-        end
-      end
-    end
-
-    context 'when input is invalid' do
-      context 'when a package Id is not sent' do
+      context 'when input is valid' do
         let(:variables) do
           {
             input: {
               firstName: 'John',
               lastName: 'Doe',
               email: 'john@example.com',
+              phoneNumber: '1234567890',
+              preferredDateTime: '2025-03-25T21:30:00Z',
+              additionalNotes: 'This is a test note',
+              packageId: package.id.to_s,
               addOnIds: [add_on.id.to_s]
             }
           }
         end
 
-        it 'returns an error' do
-          post '/graphql', params: { query: mutation, variables: variables }
+        it 'creates an appointment successfully' do
+          expect do
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'] }
+          end.to change(Appointment, :count).by(1)
+          .and change(AppointmentAddOn, :count).by(1)
+          .and change(Customer, :count).by(1)
 
-          json_response = JSON.parse(response.body)
-          expect(json_response).to have_key('errors')
-          expect(json_response['errors'].first['message']).to eq(
-            'Variable $input of type CreateAppointmentInput! was provided invalid value for packageId (Expected value to not be null)'
-          )
+          expect(Customer.last.email).to eq('john@example.com')
+        end
+
+        context 'when an address is present' do
+          before { variables[:input][:address] = Faker::Address.full_address }
+
+          it 'successfully creates a new location record' do
+            expect do
+              post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'] }
+            end.to change(Location, :count).by(1)
+          end
+        end
+      end
+
+      context 'when input is invalid' do
+        context 'when a package Id is not sent' do
+          let(:variables) do
+            {
+              input: {
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john@example.com',
+                addOnIds: [add_on.id.to_s]
+              }
+            }
+          end
+
+          it 'returns an error' do
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'] }
+
+            json_response = JSON.parse(response.body)
+            expect(json_response).to have_key('errors')
+            expect(json_response['errors'].first['message']).to eq(
+              'Variable $input of type CreateAppointmentInput! was provided invalid value for packageId (Expected value to not be null)'
+            )
+          end
         end
       end
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
+  before_action :authenticate_request!
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
@@ -22,6 +23,15 @@ class GraphqlController < ApplicationController
   end
 
   private
+
+  def authenticate_request!
+    token = request.headers['Authorization']
+
+    # Compare the incoming token with the token stored in the environment variable
+    if token.nil? || token != ENV['API_ACCESS_TOKEN']
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    end
+  end
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
