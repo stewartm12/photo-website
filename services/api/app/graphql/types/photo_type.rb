@@ -5,6 +5,8 @@ module Types
     field :id, ID, null: false
     field :file_key, String
     field :alt_text, String
+    field :section_key, String
+    field :position, Int
     field :imageable, Types::ImageableUnion, null: true
 
     def imageable

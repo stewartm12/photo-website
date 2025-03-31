@@ -58,8 +58,7 @@ export default function Slideshow({ photos }) {
             alt={photo.altText}
             loader={imageLoader}
             className="absolute inset-0 w-full h-full object-cover"
-            priority={index === 0}
-            quality={100}
+            quality={75}
             fill
             sizes="100vw"
           />

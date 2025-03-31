@@ -8,6 +8,8 @@ RSpec.describe Types::PhotoType, type: :graphql do
   it { is_expected.to have_field(:id).of_type('ID!') }
   it { is_expected.to have_field(:file_key).of_type('String') }
   it { is_expected.to have_field(:alt_text).of_type('String') }
+  it { is_expected.to have_field(:section_key).of_type('String') }
+  it { is_expected.to have_field(:position).of_type('Int') }
   it { is_expected.to have_field(:imageable).of_type('ImageableUnion') }
 
   describe '#imageable' do
