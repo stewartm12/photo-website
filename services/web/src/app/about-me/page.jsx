@@ -5,13 +5,28 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link"
 import Image from "next/image";
+import { showcaseQuery } from "@/graphql/queries/showcases";
 
-export default function AboutMe() {
+export const dynamic = 'force-dynamic';
+
+async function getAboutPagePhotos() {
+  const response = await showcaseQuery("about_me");
+  const heroPhoto = response.photos.filter(photo => photo.sectionKey === 'hero')
+  const aboutMePhoto = response.photos.filter(photo => photo.sectionKey === 'about_me')
+  const philosophyPhoto = response.photos.filter(photo => photo.sectionKey === 'philosophy')
+  const behindTheScenesPhotos = response.photos.filter(photo => photo.sectionKey === 'behind_the_scenes')
+
+  return { heroPhoto, aboutMePhoto, philosophyPhoto, behindTheScenesPhotos };
+}
+
+export default async function AboutMe() {
+  const { heroPhoto, aboutMePhoto, philosophyPhoto, behindTheScenesPhotos } = await getAboutPagePhotos();
+
   return (
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh] overflow-hidden">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-4.jpg`}
+          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto[0].fileKey}`}
           alt="Victoria Gonzales - Professional Photographer"
           fill
           className="object-cover"
@@ -31,7 +46,7 @@ export default function AboutMe() {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-200 rounded-lg"></div>
             <Image
-              src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-1.jpg`}
+              src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${aboutMePhoto[0].fileKey}`}
               alt="Victoria Gonzales Portrait"
               width={500}
               height={600}
@@ -89,7 +104,7 @@ export default function AboutMe() {
               <div className="relative">
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-2.jpg`}
+                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${philosophyPhoto[0].fileKey}`}
                   className="object-cover rounded-lg shadow-lg relative z-10"
                   width={600}
                   height={600}
@@ -110,7 +125,6 @@ export default function AboutMe() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          {/* Timeline items */}
           <div className="space-y-12">
             <TimelineItem
               year="2012"
@@ -248,51 +262,17 @@ export default function AboutMe() {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div className="aspect-square relative rounded-lg overflow-hidden group">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-1.jpg`}
-                alt="Behind the scenes - Camera setup"
-                width={300}
-                height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="aspect-square relative rounded-lg overflow-hidden group">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-2.jpg`}
-                alt="Behind the scenes - Working with clients"
-                width={300}
-                height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="aspect-square relative rounded-lg overflow-hidden group">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-3.jpg`}
-                alt="Behind the scenes - Editing session"
-                width={300}
-                height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="aspect-square relative rounded-lg overflow-hidden group">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-4.jpg`}
-                alt="Behind the scenes - Location scouting"
-                width={300}
-                height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-            <div className="aspect-square relative rounded-lg overflow-hidden group">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-1.jpg`}
-                alt="Behind the scenes - Photography gear"
-                width={300}
-                height={300}
-                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
+            { behindTheScenesPhotos.map(photo => (
+              <div key={photo.id} className="aspect-square relative rounded-lg overflow-hidden group">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${photo.fileKey}`}
+                  alt={`${photo.altText}`}
+                  width={300}
+                  height={300}
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

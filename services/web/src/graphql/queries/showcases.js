@@ -1,37 +1,23 @@
+
 import { fetchData } from "@/utils/fetch-data";
 
-export const slideshowQuery = async(name) => {
+export const showcaseQuery = async(name) => {
   const query = `
     query {
-      showcase(name: "slideshow") {
+      showcase(name: "${name}") {
         id
+        name
         photos {
           id
           fileKey
           altText
+          sectionKey
+          position
         }
       }
     }
   `;
 
-  const response = await fetchData(query)
-  return response.data.showcase
-}
-
-export const serviceCardQuery = async(name) => {
-  const query = `
-    query {
-      showcase(name: "service_card") {
-        id
-        photos {
-          id
-          fileKey
-          altText
-        }
-      }
-    }
-  `;
-
-  const response = await fetchData(query)
-  return response.data.showcase
-}
+  const response = await fetchData(query);
+  return response.data.showcase;
+};

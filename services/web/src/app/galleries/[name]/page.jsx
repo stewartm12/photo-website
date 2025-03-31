@@ -1,8 +1,10 @@
 import {photosBySlugQuery } from "@/graphql/queries/galleries";
 import { Separator } from "@/components/ui/separator";
-import CoverImage from "./components/cover-image";
-import ImageContainer from "./components/image-container";
 import addBlurredDataUrls from "@/utils/get-base-64";
+import NextDynamic from 'next/dynamic';
+
+const CoverImage = NextDynamic(() => import("./components/cover-image"));
+const ImageContainer = NextDynamic(() => import("./components/image-container"));
 
 export const dynamic = 'force-dynamic';
 

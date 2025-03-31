@@ -3,24 +3,29 @@ import { galleryPackageData } from "@/graphql/queries/galleries";
 import {  MessageSquare, Star } from "lucide-react";
 import PackageTabs from "./package-tabs";
 import Image from "next/image";
+import { showcaseQuery } from "@/graphql/queries/showcases";
+
+export const dynamic = 'force-dynamic';
 
 async function getPackageData() {
   try {
     const galleries = await galleryPackageData();
-    return galleries
+    const servicePagePhotos = await showcaseQuery("service")
+    const heroPhoto = servicePagePhotos.photos
+    return {galleries, heroPhoto}
   } catch {
-    return [];
+    return {galleries: [], heroPhoto: []};
   }
 }
 
 export default async function ServicesPage() {
-  const galleries = await getPackageData();
+  const {galleries, heroPhoto} = await getPackageData();
 
   return (
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh]">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/Damla-Selen-Demir-4.jpg`}
+          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto[0].fileKey}`}
           alt="Victoria's Photography Services"
           fill
           priority
