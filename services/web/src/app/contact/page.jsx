@@ -20,11 +20,13 @@ async function getContactPagePhotos() {
   }
 }
 
-export default async function Contact() {
+export default async function ContactPage({ searchParams }) {
+  const { galleryId, packageId } = await searchParams;
+
   const {galleries, formPhoto} = await getContactPagePhotos();
 
   return (
-    <AppointmentProvider galleries={galleries} >
+    <AppointmentProvider galleries={galleries} galleryId={galleryId} packageId={packageId} >
       <div className="pt-12">
       <section className="mb-12">
         <h1 className="text-3xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">

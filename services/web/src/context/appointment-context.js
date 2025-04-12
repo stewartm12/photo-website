@@ -52,8 +52,8 @@ const appointmentReducer = (state, action) => {
   }
 };
 
-export function AppointmentProvider({ children, galleries = [] }) {
-  const [state, dispatch] = useReducer(appointmentReducer, { ...initialState, galleries });
+export function AppointmentProvider({ children, galleries = [], galleryId, packageId }) {
+  const [state, dispatch] = useReducer(appointmentReducer, { ...initialState, galleries, galleryId, packageId });
 
   return (
     <AppointmentContext.Provider value={{ state, dispatch }}>

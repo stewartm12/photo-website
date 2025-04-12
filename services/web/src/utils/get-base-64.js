@@ -13,7 +13,7 @@ async function getBase64(photoUrl) {
 
     return base64;
   } catch(e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
