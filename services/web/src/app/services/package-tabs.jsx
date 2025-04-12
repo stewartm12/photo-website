@@ -5,13 +5,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Check, ChevronRight } from "lucide-react"
+import { formatPrice } from "@/lib/utils";
 import Image from "next/image"
 
 export default function PackageTabs({ galleries }) {
-  const formatPrice = (price) => {
-    const numericPrice = parseFloat(price);
-    return (numericPrice % 1 === 0 ? numericPrice.toFixed(0) : numericPrice.toFixed(2));
-  };
+  if (galleries.length == 0) return null;
 
   return (
     <section className="py-12 md:py-16 px-4 max-w-7xl mx-auto">

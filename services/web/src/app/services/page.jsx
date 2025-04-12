@@ -1,31 +1,34 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { galleryPackageData } from "@/graphql/queries/galleries";
 import {  MessageSquare, Star } from "lucide-react";
+import { galleryPackageData } from "@/graphql/queries/galleries";
+import { showcaseQuery } from "@/graphql/queries/showcases";
 import PackageTabs from "./package-tabs";
 import Image from "next/image";
-import { showcaseQuery } from "@/graphql/queries/showcases";
 
-export const dynamic = 'force-dynamic';
-
-async function getPackageData() {
+async function getServicePagePhotos() {
   try {
-    const galleries = await galleryPackageData();
-    const servicePagePhotos = await showcaseQuery("service")
-    const heroPhoto = servicePagePhotos.photos
-    return {galleries, heroPhoto}
-  } catch {
-    return {galleries: [], heroPhoto: []};
+    const [galleries, servicePagePhotos] = await Promise.all([
+      galleryPackageData(),
+      showcaseQuery("service"),
+    ]);
+
+    const heroPhoto = servicePagePhotos.photos[0] || {};
+
+    return { galleries, heroPhoto };
+  } catch (err) {
+    console.error("Failed to fetch package data:", err);
+    return { galleries: [], heroPhoto: {} };
   }
 }
 
 export default async function ServicesPage() {
-  const {galleries, heroPhoto} = await getPackageData();
+  const {galleries, heroPhoto} = await getServicePagePhotos();
 
   return (
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh]">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto[0].fileKey}`}
+          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto.fileKey}`}
           alt="Victoria's Photography Services"
           fill
           priority

@@ -1,25 +1,27 @@
+import { AppointmentProvider } from "@/context/appointment-context";
+import { galleryPackageData } from "@/graphql/queries/galleries";
+import { showcaseQuery } from "@/graphql/queries/showcases";
 import AppointmentForm from "./components/appointment-form";
 import Image from "next/image";
-import { galleryPackageData } from "@/graphql/queries/galleries";
-import { AppointmentProvider } from "@/context/appointment-context";
-import { showcaseQuery } from "@/graphql/queries/showcases";
 
-export const dynamic = 'force-dynamic';
-
-async function getPackageData() {
+async function getContactPagePhotos() {
   try {
     const galleries = await galleryPackageData();
     const contactPagePhotos = await showcaseQuery("contact");
-    const formPhoto = contactPagePhotos.photos
+    const formPhoto = contactPagePhotos.photos[0];
 
-    return {galleries, formPhoto};
-  } catch {
-    return [];
+    return { galleries, formPhoto }
+  } catch (err) {
+    console.error("Failed to fetch homepage photos:", err);
+    return {
+      galleries: [],
+      formPhoto: {}
+    }
   }
 }
 
 export default async function Contact() {
-  const {galleries, formPhoto} = await getPackageData();
+  const {galleries, formPhoto} = await getContactPagePhotos();
 
   return (
     <AppointmentProvider galleries={galleries} >
@@ -42,7 +44,7 @@ export default async function Contact() {
           <div className="flex justify-center justify-self-center w-full">
             <div className="relative aspect-[3/4] w-[85%] max-h-full rounded-lg overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.01]">
               <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${formPhoto[0].fileKey}`}
+                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${formPhoto.fileKey}`}
                 className="object-cover"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

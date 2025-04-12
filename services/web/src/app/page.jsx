@@ -1,23 +1,33 @@
-import { showcaseQuery } from "@/graphql/queries/showcases";
 import { ArrowRight, Camera, Heart, MessageSquare } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { showcaseQuery } from "@/graphql/queries/showcases";
+import { filterPhotosBySection } from "@/lib/utils";
 import Slideshow from "@/app/components/slideshow";
 import ServiceCard from "@/app/components/home-service-card";
 import Image from "next/image";
 import Link from "next/link";
 
-export const dynamic = 'force-dynamic';
-
 async function getHomePagePhotos() {
-  const response = await showcaseQuery("home");
-  const homepagePhotos = response.photos;
-  const slideshowPhotos = homepagePhotos.filter(photo => photo.sectionKey === 'slideshow').sort((a, b) => a.position - b.position);
-  const hirePhoto = homepagePhotos.filter(photo => photo.sectionKey === 'why_hire_me');
-  const serviceCardPhotos = homepagePhotos.filter(photo => photo.sectionKey === 'service_card').sort((a, b) => a.position - b.position);
+  try {
+    const response = await showcaseQuery("home");
+    const homePagePhotos = response.photos || [];
 
-  return {serviceCardPhotos, slideshowPhotos, hirePhoto};
+    return {
+      serviceCardPhotos: filterPhotosBySection(homePagePhotos, "service_card"),
+      slideshowPhotos: filterPhotosBySection(homePagePhotos, "slideshow"),
+      hirePhoto: filterPhotosBySection(homePagePhotos, "why_hire_me")[0],
+    };
+  } catch (err) {
+    console.error("Failed to fetch homepage photos:", err);
+
+    return {
+      serviceCardPhotos: [],
+      slideshowPhotos: [],
+      hirePhoto: {},
+    };
+  }
 }
 
 export default async function Home() {
@@ -128,7 +138,7 @@ export default async function Home() {
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
               <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${hirePhoto[0].fileKey}`}
+                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${hirePhoto.fileKey}`}
                 alt="Why choose Victoria's Photography"
                 className="object-cover rounded-lg shadow-lg relative z-10"
                 width={600}
@@ -145,21 +155,21 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
-              imgSrc={serviceCardPhotos[0].fileKey}
+              imgSrc={serviceCardPhotos[0]?.fileKey}
               title={"View Galleries"}
               description={"Check out my work"}
               link="/galleries/engagement-couples-portraits"
             />
 
             <ServiceCard
-              imgSrc={serviceCardPhotos[1].fileKey}
+              imgSrc={serviceCardPhotos[1]?.fileKey}
               title={"Contact Me"}
               description={"Let's get you booked"}
               link="/contact"
             />
 
             <ServiceCard
-              imgSrc={serviceCardPhotos[2].fileKey}
+              imgSrc={serviceCardPhotos[2]?.fileKey}
               title={"Services"}
               description={"Pricing and packages"}
               link="/services"

@@ -1,20 +1,34 @@
-import {photosBySlugQuery } from "@/graphql/queries/galleries";
 import { Separator } from "@/components/ui/separator";
+import {photosBySlugQuery } from "@/graphql/queries/galleries";
+import CoverImage from "./components/cover-image";
+import ImageContainer from "./components/image-container";
 import addBlurredDataUrls from "@/utils/get-base-64";
-import NextDynamic from 'next/dynamic';
 
-const CoverImage = NextDynamic(() => import("./components/cover-image"));
-const ImageContainer = NextDynamic(() => import("./components/image-container"));
+async function getGalleryPagePhotos(galleryName) {
+  try {
+    const gallery = await photosBySlugQuery(galleryName);
+    const coverPhoto = gallery.photo;
+    const photosWithBlur = await addBlurredDataUrls(gallery.collections);
 
-export const dynamic = 'force-dynamic';
+    return {
+      gallery,
+      coverPhoto,
+      photosWithBlur,
+    }
+  } catch (err) {
+    console.error("Failed to fetch homepage photos:", err);
+
+    return {
+      gallery: {},
+      coverPhoto: {},
+      photosWithBlur: [],
+    }
+  }
+}
 
 export default async function Gallery({ params }) {
   const { name } = await params;
-  const gallery = await photosBySlugQuery(name);
-  const collections = gallery.collections;
-  const coverPhoto = gallery.photo;
-
-  const photosWithBlur = await addBlurredDataUrls(collections);
+  const {gallery, coverPhoto, photosWithBlur } = await getGalleryPagePhotos(name);
 
   return (
     <div>

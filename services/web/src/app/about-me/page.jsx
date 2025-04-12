@@ -3,20 +3,32 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { showcaseQuery } from "@/graphql/queries/showcases";
+import { filterPhotosBySection } from "@/lib/utils";
 import Link from "next/link"
 import Image from "next/image";
-import { showcaseQuery } from "@/graphql/queries/showcases";
-
-export const dynamic = 'force-dynamic';
 
 async function getAboutPagePhotos() {
-  const response = await showcaseQuery("about_me");
-  const heroPhoto = response.photos.filter(photo => photo.sectionKey === 'hero')
-  const aboutMePhoto = response.photos.filter(photo => photo.sectionKey === 'about_me')
-  const philosophyPhoto = response.photos.filter(photo => photo.sectionKey === 'philosophy')
-  const behindTheScenesPhotos = response.photos.filter(photo => photo.sectionKey === 'behind_the_scenes')
+  try {
+    const response = await showcaseQuery("about_me");
+    const aboutPagePhotos = response.photos || [];
 
-  return { heroPhoto, aboutMePhoto, philosophyPhoto, behindTheScenesPhotos };
+    return {
+      heroPhoto: filterPhotosBySection(aboutPagePhotos, "hero")[0],
+      aboutMePhoto: filterPhotosBySection(aboutPagePhotos, "about_me")[0],
+      philosophyPhoto: filterPhotosBySection(aboutPagePhotos, "philosophy")[0],
+      behindTheScenesPhotos: filterPhotosBySection(aboutPagePhotos, "behind_the_scenes")
+    }
+  } catch (err) {
+    console.error("Failed to fetch homepage photos:", err);
+
+    return {
+      heroPhoto: {},
+      aboutMePhoto: {},
+      philosophyPhoto: {},
+      behindTheScenesPhotos: []
+    }
+  }
 }
 
 export default async function AboutMe() {
@@ -26,7 +38,7 @@ export default async function AboutMe() {
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh] overflow-hidden">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto[0].fileKey}`}
+          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto.fileKey}`}
           alt="Victoria Gonzales - Professional Photographer"
           fill
           className="object-cover"
@@ -46,7 +58,7 @@ export default async function AboutMe() {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-200 rounded-lg"></div>
             <Image
-              src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${aboutMePhoto[0].fileKey}`}
+              src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${aboutMePhoto.fileKey}`}
               alt="Victoria Gonzales Portrait"
               width={500}
               height={600}
@@ -104,7 +116,7 @@ export default async function AboutMe() {
               <div className="relative">
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${philosophyPhoto[0].fileKey}`}
+                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${philosophyPhoto.fileKey}`}
                   className="object-cover rounded-lg shadow-lg relative z-10"
                   width={600}
                   height={600}
