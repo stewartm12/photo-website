@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Check, ChevronRight } from "lucide-react"
 import { formatPrice } from "@/lib/utils";
 import Image from "next/image"
+import Link from "next/link"
 
 export default function PackageTabs({ galleries }) {
   if (galleries.length == 0) return null;
@@ -97,9 +98,11 @@ export default function PackageTabs({ galleries }) {
                     </CardContent>
                     <CardFooter className="flex flex-col">
                       <Button
-                        className={`w-full ${pkg.popular ? "bg-stone-800 hover:bg-stone-700" : "bg-stone-600 hover:bg-stone-700"}`}
+                        className={`w-full cursor-pointer ${pkg.popular ? "bg-stone-800 hover:bg-stone-700" : "bg-stone-600 hover:bg-stone-700"}`}
                       >
-                        Book This Package
+                        <Link href={`/contact?galleryId=${gallery.id}&packageId=${pkg.id}`}>
+                          Book This Package
+                        </Link>
                       </Button>
                     </CardFooter>
                   </Card>
