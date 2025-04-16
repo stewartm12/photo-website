@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GraphqlController < ApplicationController
+class GraphqlController < ApiController
   before_action :authenticate_request!
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,

@@ -1,4 +1,3 @@
-cp_collection = Collection.find_by(name: 'CP Corporate')
 hd_family_collection = Collection.find_by(name: 'The Heyday Family')
 m_pet_collection = Collection.find_by(name: 'Michaela and The Babies')
 camera_product_collection = Collection.find_by(name: 'The z500x Camera')
@@ -15,7 +14,6 @@ pet_gallery = Gallery.find_by(name: 'Pet & Animal Portraits')
 family_gallery = Gallery.find_by(name: 'Individual & Family Portraits')
 graduation_gallery = Gallery.find_by(name: 'Graduation & Senior Portraits')
 engagement_gallery = Gallery.find_by(name: 'Engagement & Couples Portraits')
-corporate_gallery = Gallery.find_by(name: 'Corporate & Commercial Portraits')
 
 home_showcase = Showcase.find_by(name: 'home')
 about_me_showcase = Showcase.find_by(name: 'about_me')
@@ -81,13 +79,6 @@ Photo.create(file_key: 'RDNE-gradutation-6.jpg', alt_text: 'alternative photo te
 Photo.create(file_key: 'RDNE-gradutation-7.jpg', alt_text: 'alternative photo text', imageable: rdne_graduation_collection)
 Photo.create(file_key: 'RDNE-gradutation-8.jpg', alt_text: 'alternative photo text', imageable: rdne_graduation_collection)
 Photo.create(file_key: 'RDNE-gradutation-9.jpg', alt_text: 'alternative photo text', imageable: graduation_gallery)
-
-Photo.create(file_key: 'CP-corporate-1.jpg', alt_text: 'alternative photo text', imageable: home_showcase, section_key: 'slideshow', position: 7)
-Photo.create(file_key: 'CP-corporate-2.jpg', alt_text: 'alternative photo text', imageable: cp_collection)
-Photo.create(file_key: 'CP-corporate-4.jpg', alt_text: 'alternative photo text', imageable: cp_collection)
-Photo.create(file_key: 'CP-corporate-5.jpg', alt_text: 'alternative photo text', imageable: cp_collection)
-Photo.create(file_key: 'CP-corporate-7.jpg', alt_text: 'alternative photo text', imageable: cp_collection)
-Photo.create(file_key: 'CP-corporate-6.jpg', alt_text: 'alternative photo text', imageable: corporate_gallery)
 
 Photo.create(file_key: 'camera-product-1.jpg', alt_text: 'alternative photo text', imageable: camera_product_collection)
 Photo.create(file_key: 'camera-product-2.jpg', alt_text: 'alternative photo text', imageable: camera_product_collection)

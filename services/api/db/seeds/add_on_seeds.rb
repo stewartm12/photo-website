@@ -1,6 +1,5 @@
 family_gallery = Gallery.find_by(name: 'Individual & Family Portraits')
 engagement_gallery = Gallery.find_by(name: 'Engagement & Couples Portraits')
-corporate_gallery = Gallery.find_by(name: 'Corporate & Commercial Portraits')
 product_gallery = Gallery.find_by(name: 'Product Portraits')
 pet_gallery = Gallery.find_by(name: 'Pet & Animal Portraits')
 event_gallery = Gallery.find_by(name: 'Event Portraits')
@@ -29,11 +28,6 @@ AddOn.create(name: 'Additional location', price: 75, limited: false, gallery: en
 AddOn.create(name: 'Extra digital images', price: 15, limited: false, gallery: engagement_gallery)
 AddOn.create(name: 'Save the Date design', price: 250, limited: false, gallery: engagement_gallery)
 AddOn.create(name: 'Engagement guest book', price: 75, limited: true, gallery: engagement_gallery)
-
-AddOn.create(name: 'Additional employee headshots', price: 50, limited: false, gallery: corporate_gallery)
-AddOn.create(name: 'Location Change', price: 100, limited: false, gallery: corporate_gallery)
-AddOn.create(name: 'Rush Delivery', price: 200, limited: true, gallery: corporate_gallery)
-AddOn.create(name: 'Social Media Content Package', price: 300, limited: true, gallery: corporate_gallery)
 
 AddOn.create(name: 'Additional hour of coverage', price: 200, limited: false, gallery: event_gallery)
 AddOn.create(name: 'Second photographer (4 hours)', price: 400, limited: true, gallery: event_gallery)

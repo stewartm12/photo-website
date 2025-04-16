@@ -5,7 +5,7 @@ class AppointmentMailer < ApplicationMailer
 
     mail(
       to: @customer.email,
-      bcc: [ENV['BCC_EMAIL']],
+      bcc: ENV['BCC_EMAIL'].split(',').join(','),
       subject: 'Photography Appointment Confirmation'
     )
   end
