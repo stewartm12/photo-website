@@ -3,8 +3,8 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Make sure previews are disabled in production
-  config.action_mailer.show_previews = false
+  # Code is not reloaded between requests.
+  config.enable_reloading = false
 
   # Configuring action mailer with mailgun
   config.action_mailer.delivery_method = :mailgun
@@ -15,14 +15,14 @@ Rails.application.configure do
     # timeout: 20 # Default depends on rest-client, whose default is 60s. Added in 1.2.3.
   }
 
-  # Code is not reloaded between requests.
-  config.enable_reloading = false
-
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
   # Full error reports are disabled.
   config.consider_all_requests_local = false
+
+  # Turn on fragment caching in view templates.
+  config.action_controller.perform_caching = true
 
   # Cache assets for far-future expiry since they are all digest stamped.
   config.public_file_server.headers = { 'cache-control' => "public, max-age=#{1.year.to_i}" }

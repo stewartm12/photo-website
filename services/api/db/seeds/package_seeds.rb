@@ -1,6 +1,5 @@
 family_gallery = Gallery.find_by(name: 'Individual & Family Portraits')
 engagement_gallery = Gallery.find_by(name: 'Engagement & Couples Portraits')
-corporate_gallery = Gallery.find_by(name: 'Corporate & Commercial Portraits')
 product_gallery = Gallery.find_by(name: 'Product Portraits')
 pet_gallery = Gallery.find_by(name: 'Pet & Animal Portraits')
 event_gallery = Gallery.find_by(name: 'Event Portraits')
@@ -184,35 +183,4 @@ Package.create(name: 'Premium Event', edited_images: 120, outfit_change: false, 
   'Custom slideshow of event highlights',
   '8×10 hardcover photo book (20 pages)',
   'Perfect for galas, fundraisers, large celebrations'
-])
-
-Package.create(name: 'Business Essential', edited_images: 50, outfit_change: false, price: 800, duration: 240, popular: true, gallery: corporate_gallery, features: [
-  '4-hour session',
-  'Headshots + team photos',
-  'Office/workplace environment shots',
-  '50 edited digital images',
-  'Online gallery',
-  'Commercial usage rights',
-  'Quick turnaround (3 business days)'
-])
-
-Package.create(name: 'Headshots', edited_images: 0, outfit_change: false, price: 400, duration: 120, popular: false, gallery: corporate_gallery, features: [
-  '2-hour session',
-  'Up to 10 employees',
-  '1 background/setting',
-  '2 edited images per person',
-  'Online gallery',
-  'Commercial usage rights'
-])
-
-Package.create(name: 'Business Premium', edited_images: 100, outfit_change: false, price: 300, duration: 480, popular: false, gallery: corporate_gallery, features: [
-  '8-hour session',
-  'Comprehensive brand imagery',
-  'Product/service documentation',
-  'Team and individual portraits',
-  '100 edited digital images',
-  'Online gallery',
-  'Commercial usage rights',
-  'Social media size optimizations',
-  'Priority editing (48 hours)'
 ])
