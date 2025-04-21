@@ -114,6 +114,38 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
             )
           end
         end
+
+        context 'when transaction fails' do
+          let(:variables) do
+            {
+              input: {
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john@example.com',
+                addOnIds: [add_on.id.to_s],
+                packageId: package.id.to_s
+              }
+            }
+          end
+
+          let(:exception) do
+            e = ActiveRecord::RecordInvalid.new(Appointment.new)
+            allow(e).to receive(:message).and_return('Invalid appointment')
+            e
+          end
+
+          before { allow_any_instance_of(Appointment).to receive(:save!).and_raise(exception) }
+
+          it 'returns an error' do
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'] }
+            json_response = JSON.parse(response.body)
+
+            expect(json_response['data']['createAppointment']).to match(
+              'appointment' => nil,
+              'errors' => ['Invalid appointment']
+            )
+          end
+        end
       end
     end
   end

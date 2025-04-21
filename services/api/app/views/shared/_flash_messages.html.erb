@@ -1,0 +1,14 @@
+<% flash.each do |type, message| %>
+  <% next if message.blank? %>
+
+  <% css_class = case type.to_sym
+    when :notice then 'bg-blue-100 border-blue-500 text-blue-700'
+    when :alert  then 'bg-red-100 border-red-500 text-red-700'
+    when :success then 'bg-green-100 border-green-500 text-green-700'
+    else 'bg-gray-100 border-gray-500 text-gray-700'
+  end %>
+
+  <%= content_tag :div, class: "border-l-4 p-4 rounded shadow-md #{css_class} mb-2" do %>
+    <%= content_tag :p, message, class: 'text-sm font-medium' %>
+  <% end %>
+<% end %>

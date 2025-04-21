@@ -27,6 +27,9 @@ SimpleCov.start 'rails' do
   %w[types mutations resolvers].each do |dir|
     add_filter %r{app/graphql/#{dir}/base.*\.rb$}
   end
+
+  # Esclude files in app/helpers
+  add_filter '/app/helpers/application_helper.rb'
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

@@ -1,0 +1,26 @@
+<%= content_tag :div, class: "min-h-screen flex items-center justify-center bg-gray-100" do %>
+  <%= content_tag :div, class: "w-full max-w-sm bg-white p-6 rounded-xl shadow-lg" do %>
+    <%= content_tag :h2, "Resend Confirmation Email", class: "text-2xl font-semibold text-center mb-6" %>
+
+    <%= form_with url: confirmation_path do |form| %>
+      <%= content_tag :div, class: "mb-4" do %>
+        <%= form.label :email_address, "Email Address", class: "block text-sm font-medium" %>
+        <%= form.email_field :email_address,
+              required: true,
+              autocomplete: "email",
+              placeholder: "you@example.com",
+              class: "mt-1 block w-full px-4 py-2 rounded-lg border border-neutral-light bg-white focus:outline-none focus:ring-2 focus:ring-primary" %>
+      <% end %>
+
+      <%= content_tag :div, class: "mt-6" do %>
+        <%= form.submit "Resend Email", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: "mt-4 text-center text-sm" do %>
+      <%= link_to new_session_path, class: "flex justify-center items-center hover:underline" do %>
+        <%= icon "arrow-left", class: "h-4 w-4" %> Back to Sign In
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

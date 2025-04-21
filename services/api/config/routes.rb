@@ -14,7 +14,19 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
   get '/favicon.ico', to: proc { [204, {}, []] }
+
+  # Defines the root path route ("/")
+  root 'welcome#index'
+
+  resource :session
+  resource :password, param: :token
+  resource :registration, only: %i[new create]
+  resource :confirmation, only: %i[new show create]
+  resources :stores, only: :index
+
+  scope '/:store_slug', as: :store do
+    resource :store_session, only: %i[new create]
+    get '/', to: 'stores#show', as: :home
+  end
 end
