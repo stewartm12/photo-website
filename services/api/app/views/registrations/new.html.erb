@@ -1,0 +1,71 @@
+<%= content_tag :div, class: "min-h-screen flex items-center justify-center bg-gray-100" do %>
+  <%= content_tag :div, class: "w-full max-w-md bg-white/5 backdrop-blur p-6 rounded-xl shadow-lg" do %>
+    <%= content_tag :h2, "Sign Up", class: "text-3xl font-semibold text-center mb-6" %>
+
+    <%= form_with url: registration_path, model: @user, class: "space-y-4" do |form| %>
+      <%= content_tag :div, class: 'grid grid-cols-2 gap-4' do %>
+        <%= content_tag :div, class: 'space-y-2' do %>
+          <%= form.label :first_name, 'First Name', class: "block text-sm font-medium" %>
+          <%= form.text_field :first_name,
+            required: true,
+            autofocus: true,
+            autocomplete: 'given-name',
+            placeholder: 'John',
+            value: params[:first_name]
+          %>
+        <% end %>
+        <%= content_tag :div, class: 'space-y-2' do %>
+          <%= form.label :last_name, 'Last Name', class: "block text-sm font-medium" %>
+          <%= form.text_field :last_name,
+            required: true,
+            autofocus: true,
+            autocomplete: 'family-name',
+            placeholder: 'Doe',
+            value: params[:last_name]
+          %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= form.label :email_address, 'Email Address', class: "block text-sm font-medium" %>
+        <%= form.email_field :email_address,
+          required: true,
+          autofocus: true,
+          autocomplete: 'username',
+          placeholder: 'name@example.com',
+          value: params[:email_address]
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= form.label :password, 'Password', class: "block text-sm font-medium" %>
+        <%= form.password_field :password,
+          required: true,
+          autocomplete: 'new-password',
+          placeholder: '••••••••',
+          maxlength: 72
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= form.label :password_confirmation, 'Password Confirmation', class: "block text-sm font-medium" %>
+        <%= form.password_field :password_confirmation,
+          required: true,
+          autocomplete: 'new-password',
+          placeholder: '••••••••',
+          maxlength: 72
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: "mt-6" do %>
+        <%= form.submit "Sign Up", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: "mt-4 text-center text-sm" do %>
+      <%= content_tag :p do %>
+        Already have an account? <%= link_to 'Sign In', new_session_path, class: "hover:underline" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -11,10 +11,12 @@ module Mutations
     argument :address, String, required: false
     argument :note, String, required: false
 
-    field :appointment, Types::AppointmentType, null: false
+    field :appointment, Types::AppointmentType
     field :errors, [String]
 
     def resolve(args)
+      appointment = nil
+
       ActiveRecord::Base.transaction do
         customer = find_or_create_customer(args)
         appointment = build_appointment(args, customer)
@@ -22,13 +24,13 @@ module Mutations
         build_appointment_add_ons(appointment, args[:add_on_ids])
         build_location(appointment, args[:address], args[:note]) if args[:address]
 
-        if appointment.save!
-          return { appointment: appointment, errors: [] }
-        else
-          return { appointment: nil, errors: appointment.errors.full_messages }
-        end
+        appointment.save!
       end
-      { appointment: nil, errors: ['Failed to create appointment'] }
+
+      { appointment: appointment, errors: [] }
+
+    rescue ActiveRecord::RecordInvalid => e
+      { appointment: nil, errors: appointment&.errors&.full_messages.presence || [e.message] }
     end
 
     private
@@ -67,3 +69,23 @@ module Mutations
     end
   end
 end
+
+# it 'returns errors if appointment is invalid' do
+#   allow_any_instance_of(Appointment).to receive(:save!).and_raise(
+#     ActiveRecord::RecordInvalid.new(Appointment.new.tap { |a| a.errors.add(:base, "Invalid appointment") })
+#   )
+
+#   result = described_class.new(object: nil, context: {}).resolve(
+#     first_name: "John",
+#     last_name: "Doe",
+#     email: "john@example.com",
+#     phone_number: "1234567890",
+#     package_id: 1,
+#     add_on_ids: [],
+#     address: nil,
+#     note: nil
+#   )
+
+#   expect(result[:appointment]).to be_nil
+#   expect(result[:errors]).to include("Invalid appointment")
+# end

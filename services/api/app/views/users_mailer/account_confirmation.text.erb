@@ -1,0 +1,4 @@
+Welcome, <%= @user.full_name %>
+
+Please, confirm your account by clicking the link below:
+<%= confirmation_url(token: @user.generate_confirmation_token) %>

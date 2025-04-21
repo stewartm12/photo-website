@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_16_024029) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_19_035124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -111,6 +111,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_024029) do
     t.index ["imageable_type", "imageable_id"], name: "index_photos_on_imageable"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "showcases", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -118,4 +127,43 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_024029) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_showcases_on_name", unique: true
   end
+
+  create_table "store_memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_store_memberships_on_store_id"
+    t.index ["user_id", "store_id"], name: "index_store_memberships_on_user_id_and_store_id", unique: true
+    t.index ["user_id"], name: "index_store_memberships_on_user_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "domain", null: false
+    t.string "slug", null: false
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_stores_on_domain", unique: true
+    t.index ["owner_id"], name: "index_stores_on_owner_id"
+    t.index ["slug"], name: "index_stores_on_slug", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email_address", null: false
+    t.string "password_digest", null: false
+    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+  end
+
+  add_foreign_key "sessions", "users"
+  add_foreign_key "store_memberships", "stores"
+  add_foreign_key "store_memberships", "users"
+  add_foreign_key "stores", "users", column: "owner_id"
 end

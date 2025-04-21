@@ -1,0 +1,4 @@
+<%= content_tag :div do %>
+  <%= content_tag :p, 'This is the index page of stores' %>
+  <%= link_to "Log out", session_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-600" %>
+<% end %>

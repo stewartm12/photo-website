@@ -1,47 +1,47 @@
-<%= content_tag :div, style: "max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);" do %>
-  <%= content_tag :h1, "Appointment Confirmation", style: "color: #2c3e50; text-align: center;" %>
+<%= content_tag :div, style: 'max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);' do %>
+  <%= content_tag :h1, 'Appointment Confirmation', style: 'color: #2c3e50; text-align: center;' %>
 
-  <%= content_tag :p, "Dear #{@customer.full_name},", style: "font-family: Arial, sans-serif; color: #333;" %>
+  <%= content_tag :p, 'Dear #{@customer.full_name},', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
-  <%= content_tag :p, "Thank you for booking an appointment with us! Your appointment has been successfully scheduled.", style: "font-family: Arial, sans-serif; color: #333;" %>
+  <%= content_tag :p, 'Thank you for booking an appointment with us! Your appointment has been successfully scheduled.', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
-  <%= content_tag :p, style: "font-family: Arial, sans-serif; color: #333;" do %>
+  <%= content_tag :p, style: 'font-family: Arial, sans-serif; color: #333;' do %>
     We will review your request and get in touch with you within 
-    <%= content_tag :strong, "48 hours", style: "font-weight: bold;" %> to confirm any additional details.
+    <%= content_tag :strong, '48 hours', style: 'font-weight: bold;' %> to confirm any additional details.
   <% end %>
 
-  <%= content_tag :div, style: "margin-top: 20px; padding: 15px; background-color: #f2f2f2; border-radius: 5px;" do %>
-    <%= content_tag :h3, "Appointment Details", style: "font-family: Arial, sans-serif; color: #333;" %>
+  <%= content_tag :div, style: 'margin-top: 20px; padding: 15px; background-color: #f2f2f2; border-radius: 5px;' do %>
+    <%= content_tag :h3, 'Appointment Details', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
     <%= content_tag :p do %>
-      <%= content_tag :strong, "Customer Name: ", style: "font-weight: bold;" %>
+      <%= content_tag :strong, 'Customer Name: ', style: 'font-weight: bold;' %>
       <%= "#{@customer.full_name}" %>
     <% end %>
 
     <%= content_tag :p do %>
-      <%= content_tag :strong, "Phone Number: ", style: "font-weight: bold;" %>
-      <%= @customer.phone_number.presence || "N/A" %>
+      <%= content_tag :strong, 'Phone Number: ', style: 'font-weight: bold;' %>
+      <%= @customer.phone_number.presence || 'N/A' %>
     <% end %>
 
     <%= content_tag :p do %>
-      <%= content_tag :strong, "Session Type: ", style: "font-weight: bold;"  %>
+      <%= content_tag :strong, 'Session Type: ', style: 'font-weight: bold;'  %>
       <%= @appointment.package.gallery.name %> (<%= @appointment.package.name %>)
     <% end %>
 
     <%= content_tag :p do %>
-      <%= content_tag :strong, "Preferred Date & Time: ", style: "font-weight: bold;" %>
-      <%= @appointment.preferred_date_time&.strftime("%B %d, %Y at %I:%M %p").presence || "N/A" %>
+      <%= content_tag :strong, 'Preferred Date & Time: ', style: 'font-weight: bold;' %>
+      <%= @appointment.preferred_date_time&.strftime('%B %d, %Y at %I:%M %p').presence || 'N/A' %>
     <% end %>
 
     <%= content_tag :p do %>
-      <%= content_tag :strong, "Additional Notes: ", style: "font-weight: bold;" %>
-      <%= @appointment.additional_notes.presence || "No additional notes provided" %>
+      <%= content_tag :strong, 'Additional Notes: ', style: 'font-weight: bold;' %>
+      <%= @appointment.additional_notes.presence || 'No additional notes provided' %>
     <% end %>
   <% end %>
 
-  <%= content_tag :p, "Looking forward to speaking with you soon!", style: "font-family: Arial, sans-serif; color: #333;" %>
+  <%= content_tag :p, 'Looking forward to speaking with you soon!', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
-  <%= content_tag :div, style: "margin-top: 20px; text-align: center; font-size: 14px; color: #7f8c8d;" do %>
+  <%= content_tag :div, style: 'margin-top: 20px; text-align: center; font-size: 14px; color: #7f8c8d;' do %>
     <%= content_tag :p, "&copy; #{Time.current.year} Victoria's Photography. All rights reserved.".html_safe %>
   <% end %>
 <% end %>
