@@ -13,8 +13,7 @@ class RegistrationsController < ApplicationController
     if @user.save
       redirect_to new_session_path, notice: 'Account created successfully. Please check your email to confirm your account.'
     else
-      flash[:alert] = @user.errors.full_messages.join(', ')
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = @user.errors.full_messages.join("\n ")
     end
   end
 

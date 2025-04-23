@@ -1,14 +1,18 @@
 <% flash.each do |type, message| %>
   <% next if message.blank? %>
 
-  <% css_class = case type.to_sym
-    when :notice then 'bg-blue-100 border-blue-500 text-blue-700'
-    when :alert  then 'bg-red-100 border-red-500 text-red-700'
-    when :success then 'bg-green-100 border-green-500 text-green-700'
-    else 'bg-gray-100 border-gray-500 text-gray-700'
-  end %>
+  <% css_class = flash_css_class(type) %>
 
-  <%= content_tag :div, class: "border-l-4 p-4 rounded shadow-md #{css_class} mb-2" do %>
-    <%= content_tag :p, message, class: 'text-sm font-medium' %>
+  <%= content_tag :div, data: { controller: 'flash-message', flash_message_target: 'container' }, class: "border-l-4 rounded shadow-md #{css_class[:container]} mb-2 transition-all duration-500 transform" do %>
+    <%= content_tag :div, class: 'flex items-center justify-between p-4' do %>
+      <%= content_tag :p, simple_format(message), class: 'text-sm font-medium' %>
+      <%= content_tag :button, data: { action: 'click->flash-message#dismiss' }, class: 'cursor-pointer' do %>
+        <%= icon  'x-mark', class: 'h-5 w-5' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, id: "progressBar", class: " mx-auto h-1 overflow-hidden" do %>
+      <%= content_tag :div, '', class: "h-full #{css_class[:bar]}", data: { flash_message_target: 'bar' } %>
+    <% end %>
   <% end %>
 <% end %>

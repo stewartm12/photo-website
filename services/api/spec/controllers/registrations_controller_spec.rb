@@ -75,10 +75,9 @@ RSpec.describe RegistrationsController, type: :controller do
 
           it 'does not create a new user' do
             expect {
-              post :create, params: params
+              post :create, params: params, as: :turbo_stream
             }.not_to change { User.count }
 
-            expect(response).to have_http_status(:unprocessable_entity)
             expect(flash[:alert]).to include("Email address can't be blank")
           end
         end

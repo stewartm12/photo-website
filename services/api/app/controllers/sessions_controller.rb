@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate_by(params.permit(:email_address, :password))
 
-    return redirect_to new_session_path, alert: 'Email or password is incorrect.' unless user
-    return redirect_to new_session_path, alert: 'Please confirm your email address before signing in.' unless user.confirmed?
+    return flash.now[:alert] = 'Email or password is incorrect.' unless user
+    return flash.now[:alert] = 'Please confirm your email address before signing in.' unless user.confirmed?
 
     start_new_session_for user
     redirect_to after_authentication_path
