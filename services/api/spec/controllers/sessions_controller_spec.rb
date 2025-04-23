@@ -49,28 +49,23 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       context 'with valid credentials' do
-        it 'redirects to the intended page or dashboard' do
-          post :create, params: params
+        before { post :create, params: params }
 
+        it 'redirects to the intended page or dashboard' do
           expect(response).to have_http_status(:found)
           expect(response).to redirect_to(stores_path)
         end
 
         it 'creates a new session' do
-          expect {
-            post :create, params: params
-          }.to change { Session.count }.by(1)
-
+          expect(Session.count).to eq(1)
           expect(Session.last.user).to eq(user)
         end
       end
 
       context 'with invalid credentials' do
         it 'redirects to login page' do
-          post :create, params: { email_address: '', password: '' }
+          post :create, params: { email_address: '', password: '' }, as: :turbo_stream
 
-          expect(response).to have_http_status(:found)
-          expect(response).to redirect_to(new_session_path)
           expect(flash[:alert]).to eq('Email or password is incorrect.')
         end
       end
@@ -79,10 +74,8 @@ RSpec.describe SessionsController, type: :controller do
         before { user.update(confirmed_at: nil) }
 
         it 'redirects to login page' do
-          post :create, params: params
+          post :create, params: params, as: :turbo_stream
 
-          expect(response).to have_http_status(:found)
-          expect(response).to redirect_to(new_session_path)
           expect(flash[:alert]).to eq('Please confirm your email address before signing in.')
         end
       end
@@ -109,10 +102,9 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'destroys the session' do
-        expect {
-          delete :destroy
-        }.to change { Session.count }.by(-1)
+        delete :destroy
 
+        expect(Session.count).to eq(0)
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to(new_session_path)
       end

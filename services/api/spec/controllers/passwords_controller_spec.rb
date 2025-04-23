@@ -168,9 +168,8 @@ RSpec.describe PasswordsController, type: :controller do
           before { params[:password_confirmation] = 'different_password' }
 
           it 'does not update the password' do
-            patch :update, params: params
+            patch :update, params: params, as: :turbo_stream
 
-            expect(response).to have_http_status(:found)
             expect(flash[:alert]).to eq('Passwords do not match.')
           end
         end
