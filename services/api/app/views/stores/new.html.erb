@@ -1,0 +1,44 @@
+<%= content_tag :div, class: "min-h-screen bg-gray-100 py-10 px-4" do %>
+  <%= content_tag :div, class: "max-w-xl mx-auto bg-white/5 backdrop-blur p-6 rounded-xl shadow-lg" do %>
+    <%= content_tag :div, class: "mb-6 flex justify-between items-center" do %>
+      <%= content_tag :h2, "Create a New Store", class: "text-3xl font-semibold" %>
+      <%= link_to stores_path, class: "flex justify-center items-center text-sm text-primary hover:underline" do %>
+        <%= icon "arrow-left", class: "h-4 w-4" %> Back
+      <% end %>
+    <% end %>
+
+    <%= form_with model: @store, class: "space-y-6" do |form| %>
+      <%= content_tag :div, class: "space-y-2" do %>
+        <%= form.label :name, "Store Name", class: "block text-sm font-medium" %>
+        <%= form.text_field :name,
+          required: true,
+          placeholder: "Acme Store",
+          class: "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-primary focus:border-primary"
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: "space-y-2" do %>
+        <%= form.label :domain, "Store Domain", class: "block text-sm font-medium" %>
+        <%= form.text_field :domain,
+          required: true,
+          placeholder: "acme.com",
+          class: "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-primary focus:border-primary"
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: "space-y-2" do %>
+        <%= form.label :slug, "Store Slug", class: "block text-sm font-medium" %>
+        <%= form.text_field :slug,
+          disabled: true,
+          placeholder: "acme-store",
+          class: "w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-primary focus:border-primary"
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: "pt-4" do %>
+        <%= form.submit "Create Store",
+          class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

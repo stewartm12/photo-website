@@ -11,10 +11,13 @@ class GraphqlController < ApiController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
+    domain = request.headers['X-Store-Domain']
+    current_store = Store.find_by(domain: domain)
+
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_store: current_store
     }
+
     result = ApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue StandardError => e

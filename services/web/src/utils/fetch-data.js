@@ -6,6 +6,7 @@ export const fetchData = async (query, variables = {}) => {
     headers: {
       "Authorization": process.env.API_ACCESS_TOKEN,
       "Content-Type": "application/json",
+      "X-Store-Domain": process.env.STORE_DOMAIN_URL,
     },
     body: JSON.stringify({
       query,

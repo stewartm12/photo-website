@@ -4,8 +4,10 @@ RSpec.describe Gallery, type: :model do
   describe 'associations' do
     it { should have_one(:photo).dependent(:destroy) }
     it { should have_many(:collections).dependent(:destroy) }
+    it { should have_many(:photos).through(:collections) }
     it { should have_many(:packages).dependent(:destroy) }
     it { should have_many(:add_ons).dependent(:destroy) }
+    it { should belong_to(:store) }
   end
 
   describe 'validations' do
@@ -19,7 +21,7 @@ RSpec.describe Gallery, type: :model do
       it { should validate_uniqueness_of(:slug).case_insensitive }
 
       context 'before validation' do
-        let(:gallery) { create(:gallery, name: 'My Gallery') }
+        let(:gallery) { create(:gallery, name: 'My Gallery', store: Store.first) }
 
         it 'generates slug from name' do
           expect(gallery.slug).to eq('my-gallery')

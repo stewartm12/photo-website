@@ -1,0 +1,155 @@
+<%= content_tag :div, class: 'p-4 border-b border-gray-300' do %>
+  <%= content_tag :div, class: 'text-xl font-semibold flex items-center justify-between gap-2' do %>
+    <%= content_tag :span, class: 'flex items-center' do %>
+      <%= icon 'building-storefront' %> Store Manager
+    <% end %>
+
+    <%= content_tag :span do %>
+      <%= icon 'user-circle', class: 'h-7 w-7 cursor-pointer' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'min-h-screen bg-gray-50 px-6 py-8' do %>
+  <%= content_tag :div do %>
+    <%= content_tag :div, class: 'flex items-center justify-between mb-8' do %>
+      <%= content_tag :div do %>
+        <%= content_tag :h1, @store.name, class: 'text-3xl font-bold mb-1' %>
+        <%= content_tag :p, 'Manage and edit your store', class: 'text-md text-gray-500' %>
+      <% end %>
+
+      <%= link_to store_edit_path, class: 'bg-white flex items-center justify-between px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' do %>
+        <%= icon 'cog-6-tooth' %>
+        <%= content_tag :span, 'Store Settings' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' do %>
+      <%= content_tag :div, class: 'bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200' do %>
+        <%= content_tag :div, class: 'flex items-center' do %>
+          <%= icon 'photo' %>
+          <%= content_tag :span, 'Galleries' %>
+        <% end %>
+        <%= content_tag :span, @store.galleries.count %>
+      <% end %>
+
+      <%= content_tag :div, class: 'bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200' do %>
+        <%= content_tag :div, class: 'flex items-center' do %>
+          <%= icon 'square-3-stack-3d' %>
+          <%= content_tag :span, 'Collections' %>
+        <% end %>
+        <%= content_tag :span, @store.collections.count %>
+      <% end %>
+
+      <%= content_tag :div, class: 'bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200' do %>
+        <%= content_tag :div, class: 'flex items-center' do %>
+          <%= icon 'calendar' %>
+          <%= content_tag :span, 'Appointments' %>
+        <% end %>
+        <%= content_tag :span, @store.appointments.count %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :div, class: 'py-4' do %>
+    <%= content_tag :div, data: { controller: 'tabs', tabs_active_class: 'bg-white text-black', tabs_default_tab_value: 'gallery' } do %>
+      <%= content_tag :div, class: 'grid w-full grid-cols-3 p-1 bg-gray-200' do %>
+        <%= content_tag :button, 'Galleries', id: 'gallery', class: 'cursor-pointer', data: { tabs_target: 'btn', action: 'click->tabs#select' } %>
+        <%= content_tag :button, 'Collections', id: 'collection', class: 'cursor-pointer', data: { tabs_target: 'btn', action: 'click->tabs#select' } %>
+        <%= content_tag :button, 'Appointments', id: 'appointment', class: 'cursor-pointer', data: { tabs_target: 'btn', action: 'click->tabs#select' } %>
+      <% end %>
+
+      <%= content_tag :div, class: 'py-4' do %>
+        <%= content_tag :div, id: 'gallery', class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6', data: { tabs_target: 'tab' } do %>
+          <% @galleries.each do |gallery| %>
+            <%= content_tag :div, class: "bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200" do %>
+              <%= content_tag :div, class: 'py-4' do %>
+                <%= content_tag :h2, gallery.name %>
+                <%= content_tag :p, gallery.description, class: 'text-sm text-gray-400' %>
+              <% end %>
+
+              <%= content_tag :div, class: 'flex items-center justify-between py-4' do %>
+                <%= content_tag :div do %>
+                  <%= content_tag :span, 'Collections' %>
+                  <%= content_tag :p, gallery.collections.count || '0' %>
+                <% end %>
+
+                <%= content_tag :div do %>
+                  <%= content_tag :span, 'photos' %>
+                  <%= content_tag :p, gallery.photos.count || '0' %>
+                <% end %>
+              <% end %>
+
+              <%= content_tag :div, class: "mt-auto" do %>
+                <%= link_to store_gallery_path(@store.slug, gallery.id), class: "flex items-center justify-center gap-1 text-sm px-4 py-2 border border-gray-400 rounded-md w-full hover:bg-gray-50" do %>
+                  <%= icon 'photo', class: 'h-5 w-5' %>
+                  <%= content_tag :span, 'View Gallery' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :div, id: 'collection', class: 'hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6', data: { tabs_target: 'tab' } do %>
+          <% @collections.each do |collection| %>
+            <%= content_tag :div, class: "bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200" do %>
+              <%= content_tag :div do %>
+                <%= content_tag :h2, collection.name %>
+              <% end %>
+
+              <%= content_tag :div, class: 'flex items-center justify-between' do %>
+                <%= content_tag :div do %>
+                  <%= content_tag :span, 'Photos' %>
+                  <%= content_tag :p, collection.photos.count %>
+                <% end %>
+                <%= content_tag :div do %>
+                  <%= content_tag :span, 'Date' %>
+                  <%= content_tag :p, collection.created_at.strftime("%b %d, %Y") %>
+                <% end %>
+              <% end %>
+
+              <%= content_tag :div, class: "mt-auto" do %>
+                <%= link_to store_collection_path(@store.slug, collection.id), class: "flex items-center justify-center gap-1 text-sm px-4 py-2 border border-gray-400 rounded-md w-full hover:bg-gray-50" do %>
+                  <%= icon 'photo', class: 'h-5 w-5' %>
+                  <%= content_tag :span, 'View Collection' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        
+        <%= content_tag :div, id: 'appointment', class: "hidden p-6 bg-white rounded-lg shadow", data: { tabs_target: 'tab' } do %>
+          <%= content_tag :h2, "Appointments", class: "text-2xl font-bold mb-2" %>
+          <%= content_tag :p, "Manage your scheduled appointments", class: "text-gray-500 mb-6" %>
+
+          <%= content_tag :table, class: "w-full text-left table-auto" do %>
+            <%= content_tag :thead, class: "border-b" do %>
+              <%= content_tag :tr do %>
+                <%= content_tag :th, 'Customer Name', class: "py-2 text-gray-600" %>
+                <%= content_tag :th, 'Type', class: "py-2 text-gray-600" %>
+                <%= content_tag :th, 'Date & Time', class: "py-2 text-gray-600" %>
+                <%= content_tag :th, 'Status', class: "py-2 text-gray-600" %>
+                <%= content_tag :th, 'Actions', class: "py-2 text-gray-600" %>
+              <% end %>
+            <% end %>
+
+            <%= content_tag :tbody, class: 'divide-y' do %>
+              <% @appointments.each do |apt| %>
+                <%= content_tag :tr do %>
+                  <%= content_tag :td, apt.customer.full_name %>
+                  <%= content_tag :td, apt.package.gallery.name %>
+                  <%= content_tag :td, apt.created_at.strftime("%B %-d, %Y, %-l:%M%P") %> 
+                  <%= content_tag :td, apt.status %>
+                  <%= content_tag :td do %>
+                    <%= link_to 'Details', store_appointment_path(@store.slug, apt) %>
+                    <%= link_to 'Edit', edit_store_appointment_path(@store.slug, apt) %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

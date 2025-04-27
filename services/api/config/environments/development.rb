@@ -10,13 +10,15 @@ Rails.application.configure do
   config.hosts << /api:\d+/
 
   # Configuring action mailer with mailgun
-  config.action_mailer.delivery_method = :mailgun
+  # config.action_mailer.delivery_method = :mailgun
 
-  config.action_mailer.mailgun_settings = {
-    api_key: ENV['MAILGUN_API_KEY'],
-    domain: ENV['MAILGUN_DOMAIN']
-    # timeout: 20 # Default depends on rest-client, whose default is 60s. Added in 1.2.3.
-  }
+  # config.action_mailer.mailgun_settings = {
+  #   api_key: ENV['MAILGUN_API_KEY'],
+  #   domain: ENV['MAILGUN_DOMAIN']
+  # }
+
+  # Raises error if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
 
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
