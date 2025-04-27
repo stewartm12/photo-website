@@ -11,5 +11,6 @@ module Types
     field :package, Types::PackageType, null: false
     field :appointment_add_ons, [Types::AppointmentAddOnType]
     field :add_ons, [Types::AddOnType]
+    field :store, Types::StoreType, null: false
   end
 end

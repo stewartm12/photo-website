@@ -1,6 +1,7 @@
 class Customer < ApplicationRecord
   encrypts :phone_number
 
+  belongs_to :store
   has_many :appointments
 
   validates :first_name, :last_name, :email, presence: true
@@ -15,7 +16,7 @@ class Customer < ApplicationRecord
   private
 
   def capitalize_names
-    self.first_name = first_name.split.map(&:capitalize).join(' ')
-    self.last_name = last_name.split.map(&:capitalize).join(' ')
+    self.first_name = first_name&.capitalize
+    self.last_name = last_name&.capitalize
   end
 end

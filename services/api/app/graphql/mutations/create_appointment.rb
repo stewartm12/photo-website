@@ -41,7 +41,8 @@ module Mutations
       customer.assign_attributes(
         first_name: args[:first_name],
         last_name: args[:last_name],
-        phone_number: args[:phone_number]
+        phone_number: args[:phone_number],
+        store: context[:current_store]
       )
 
       customer.save!
@@ -52,7 +53,8 @@ module Mutations
       customer.appointments.new(
         package_id: args[:package_id],
         preferred_date_time: args[:preferred_date_time],
-        additional_notes: args[:additional_notes]
+        additional_notes: args[:additional_notes],
+        store: context[:current_store]
       )
     end
 
@@ -69,23 +71,3 @@ module Mutations
     end
   end
 end
-
-# it 'returns errors if appointment is invalid' do
-#   allow_any_instance_of(Appointment).to receive(:save!).and_raise(
-#     ActiveRecord::RecordInvalid.new(Appointment.new.tap { |a| a.errors.add(:base, "Invalid appointment") })
-#   )
-
-#   result = described_class.new(object: nil, context: {}).resolve(
-#     first_name: "John",
-#     last_name: "Doe",
-#     email: "john@example.com",
-#     phone_number: "1234567890",
-#     package_id: 1,
-#     add_on_ids: [],
-#     address: nil,
-#     note: nil
-#   )
-
-#   expect(result[:appointment]).to be_nil
-#   expect(result[:errors]).to include("Invalid appointment")
-# end

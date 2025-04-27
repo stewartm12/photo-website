@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Location, type: :model do
   let(:gallery) { Gallery.first }
   let(:add_on) { create(:add_on, gallery: gallery) }
-  let(:customer) { create(:customer) }
+  let(:customer) { create(:customer, store: Store.first) }
   let(:package) { create(:package, gallery: gallery) }
-  let(:appointment) { create(:appointment, package: package, customer: customer) }
+  let(:appointment) { create(:appointment, package: package, customer: customer, store: Store.first) }
   let!(:location) { create(:location, appointment: appointment) }
 
   describe 'associations' do

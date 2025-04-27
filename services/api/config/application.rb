@@ -33,6 +33,8 @@ module Api
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Automaticly apply inverse of detection for associations
+    config.active_record.automatic_scope_inversing = true
 
     config.active_record.encryption.primary_key = ENV['RAILS_ENCRYPTION_KEY']
     config.active_record.encryption.deterministic_key = ENV['RAILS_ENCRYPTION_DETERMINISTIC_KEY']

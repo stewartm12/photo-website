@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Collection, type: :model do
   let(:gallery) { Gallery.first }
-  let!(:collection) { create(:collection, gallery: gallery) }
+  subject { build(:collection, gallery: gallery) }
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
