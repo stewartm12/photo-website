@@ -37,3 +37,27 @@
   --alert: oklch(0.64 0.2078 25.33);
   --notice: oklch(0.86 0.1731 91.94);
 }
+
+/* pagination style */
+
+.pagy {
+  @apply flex space-x-1 font-semibold text-sm text-gray-500;
+  a:not(.gap) {
+    @apply block rounded-sm p-[10px] bg-white border;
+    &:hover {
+      @apply bg-gray-300;
+    }
+    &:not([href]) { /* disabled links */
+      @apply text-gray-300 bg-gray-100 cursor-default;
+    }
+    &.current {
+      @apply bg-black text-white p-[10px];
+    }
+  }
+  label {
+    @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg p-[10px];
+    input {
+      @apply bg-gray-100 border-none rounded-md;
+    }
+  }
+}
