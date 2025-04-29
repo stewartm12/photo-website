@@ -75,5 +75,6 @@ end
 
 gem 'graphql'
 gem 'httparty'
+gem 'pagy'
 gem 'mailgun-ruby'
 gem 'rails_icons'
