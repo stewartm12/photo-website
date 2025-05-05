@@ -1,1 +1,3 @@
-<%= turbo_stream.remove @gallery %>
+<%= turbo_stream.update 'galleries_results' do %>
+  <%= render 'galleries/galleries_results' %>
+<% end %>

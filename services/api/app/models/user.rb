@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :store_memberships
   has_many :stores, through: :store_memberships
+  has_many :owned_stores, class_name: 'Store', foreign_key: :owner_id
 
   validates :email_address, presence: true, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password_digest, :first_name, :last_name,  presence: true

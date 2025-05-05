@@ -13,6 +13,10 @@ class Store < ApplicationRecord
   validates :name, :domain, :slug, presence: true
   validates :domain, :slug, uniqueness: { case_sensitive: false }
 
+  def to_param
+    slug
+  end
+
   private
 
   def generate_slug

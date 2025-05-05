@@ -2,7 +2,11 @@
 
 @layer base {
   input {
-    @apply mt-1 block w-full px-4 py-2 rounded-lg border border-neutral-light bg-white focus:outline-none focus:ring-2 focus:ring-primary;
+    @apply mt-1 block w-full px-4 py-2 rounded-lg border border-neutral-light bg-white;
+  }
+
+  label {
+    @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70
   }
 }
 
