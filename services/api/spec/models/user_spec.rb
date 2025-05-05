@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe User, type: :model do
   let!(:user) { create(:user, first_name: 'john', last_name: 'doe') }
 
@@ -15,6 +17,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:sessions).dependent(:destroy) }
     it { should have_many(:store_memberships) }
     it { should have_many(:stores).through(:store_memberships) }
+    it { should have_many(:owned_stores).class_name('Store').with_foreign_key(:owner_id) }
   end
 
   describe '#capitalize_names' do

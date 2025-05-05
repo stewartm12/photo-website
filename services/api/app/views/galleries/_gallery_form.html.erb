@@ -1,0 +1,129 @@
+<%= form_with model:[@store, @gallery] do |f| %>
+  <%= content_tag :div, class: 'mb-8' do %>
+    <%= content_tag :h1, @store.name, class: 'text-3xl font-bold' %>
+    <%= content_tag :span, 'Professional photography services for all occasions', class: 'text-gray-500' %>
+  <% end %>
+
+  <%= content_tag :div, class: 'mb-6' do %>
+    <%= content_tag :h2, title, class: 'text-2xl font-bold' %>
+    <%= content_tag :span, page_description, class: 'text-gray-500' %>
+  <% end %>
+
+  <%= content_tag :div, class: 'grid gap-6 md:grid-cols-3' do %>
+    <%= content_tag :div, class: 'md:col-span-2' do %>
+      <%= content_tag :div, class: 'bg-white rounded-xl border border-gray-300 shadow-md' do %>
+
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+          <%= content_tag :h3, 'Gallery Information', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+          <%= content_tag :span, 'Enter the details for your gallery', class: 'text-gray-500 text-sm' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'space-y-6' do %>
+            <%= content_tag :div, class: 'space-y-2' do %>
+              <%= f.label :name do %>
+                Gallery Name <%= content_tag :span, '*', class: 'text-sm text-red-700' %>
+              <% end %>
+              <%= f.text_field :name, placeholder: 'Enter gallery name' %>
+              <%= content_tag :p, 'Choose a descriptive name that represents the content of this gallery', class: 'text-xs text-gray-500' %>
+            <% end %>
+            <%= content_tag :div, class: 'space-y-2' do %>
+              <%= f.label :description do %>
+                Description <%= content_tag :span, '*', class: 'text-sm text-red-700' %>
+              <% end %>
+              <%= f.text_area :description, placeholder: 'Describe your gallery', class: 'flex min-h-[80px] w-full rounded-md border border-neutral-light px-3 py-2 text-sm' %>
+              <%= content_tag :p, 'Provide details about what clients can expect to find in this gallery', class: 'text-sm text-gray-500' %>
+            <% end %>
+            <%= content_tag :div, class: 'space-y-4' do %>
+              <%= content_tag :div, class: 'flex items-center justify-between' do %>
+                <%= content_tag :div, class: 'space-y-0.5' do %>
+                  <%= content_tag :span, 'Active', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70' %>
+                  <%= content_tag :p, 'This will make the gallery publicly visible on the website for clients and visitors to view', class: 'text-sm text-gray-500' %>
+                <% end %>
+                <%= f.label :active, class: 'relative inline-flex items-center cursor-pointer' do %>
+                  <%= f.check_box :active, class: "sr-only peer"%>
+                  <%= content_tag :div, nil, class: 'w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= f.fields_for :photo, Photo.new do |pf| %>
+        <%= content_tag :div, class: 'bg-white rounded-xl border border-gray-300 shadow-md mt-6' do %>
+          <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+            <%= content_tag :h3, 'Gallery Cover Image', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+            <%= content_tag :p, 'Upload a cover image for your gallery', class: 'text-sm text-gray-500' %>
+          <% end %>
+          <%= content_tag :div, class: 'p-6 pt-0' do %>
+            <%= content_tag :div, class: 'space-y-4', data: { controller: :preview} do %>
+              <%= content_tag :div, class: 'flex aspect-video flex-col items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50' do %>
+                <% if @gallery&.photo&.image&.attached? %>
+                  <%= image_tag @gallery.photo.image.variant(resize_to_fill: [800, 450]), data: { preview_target: 'preview'}, class: 'object-cover w-full h-full' %>
+                <% else %>
+                  <%= image_tag '', data: { preview_target: 'preview' }, class: 'hidden object-cover w-full h-full' %>
+                  <%= content_tag :div, class: 'flex flex-col items-center gap-1 text-center', data: { preview_target: 'fallback' } do %>
+                    <%= icon 'photo' %>
+                    <%= content_tag :span, 'No cover image selected', class: 'text-sm text-gray-500' %>
+                    <%= content_tag :span, 'Upload an image to represent your gallery', class: 'text-sm text-gray-500' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <%= content_tag :div, class: 'flex gap-2' do %>
+                <%= pf.label :image, class: 'bg-white flex items-center justify-between px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100 cursor-pointer' do %>
+                  <%= icon 'arrow-up-tray' %>
+                  Upload Image
+                  <%= pf.file_field :image, direct_upload: true, data: { preview_target: 'input', action: 'change->preview#displayPreview' }, class: "hidden" %>
+                <% end %>
+              <% end %>
+              <%#= content_tag :p, 'Recommended size: 1200 x 800 pixels. Maximum file size: 5MB.', class: 'text-sm text-gray-500' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'space-y-6' do %>
+      <%= content_tag :div, class: 'bg-white rounded-xl border border-gray-300 shadow-md' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+          <%= content_tag :h3, title, class: 'text-2xl font-semibold leading-none tracking-tight' %>
+          <%= content_tag :p, 'Review the details for this gallery', class: 'text-sm text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'space-y-4' do %>
+            <%= content_tag :div, class: 'rounded-md bg-primary/10 p-3' do %>
+              <%= content_tag :div, class: 'flex items-start gap-3' do %>
+                <%= icon 'table-cells' %>
+                <%= content_tag :div do %>
+                  <%= content_tag :p, summary_title, class: 'text-sm font-medium text-primary' %>
+                  <%= content_tag :p, summary, class: 'text-xs text-primary/90' %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= content_tag :div, class: 'items-center p-6 pt-0 flex flex-col gap-2' do %>
+          <%= f.submit title, class: 'w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark cursor-pointer' %>
+          <%= link_to 'Cancel', store_galleries_path(@store.slug), class: 'w-full py-2 px-4 rounded-lg cursor-pointer flex justify-center items-center border border-gray-400' %>
+        <% end %>
+      <% end %>
+      <% if show_steps %>
+        <%= content_tag :div, class: 'bg-white rounded-xl border border-gray-300 shadow-md' do %>
+          <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+            <%= content_tag :h3, "What's Next?", class: 'text-2xl font-semibold leading-none tracking-tight' %>
+            <%= content_tag :p, 'Steps after creating your gallery', class: 'text-sm text-gray-500' %>
+          <% end %>
+          <%= content_tag :div, class: 'p-6 pt-0' do %>
+            <%= content_tag :ol, class: 'list-inside list-decimal space-y-2 text-sm' do %>
+              <%= content_tag :li, 'Create Collections to organize your photos' %>
+              <%= content_tag :li, 'Upload photos to your collections' %>
+              <%= content_tag :li, 'Set Gallery status to active' %>
+              <%= content_tag :li, 'Watch your photos come to life on your website' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

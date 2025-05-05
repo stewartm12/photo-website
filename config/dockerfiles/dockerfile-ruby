@@ -12,6 +12,7 @@ RUN apt-get update -qq && apt-get install -y \
   libpq-dev \
   nodejs \
   yarn \
+  libvips42 \
   && rm -rf /var/lib/apt/lists/*
 
 # Copy Gemfile and Gemfile.lock

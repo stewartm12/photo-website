@@ -28,4 +28,11 @@ RSpec.describe Store, type: :model do
       end
     end
   end
+
+  describe '#to_param' do
+    it "returns the slug instead of the record's id" do
+      expect(subject.to_param).to eq('my-store')
+      expect(subject.to_param).to_not eq("#{subject.id}")
+    end
+  end
 end

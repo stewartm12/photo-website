@@ -2,10 +2,10 @@
   <%= content_tag :div, class: "w-full max-w-sm bg-white p-6 rounded-xl shadow-lg" do %>
     <%= content_tag :h2, "Sign In", class: "text-3xl font-semibold text-center text-primary mb-6" %>
 
-    <%= form_with url: session_path do |form| %>
+    <%= form_with url: session_path do |f| %>
       <%= content_tag :div, class: "mb-4" do %>
-        <%= form.label :email_address, "Email Address", class: "block text-sm font-medium" %>
-        <%= form.email_field :email_address,
+        <%= f.label :email_address, "Email Address", class: "block text-sm font-medium" %>
+        <%= f.email_field :email_address,
           required: true,
           autofocus: true,
           autocomplete: 'email',
@@ -15,11 +15,11 @@
 
       <%= content_tag :div, class: "mb-6" do %>
         <%= content_tag :div, class: 'flex items-center justify-between' do %>
-          <%= form.label :password, "Password", class: "block text-sm font-medium" %>
+          <%= f.label :password, "Password", class: "block text-sm font-medium" %>
           <%= link_to 'Forgot password?', new_password_path, class: 'text-xs text-primary hover:underline' %>
         <% end %>
 
-        <%= form.password_field :password,
+        <%= f.password_field :password,
           required: true,
           autocomplete: 'current-password',
           placeholder: '••••••••',
@@ -28,7 +28,7 @@
       <% end %>
 
       <%= content_tag :div, class: "flex items-center justify-between" do %>
-        <%= form.submit "Sign In", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+        <%= f.submit "Sign In", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
       <% end %>
     <% end %>
 

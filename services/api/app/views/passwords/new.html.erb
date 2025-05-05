@@ -2,17 +2,17 @@
   <%= content_tag :div, class: "w-full max-w-sm bg-white p-6 rounded-xl shadow-lg" do %>
     <%= content_tag :h2, "Forgot Password", class: "text-2xl font-semibold text-center mb-6" %>
 
-    <%= form_with url: password_path do |form| %>
+    <%= form_with url: password_path do |f| %>
       <%= content_tag :div, class: "mb-4" do %>
-        <%= form.label :email_address, "Email Address", class: "block text-sm font-medium" %>
-        <%= form.email_field :email_address,
+        <%= f.label :email_address, "Email Address", class: "block text-sm font-medium" %>
+        <%= f.email_field :email_address,
           required: true,
           autocomplete: "email",
           placeholder: "you@example.com" %>
       <% end %>
 
       <%= content_tag :div, class: "mt-6" do %>
-        <%= form.submit "Send Reset Instructions", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+        <%= f.submit "Send Reset Instructions", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
       <% end %>
     <% end %>
 
