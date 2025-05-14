@@ -16,10 +16,10 @@ RSpec.describe StoresController, type: :controller do
       let(:session) { create(:session, user: user) }
       let(:store) { create(:store) }
       let(:store_2) { create(:store) }
-      let!(:store_membership) { create(:store_membership, user: user, store: store) }
-      let!(:store_membership_2) { create(:store_membership, user: user, store: store_2) }
 
       before do
+        create(:store_membership, user: user, store: store)
+        create(:store_membership, user: user, store: store_2)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -52,7 +52,6 @@ RSpec.describe StoresController, type: :controller do
       let(:user) { create(:user) }
       let(:session) { create(:session, user: user) }
       let(:store) { create(:store) }
-      let!(:store_membership) { create(:store_membership, user: user, store: store) }
       let(:customer) { create(:customer, store: store) }
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:collection) { create(:collection, gallery: gallery) }
@@ -60,6 +59,7 @@ RSpec.describe StoresController, type: :controller do
       let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
 
       before do
+        create(:store_membership, user: user, store: store)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -96,6 +96,7 @@ RSpec.describe StoresController, type: :controller do
       let(:user) { create(:user) }
 
       before do
+        create(:store_membership, store: store, user: user)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end

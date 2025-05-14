@@ -23,13 +23,23 @@ RSpec.describe Current do
     it 'delegates to session.user' do
       expect(Current.user).to eq(user)
     end
+
+    context 'when session is nil' do
+      before { Current.session = nil }
+
+      it 'returns nil for user' do
+        expect(Current.user).to be_nil
+      end
+    end
   end
 
-  context 'when session is nil' do
-    before { Current.session = nil }
+  describe '.store' do
+    let(:store) { create(:store) }
 
-    it 'returns nil for user' do
-      expect(Current.user).to be_nil
+    before { Current.store = store }
+
+    it 'returns the store assigned to it' do
+      expect(Current.store).to eq(store)
     end
   end
 end

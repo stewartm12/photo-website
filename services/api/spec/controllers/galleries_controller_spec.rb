@@ -259,11 +259,11 @@ RSpec.describe GalleriesController, type: :controller do
     context 'when user is authenticated' do
       let(:user) { create(:user) }
       let(:store) { create(:store, owner: user) }
-      let!(:store_membership) { create(:store_membership, store: store, user: user) }
       let(:session) { create(:session, user: user) }
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
       before do
+        create(:store_membership, store: store, user: user)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -277,7 +277,6 @@ RSpec.describe GalleriesController, type: :controller do
       it 'correctly assign the respective @ varirables' do
         get :edit, params: { store_slug: store.slug, id: gallery.id }
 
-        expect(controller.instance_variable_get(:@store)).to eq(store)
         expect(controller.instance_variable_get(:@gallery)).to eq(gallery)
       end
     end
@@ -295,7 +294,6 @@ RSpec.describe GalleriesController, type: :controller do
     context 'when user is authenticated' do
       let(:user) { create(:user) }
       let(:store) { create(:store, owner: user) }
-      let!(:store_membership) { create(:store_membership, store: store, user: user) }
       let(:session) { create(:session, user: user) }
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:photo) do
@@ -307,6 +305,7 @@ RSpec.describe GalleriesController, type: :controller do
       end
 
       before do
+        create(:store_membership, store: store, user: user)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -361,11 +360,11 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'DELETE #destroy' do
     let(:user) { create(:user) }
     let(:store) { create(:store, owner: user) }
-    let!(:store_membership) { create(:store_membership, store: store, user: user) }
     let(:session) { create(:session, user: user) }
     let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
     before do
+      create(:store_membership, store: store, user: user)
       allow(controller).to receive(:resume_session).and_return(session)
       allow(Current).to receive(:user).and_return(user)
     end

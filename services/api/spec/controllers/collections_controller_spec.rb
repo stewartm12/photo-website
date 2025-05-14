@@ -9,6 +9,7 @@ RSpec.describe CollectionsController, type: :controller do
     let(:collection) { create(:collection, gallery: gallery) }
 
     before do
+      create(:store_membership, store: store, user: user)
       allow(controller).to receive(:resume_session).and_return(session)
       allow(Current).to receive(:user).and_return(user)
     end

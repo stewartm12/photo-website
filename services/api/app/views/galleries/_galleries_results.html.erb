@@ -1,30 +1,34 @@
-<% if @galleries.any? %>
-  <%= form_with url: store_galleries_path(@store.slug), method: :get,
-    data: {
-      turbo_frame: 'galleries_results',
-      turbo_action: 'advance',
-      controller: 'submit',
-      action: 'input->submit#submit'
-    } do |f| %>
+<%= form_with url: store_galleries_path(Current.store), method: :get,
+  data: {
+    turbo_frame: 'galleries_results',
+    turbo_action: 'advance',
+    controller: 'submit',
+    action: 'input->submit#submit'
+  } do |f| %>
 
-    <%= content_tag :div, class: 'mb-6 flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 sm:flex-row sm:items-center sm:justify-between' do %>
-      <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
-        <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search galleries...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+  <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 sm:flex-row sm:items-center sm:justify-between' do %>
+    <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+      <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search galleries...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+    <% end %>
+    <%= content_tag :div, class: 'flex flex-wrap gap-2' do %>
+      <%= content_tag :div, class: 'flex items-center gap-2' do %>
+        <%= content_tag :span, 'Sort By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+        <%= f.select :sort, options_for_select([['Name', 'name'], ['Updated At', 'updated_at']],  params[:sort]), { include_blank: 'Select' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+        <%= f.select :order, options_for_select([['Ascending', 'asc'], ['Descending', 'desc']],  params[:order]), { include_blank: 'Order' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
       <% end %>
-      <%= content_tag :div, class: 'flex flex-wrap gap-2' do %>
-        <%= content_tag :div, class: 'flex items-center gap-2' do %>
-          <%= content_tag :span, 'Sort By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
-          <%= f.select :sort, options_for_select([['Name', 'name'], ['Updated At', 'updated_at']],  params[:sort]), { include_blank: 'Select' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
-          <%= f.select :order, options_for_select([['Ascending', 'asc'], ['Descending', 'desc']],  params[:order]), { include_blank: 'Order' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
-        <% end %>
-        <%= content_tag :div, class: 'flex items-center gap-2' do %>
-          <%= content_tag :span, 'Filter By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
-          <%= f.select :status, options_for_select([['Active', true], ['Inactive', false]], params[:status]), { include_blank: 'Select Status' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
-        <% end %>
+      <%= content_tag :div, class: 'flex items-center gap-2' do %>
+        <%= content_tag :span, 'Filter By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+        <%= f.select :status, options_for_select([['Active', true], ['Inactive', false]], params[:status]), { include_blank: 'Select Status' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
       <% end %>
     <% end %>
   <% end %>
+<% end %>
 
+<%= content_tag :div, class: 'flex justify-end py-3' do %>
+  <%== pagy_nav(@pagy) %>
+<% end %>
+
+<% if @galleries.any? %>
   <%= content_tag :div, class: 'space-y-6' do %>
     <% @galleries.each do |gallery| %>
       <%= content_tag :div, class: 'bg-white rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200' do %>
@@ -57,18 +61,18 @@
               <% end %>
             <% end %>
             <%= content_tag :div, class: 'items-center p-6 pt-0 flex justify-between' do %>
-              <%= link_to store_collections_path(@store, gallery),
+              <%= link_to store_collections_path(Current.store, gallery),
                   class: 'inline-flex items-center gap-2 bg-white px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' do %>
                   <%= icon 'chevron-right' %>
                   <%= content_tag :span, 'View Collections' %>
               <% end %>
               <%= content_tag :div, class: 'flex gap-2' do %>
                 <%= link_to 'Edit Gallery',
-                  edit_store_gallery_path(@store, gallery),
+                  edit_store_gallery_path(Current.store, gallery),
                   data: { turbo_frame: '_top' },
                   class: 'bg-white flex items-center justify-between px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
                 <%= button_to 'Delete',
-                  store_gallery_path(@store, gallery),
+                  store_gallery_path(Current.store, gallery),
                   method: :delete,
                   data: { turbo_confirm: 'Are you sure you want to delete this gallery?' },
                   class: 'bg-red-100 border border-red-500 flex items-center justify-between px-6 py-2.5 rounded-md font-medium text-sm hover:bg-red-200 cursor-pointer' %>
@@ -79,13 +83,9 @@
       <% end %>
     <% end %>
   <% end %>
-
-  <%= content_tag :div, class: 'flex justify-center p-6' do %>
-    <%== pagy_nav(@pagy) %>
-  <% end %>
 <% else %>
   <%= content_tag :div, class: 'p-4 text-center' do %>
-    <%= content_tag :h3, 'You currently do not have any existing galleries yet in your store.',
+    <%= content_tag :h3, 'No existing galleries yet in your store.',
       class: 'text-lg font-semibold mb-2' %>
     <%= content_tag :p, 'To create your first gallery, please click on the New Gallery button above.', class: 'text-sm text-gray-500 mb-4' %>
   <% end %>

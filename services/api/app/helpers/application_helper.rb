@@ -33,4 +33,20 @@ module ApplicationHelper
       concat(status[:label])
     end
   end
+
+  def store_abbreviation
+    words = Current.store.name.to_s.split
+
+    if words.size <= 3
+      words.map { |word| word[0] }.join
+    else
+      [Current.store.name[0], Current.store.name[-1]].join
+    end
+  end
+
+  def nav_link_to(name = nil, options = nil, html_options = nil, &block)
+    active_class = current_page?(name) ? 'bg-stone-100' : ''
+    options[:class] = "#{options[:class]} #{active_class}".strip
+    link_to(name, options, html_options, &block)
+  end
 end
