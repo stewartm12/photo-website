@@ -1,0 +1,217 @@
+<%= content_tag :section, class: 'py-20 md:py-32 bg-gradient-to-b from-caramel-light to-white flex' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2' do %>
+      <%= content_tag :div, class: 'flex flex-col justify-center space-y-4' do %>
+        <%= content_tag :div, class: 'space-y-2' do %>
+          <%= content_tag :h1, 'Store, Organize, and Share Your Photos', class: 'text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none' %>
+          <%= content_tag :p, 'Pix Cloud gives you the power to create beautiful galleries and collections that you can easily integrate into any website.', class: 'max-w-[600px] text-muted-foreground md:text-xl' %>
+        <% end %>
+        <%= content_tag :div, class: 'flex flex-col gap-2 min-[400px]:flex-row' do %>
+          <%= link_to new_session_path, class: 'bg-caramel text-sm text-white rounded-md p-2 hover:cursor-pointer hover:bg-caramel-dark flex justify-center items-center' do %>
+            <%= content_tag :span, 'Start Now' %>
+            <%= icon 'arrow-right' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'mx-auto lg:mt-0 lg:flex' do %>
+        <%= content_tag :div, class: 'relative w-full max-w-[550px] overflow-hidden rounded-xl border bg-white shadow-xl' do %>
+          <%= content_tag :div, class: 'flex items-center justify-between border-b px-4 py-2' do %>
+            <%= content_tag :div, class: 'flex items-center gap-2' do %>
+              <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-red-500' %>
+              <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-yellow-500' %>
+              <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-green-500' %>
+            <% end %>
+            <%= content_tag :div, 'Collection Preview', class: 'text-xs font-medium' %>
+            <%= content_tag :div, nil, class: 'w-14' %>
+          <% end %>
+
+          <%= content_tag :div, class: 'grid grid-cols-2 gap-2 p-4' do %>
+            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'cat-photo-1.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <% end %>
+            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'cat-photo-2.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <% end %>
+            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'cat-photo-3.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <% end %>
+            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'cat-photo-4.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-stone-100' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'flex flex-col items-center justify-center space-y-4 text-center' do %>
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= content_tag :div, 'Features', class: 'inline-block rounded-lg bg-[oklch(90%_0.04_72.71)] px-3 py-1 text-sm' %>
+        <%= content_tag :h2, 'Everything you need to manage your photos', class: 'text-3xl font-bold tracking-tighter md:text-4xl/tight' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12' do %>
+      <%= content_tag :div, class: 'rounded-lg border bg-white border-gray-400 shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+          <%= icon 'building-storefront', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :h3, 'Multiple Stores', class: 'text-2xl font-semibold leading-none tracking-tight mt-4' %>
+          <%= content_tag :p, 'Create and manage multiple stores for different projects, clients, or purposes.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :p, 'Organize your work by creating separate stores, each with its own galleries and collections.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center p-6 pt-0' do %>
+          <%= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
+            <%= content_tag :span, 'Get Started' %>
+            <%= icon 'arrow-right', class: 'size-4' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border bg-white border-gray-400 shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+          <%= icon 'photo', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :h3, 'Galleries & Collections', class: 'text-2xl font-semibold leading-none tracking-tight mt-4' %>
+          <%= content_tag :p, 'Organize photos into collections and group them into beautiful galleries.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :p, 'Create collections for each photoshoot or event, then organize them into galleries for easy browsing.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center p-6 pt-0' do %>
+          <%= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
+            <%= content_tag :span, 'Get Started' %>
+            <%= icon 'arrow-right', class: 'size-4' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border bg-white border-gray-400 shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+          <%= icon 'server-stack', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :h3, 'Api Integrations', class: 'text-2xl font-semibold leading-none tracking-tight mt-4' %>
+          <%= content_tag :p, 'Easily integrate your photos into any website with our GraphQL endpoints.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :p, 'Use our REST API or GraphQL endpoint to fetch photos and display them on your website.', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center p-6 pt-0' do %>
+          <%= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
+            <%= content_tag :span, 'Get Started' %>
+            <%= icon 'arrow-right', class: 'size-4' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'grid gap-6 lg:grid-cols-2 lg:gap-12' do %>
+      <%= content_tag :div, class: 'flex flex-col justify-center space-y-4' do %>
+        <%= content_tag :div, class: 'space-y-2' do %>
+          <%= content_tag :div, 'For Developers', class: 'inline-block rounded-lg bg-[oklch(90%_0.04_72.71)] px-3 py-1 text-sm' %>
+          <%= content_tag :h2, 'Powerful API for seamless integration', class: 'text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl'  %>
+          <%= content_tag :p, 'Powerful API for seamless integration', class: 'max-w-[600px] text-muted-foreground md:text-xl'  %>
+        <% end %>
+        <%= content_tag :div, class: 'flex flex-col gap-2 min-[400px]:flex-row' do %>
+          <%= link_to developers_info_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer bg-caramel hover:bg-caramel-dark font-medium text-white' do %>
+            <%= content_tag :span, 'View API Documentation' %>
+            <%= icon 'arrow-right', class: 'size-4' %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= content_tag :div, class: 'lg:mt-0' do %>
+        <%= content_tag :div, class: 'rounded-xl border bg-card p-4 shadow-sm' do %>
+          <%= content_tag :pre, class: 'overflow-x-auto text-xs text-left md:text-sm font-mono' do %>
+            <%= content_tag :code, class: 'language-graphql' do %>
+<%= <<~GRAPHQL.strip.html_safe %>
+              query GetCollectionPhotos {
+                collection(id: "collection_123") {
+                  id
+                  name
+                  photos {
+                    id
+                    url
+                    width
+                    height
+                    description
+                    order
+                  }
+                }
+              }
+            GRAPHQL
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-stone-100' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'flex flex-col items-center justify-center space-y-4 text-center' do %>
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= content_tag :div, 'How It Works', class: 'inline-block rounded-lg bg-[oklch(90%_0.04_72.71)] px-3 py-1 text-sm' %>
+        <%= content_tag :h2, 'Simple, powerful photo management', class: 'text-3xl font-bold tracking-tighter md:text-4xl/tight' %>
+        <%= content_tag :p, 'Pix Cloud makes it easy to manage and share your photos with a simple, intuitive workflow.', class: 'max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'mx-auto grid max-w-5xl items-start gap-6 py-12 md:grid-cols-3 md:gap-12' do %>
+      <%= content_tag :div, class: 'grid gap-2 text-center' do %>
+        <%= content_tag :div, class: 'mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'building-storefront', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, '1. Create a Store', class: 'text-xl font-bold' %>
+        <%= content_tag :p, 'Start by creating a store to organize your photos. You can create multiple stores for different projects.', class: 'text-sm text-gray-500' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2 text-center' do %>
+        <%= content_tag :div, class: 'mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'cloud-arrow-up', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, '2. Upload & Organize', class: 'text-xl font-bold' %>
+        <%= content_tag :p, 'Upload your photos and organize them into collections and galleries. Set the order and create slideshows.', class: 'text-sm text-gray-500' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2 text-center' do %>
+        <%= content_tag :div, class: 'mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'code-bracket', class: 'h-10 w-10 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, '3. Integrate & Share', class: 'text-xl font-bold' %>
+        <%= content_tag :p, 'Use our API or GraphQL endpoint to integrate your photos into your website or share them with others.', class: 'text-sm text-gray-500' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'flex flex-col items-center justify-center space-y-4 text-center' do %>
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= content_tag :h2, 'Ready to get started?', class: 'text-3xl font-bold tracking-tighter md:text-4xl/tight' %>
+        <%= content_tag :p, 'Join thousands of photographers and developers who trust Pix Cloud for their photo management needs.', class: 'max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex flex-col gap-2 min-[400px]:flex-row' do %>
+        <%= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer bg-caramel hover:bg-caramel-dark text-white font-medium' do %>
+          <%= content_tag :span, 'Create Your Account' %>
+          <%= icon 'arrow-right', class: 'size-4' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
