@@ -1,0 +1,66 @@
+<%= content_tag :div, class: 'sticky top-0 z-10', data: { controller: :navbar, action: 'resize@window->navbar#closeOnBigScreen keyup@window->navbar#closeWithKeyboard' } do %>
+  <%= content_tag :nav, class: 'bg-black text-white p-4 flex justify-between items-center h-20' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :div, class: 'flex space-x-1 items-center' do %>
+        <%= image_tag 'logo-transparent-svg.svg', alt: 'Pix Cloud Logo', class: 'h-20 w-auto' %>
+        <%= content_tag :h2, 'Pix Cloud', class: 'text-2xl font-bold font-serif' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'block md:hidden text-3xl hover:cursor-pointer', id: 'navbar-opener', role: 'button', data: { action: 'click->navbar#toggle'} do %>
+      &#9776;
+    <% end %>
+
+    <% if Current.store.present? %>
+      <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-xs' do %>
+        <%= content_tag :div, class: 'bg-caramel size-10 rounded-md flex justify-center items-center text-black' do %>
+          <%= store_abbreviation %>
+        <% end %>
+        <%= content_tag :div do %>
+          <%= Current.store.name %>
+        <% end %>
+      <% end %>
+    <% elsif Current.user.present? %>
+      <%= content_tag :div, class: 'flex space-x-2 items-center text-xs' do %>
+        <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
+      <% end %>
+    <% else %>
+      <%= content_tag :div, class: 'flex space-x-2 items-center text-sm' do %>
+        <%= link_to 'Sign in', new_session_path, class: 'p-2 rounded-md bg-caramel hover:bg-stone-600' %>
+        <%= link_to 'Sign up', new_registration_path, class: 'p-2 rounded-md bg-caramel hover:bg-stone-600' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :nav, class: 'bg-stone-200 absolute flex flex-col justify-between text-center p-3 w-1/2 h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ease-in-out transform -translate-x-full', data: { navbar_target: 'content' } do %>
+    <% if Current.store.present? %>
+      <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
+        <%= nav_link_to store_home_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+          <%= icon 'home', class: 'size-4' %>
+          <%= content_tag :p, 'Home' %>
+        <% end %>
+        <%= nav_link_to store_galleries_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+          <%= icon 'square-3-stack-3d', class: 'size-4' %>
+          <%= content_tag :p, 'Galleries' %>
+        <% end %>
+        <%= nav_link_to store_appointments_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+          <%= icon 'inbox', class: 'size-4' %>
+          <%= content_tag :p, 'Appointments' %>
+        <% end %>
+        <%= nav_link_to store_customers_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+          <%= icon 'user', class: 'size-4' %>
+          <%= content_tag :p, 'Customers' %>
+        <% end %>
+        <%= nav_link_to store_pricings_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+          <%= icon 'banknotes', class: 'size-4' %>
+          <%= content_tag :p, 'Pricings' %>
+        <% end %>
+      <% end %>
+
+      <%= nav_link_to edit_store_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-1 rounded-md' do %>
+        <%= icon 'cog-8-tooth', class: 'size-4' %>
+        <%= content_tag :p, 'Setting' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

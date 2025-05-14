@@ -23,17 +23,17 @@ Rails.application.routes.draw do
   resource :password, param: :token
   resource :registration, only: %i[new create]
   resource :confirmation, only: %i[new show create]
-  resources :stores, only: %i[index new create]
+  resources :stores, only: %i[index new create edit update destroy]
 
   scope '/:store_slug', as: :store do
-    resource :store_session, only: %i[new create]
-
     get '/', to: 'stores#show', as: :home
     get '/edit', to: 'stores#edit', as: :edit
     patch '/', to: 'stores#update', as: :update
 
-    resources :galleries, only: %i[index show new create edit update destroy]
+    resources :appointments, only: %i[index show edit update]
     resources :collections, only: %i[index show]
-    resources :appointments, only: %i[show edit update]
+    resources :customers, only: %i[index show edit update]
+    resources :galleries, only: %i[index show new create edit update destroy]
+    resources :pricings, only: %i[index show new create edit update destroy]
   end
 end

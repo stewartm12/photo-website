@@ -5,9 +5,20 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :success
 
+  before_action :set_current_store_from_slug
+
   def redirect_signed_in_user
     return unless authenticated?
 
     redirect_back(fallback_location: stores_path)
+  end
+
+  private
+
+  def set_current_store_from_slug
+    return unless params[:store_slug]
+
+    store = Current.user.stores.find_by!(slug: params[:store_slug])
+    Current.store = store
   end
 end

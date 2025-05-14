@@ -19,14 +19,16 @@
   --color-accent-light: var(--accent-light);
   --color-background: var(--background);
   --color-background-dark: var(--background-dark);
-  --color-neutral: var(--neutral);
+  /* --color-neutral: var(--neutral); */
   --color-neutral-light: var(--neutral-light);
   --color-success: var(--success);
   --color-alert: var(--alert);
   --color-notice: var(--notice);
+  --color-caramel: var(--caramel)
 }
 
 :root {
+
   --primary: oklch(0.21 0.0398 265.75);
   --primary-light: oklch(0.28 0.0368 260.03);
   --primary-dark: oklch(0.13 0.0406 264.7);
@@ -35,11 +37,12 @@
   --accent-light: oklch(0.83 0.1013 230.32);
   --background: oklch(0.21 0.0398 265.75);
   --background-dark: oklch(0.13 0.0406 264.7);
-  --neutral:oklch(0.71 0.0351 256.79);
+  /* --neutral:oklch(0.71 0.0351 256.79); */
   --neutral-light: oklch(0.87 0.0198 252.89);
   --success: oklch(0.7 0.1491 162.48);
   --alert: oklch(0.64 0.2078 25.33);
   --notice: oklch(0.86 0.1731 91.94);
+  --caramel: oklch(66.14% 0.0661 72.71);
 }
 
 /* pagination style */
