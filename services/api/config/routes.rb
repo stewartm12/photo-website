@@ -17,7 +17,12 @@ Rails.application.routes.draw do
   get '/favicon.ico', to: proc { [204, {}, []] }
 
   # Defines the root path route ("/")
-  root 'welcome#index'
+  root 'pages#welcome'
+
+  get '/welcome', to: 'pages#welcome'
+  get '/features', to: 'pages#features'
+  get '/faqs', to: 'pages#faqs'
+  get '/developers_info', to: 'pages#developers_info'
 
   resource :session
   resource :password, param: :token
