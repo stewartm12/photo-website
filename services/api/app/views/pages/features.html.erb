@@ -1,0 +1,151 @@
+<%= content_tag :section, class: 'py-12 md:py-24 bg-gradient-to-b from-[oklch(95%_0.03_72.71)] to-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 text-center mx-auto' do %>
+    <%= content_tag :h1, 'Powerful Photo Management Features', class: 'text-3xl font-bold tracking-tighter sm:text-5xl' %>
+    <%= content_tag :p, 'Pix Cloud provides everything you need to store, organize, and share your photos with the world.', class: 'mx-auto mt-4 max-w-[700px] text-gray-500 md:text-xl' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'grid gap-12 md:grid-cols-2 md:gap-16' do %>
+      <%= content_tag :div, class: 'space-y-4' do %>
+        <%= content_tag :div, class: 'inline-flex size-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'building-storefront', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h2, 'Multiple Stores', class: 'text-2xl font-bold' %>
+        <%= content_tag :p, 'Create and manage multiple stores for different projects, clients, or purposes. Each store can have its own settings, permissions, and organization structure.', class: 'text-gray-500' %>
+        <%= content_tag :ul, class: 'grid gap-2' do %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Unlimited stores on paid plans' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Custom domain for each store' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Separate access controls and permissions' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-xl border bg-gray-400 overflow-hidden' do %>
+        <%= image_tag 'cat-photo-1.jpg', class: 'h-full w-full object-cover' %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'grid gap-12 md:grid-cols-2 md:gap-16' do %>
+      <%= content_tag :div, class: 'order-2 md:order-1 rounded-xl border bg-background overflow-hidden' do %>
+        <%= image_tag 'cat-photo-1.jpg', class: 'h-full w-full object-cover' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'order-1 md:order-2 space-y-4' do %>
+        <%= content_tag :div, class: 'inline-flex size-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'photo', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h2, 'Collections & Galleries', class: 'text-2xl font-bold' %>
+        <%= content_tag :p, 'Organize your photos into collections for each photoshoot or event, then group them into galleries for easy browsing and presentation.', class: 'text-gray-500' %>
+        <%= content_tag :ul, class: 'grid gap-2' do %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Drag-and-drop organization' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Custom ordering and sorting' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Batch editing and tagging' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'grid gap-12 md:grid-cols-2 md:gap-16' do %>
+      <%= content_tag :div, class: 'space-y-4' do %>
+        <%= content_tag :div, class: 'inline-flex size-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'server-stack', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h2, 'API Integration', class: 'text-2xl font-bold' %>
+        <%= content_tag :p, 'Easily integrate your photos into any website with our powerful REST API and GraphQL endpoints.', class: 'text-gray-500' %>
+        <%= content_tag :ul, class: 'grid gap-2' do %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'RESTful API for simple integration' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'GraphQL for complex queries' %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2' do %>
+            <%= icon 'check', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+            <%= content_tag :span, 'Webhooks for real-time updates' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-xl border border-gray-400 bg-white p-4 shadow-sm' do %>
+        <%= content_tag :pre, class: 'overflow-x-auto text-xs text-left md:text-sm font-mono' do %>
+          <%= content_tag :code, class: 'language-graphql' do %>
+<%= <<~GRAPHQL.strip.html_safe %>
+              query GetCollectionPhotos {
+                collection(id: "collection_123") {
+                  id
+                  name
+                  photos {
+                    id
+                    url
+                    width
+                    height
+                    description
+                    order
+                  }
+                }
+              }
+            GRAPHQL
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :h2, 'More Powerful Features', class: 'text-2xl font-bold text-center mb-12' %>
+    <%= content_tag :div, class: 'grid gap-8 md:grid-cols-3' do %>
+      <%= content_tag :div, class: 'bg-white rounded-lg p-6 shadow-sm' do %>
+        <%= content_tag :div, class: 'inline-flex h-10 w-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'bolt', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, 'Fast CDN Delivery', class: 'text-xl font-bold mb-2' %>
+        <%= content_tag :p, 'All your photos are served from our global CDN network, ensuring fast loading times for your visitors no matter where they are.', class: 'text-gray-500' %>
+      <% end %>
+      <%= content_tag :div, class: 'bg-white rounded-lg p-6 shadow-sm' do %>
+        <%= content_tag :div, class: 'inline-flex h-10 w-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'share', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, 'Easy Sharing', class: 'text-xl font-bold mb-2' %>
+        <%= content_tag :p, 'Generate shareable links for collections or individual photos. Control access with password protection or expiration dates.', class: 'text-gray-500' %>
+      <% end %>
+      <%= content_tag :div, class: 'bg-white rounded-lg p-6 shadow-sm' do %>
+        <%= content_tag :div, class: 'inline-flex h-10 w-10 items-center justify-center rounded-full bg-[oklch(90%_0.04_72.71)]' do %>
+          <%= icon 'shield-check', class: 'size-6 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+        <%= content_tag :h3, 'Secure Storage', class: 'text-xl font-bold mb-2' %>
+        <%= content_tag :p, 'Your photos are stored securely with encryption at rest and in transit. Regular backups ensure your data is always safe.', class: 'text-gray-500' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
