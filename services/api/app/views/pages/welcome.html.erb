@@ -1,4 +1,4 @@
-<%= content_tag :section, class: 'py-20 md:py-32 bg-gradient-to-b from-caramel-light to-white flex' do %>
+<%= content_tag :section, class: 'py-20 md:py-32 bg-gradient-to-b from-[oklch(95%_0.03_72.71)] to-white flex' do %>
   <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
     <%= content_tag :div, class: 'grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2' do %>
       <%= content_tag :div, class: 'flex flex-col justify-center space-y-4' do %>
@@ -15,14 +15,14 @@
       <% end %>
 
       <%= content_tag :div, class: 'mx-auto lg:mt-0 lg:flex' do %>
-        <%= content_tag :div, class: 'relative w-full max-w-[550px] overflow-hidden rounded-xl border bg-white shadow-xl' do %>
-          <%= content_tag :div, class: 'flex items-center justify-between border-b px-4 py-2' do %>
+        <%= content_tag :div, class: 'relative w-full max-w-[550px] overflow-hidden rounded-xl border border-gray-400 bg-white shadow-xl' do %>
+          <%= content_tag :div, class: 'flex items-center justify-between border-b border-gray-400 px-4 py-2' do %>
             <%= content_tag :div, class: 'flex items-center gap-2' do %>
               <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-red-500' %>
               <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-yellow-500' %>
               <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-green-500' %>
             <% end %>
-            <%= content_tag :div, 'Collection Preview', class: 'text-xs font-medium' %>
+            <%= content_tag :div, 'Cat Collection', class: 'text-xs font-medium' %>
             <%= content_tag :div, nil, class: 'w-14' %>
           <% end %>
 
@@ -133,7 +133,7 @@
         <% end %>
       <% end %>
       <%= content_tag :div, class: 'lg:mt-0' do %>
-        <%= content_tag :div, class: 'rounded-xl border bg-card p-4 shadow-sm' do %>
+        <%= content_tag :div, class: 'rounded-xl border bg-white p-4 shadow-sm' do %>
           <%= content_tag :pre, class: 'overflow-x-auto text-xs text-left md:text-sm font-mono' do %>
             <%= content_tag :code, class: 'language-graphql' do %>
 <%= <<~GRAPHQL.strip.html_safe %>

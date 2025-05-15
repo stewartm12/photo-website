@@ -1,0 +1,37 @@
+<%= content_tag :section, class: 'py-12 md:py-24 bg-gradient-to-b from-[oklch(95%_0.03_72.71)] to-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 text-center mx-auto' do %>
+    <%= content_tag :h1, 'Frequently Asked Questions', class: 'text-3xl font-bold tracking-tighter sm:text-5xl' %>
+    <%= content_tag :p, 'Find answers to common questions about Pix Cloud.', class: 'mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :section, class: 'py-12 md:py-24 bg-white' do %>
+  <%= content_tag :div, class: 'container px-4 md:px-6 mx-auto' do %>
+    <%= content_tag :div, class: 'mx-auto max-w-3xl' do %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'What is Pix Cloud?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, 'Pix Cloud is a platform that allows photographers, businesses, and developers to store, organize, and share photos. It provides tools for creating galleries and collections, and offers API endpoints for integrating photos into websites and applications.' %>
+      <% end %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'How does the organization structure work?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, 'Cloud Photos uses a hierarchical organization structure. At the top level, you have stores, which can contain multiple galleries. Each gallery can contain multiple collections, which represent photoshoots or events. Collections contain the actual photos. This structure allows for flexible organization of your photos.' %>
+      <% end %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'What file formats are supported?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, 'Cloud Photos supports all common image formats, including JPEG, PNG, WebP, HEIC, and RAW files from most camera manufacturers. We automatically generate optimized versions of your photos for web display while preserving the original files.' %>
+      <% end %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'How secure are my photos?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, 'Your photos are stored securely with encryption at rest and in transit. We use industry-standard security practices to protect your data. You can also control access to your photos with password protection and expiration dates for shared links.' %>
+      <% end %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'Is there a limit to the number of photos I can upload?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, 'There is no limit to the number of photos you can upload.' %>
+      <% end %>
+      <%= content_tag :div, class: 'border-b border-b-gray-200 pb-4' do %>
+        <%= content_tag :h3, 'What are the storage limits?', class: 'text-lg font-semibold leading-none tracking-tight mt-4 hover:underline' %>
+        <%= content_tag :p, "Currently, there are no storage limits in place. We're still testing different plan options and determining whether storage limits will be set at 10 GB, 30 GB, or another amount." %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

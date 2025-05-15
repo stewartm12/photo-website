@@ -21,16 +21,21 @@
         <% end %>
       <% end %>
     <% elsif Current.user.present? %>
-      <%= content_tag :div, class: 'flex space-x-2 items-center text-xs' do %>
+      <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-xs' do %>
         <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
+        <%= button_to 'Sign Out',
+          session_path,
+          method: :delete,
+          data: { turbo_confirm: 'Are you sure you want to delete this gallery?' },
+          class: 'text-red-500 font-medium text-sm hover:underline cursor-pointer' %>
       <% end %>
     <% else %>
-      <%= content_tag :div, class: 'flex space-x-3' do %>
-        <%= link_to 'Features', features_path, class: "hover:underline #{'underline' if current_page?(features_path)}" %>
-        <%= link_to 'Developers', developers_info_path, class: "hover:underline #{'underline' if current_page?(developers_info_path)}" %>
-        <%= link_to 'FAQ', faqs_path, class: "hover:underline #{'underline' if current_page?(faqs_path)}" %>
+      <%= content_tag :div, class: 'hidden md:flex space-x-3' do %>
+        <%= link_to 'Features', features_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(features_path)}" %>
+        <%= link_to 'Developers', developers_info_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(developers_info_path)}" %>
+        <%= link_to 'FAQ', faqs_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(faqs_path)}" %>
       <% end %>
-      <%= content_tag :div, class: 'flex space-x-2 items-center text-sm' do %>
+      <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-sm' do %>
         <%= link_to 'Log In', new_session_path %>
         <%= link_to 'Get Started', new_registration_path, class: 'bg-caramel rounded-md p-2 hover:cursor-pointer hover:bg-caramel-dark' %>
       <% end %>
@@ -62,9 +67,35 @@
         <% end %>
       <% end %>
 
-      <%= nav_link_to edit_store_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-1 rounded-md' do %>
-        <%= icon 'cog-8-tooth', class: 'size-4' %>
-        <%= content_tag :p, 'Setting' %>
+      <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
+        <%= nav_link_to edit_store_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-1 rounded-md' do %>
+          <%= icon 'cog-8-tooth', class: 'size-4' %>
+          <%= content_tag :p, 'Setting' %>
+        <% end %>
+        <%= button_to 'Sign Out',
+          session_path,
+          method: :delete,
+          data: { turbo_confirm: 'Are you sure you want to delete this gallery?' },
+          class: 'text-red-500 font-medium text-sm hover:underline cursor-pointer' %>
+      <% end %>
+
+    <% elsif Current.user.present? %>
+      <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
+        <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
+        <%= button_to 'Sign Out',
+          session_path,
+          method: :delete,
+          data: { turbo_confirm: 'Are you sure you want to delete this gallery?' },
+          class: 'text-red-500 font-medium text-sm hover:underline cursor-pointer' %>
+      <% end %>
+    <% else %>
+      <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
+        <%= link_to 'Home', root_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%= link_to 'Features', features_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%= link_to 'Developers', developers_info_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%= link_to 'FAQs', faqs_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%= link_to 'Log In', new_session_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%= link_to 'Sign Up', new_registration_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
       <% end %>
     <% end %>
   <% end %>
