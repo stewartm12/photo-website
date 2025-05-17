@@ -53,13 +53,13 @@
   a:not(.gap) {
     @apply block rounded-sm p-[10px] bg-white border;
     &:hover {
-      @apply bg-gray-300;
+      @apply bg-gray-100;
     }
     &:not([href]) { /* disabled links */
       @apply text-gray-300 bg-gray-100 cursor-default;
     }
     &.current {
-      @apply bg-black text-white p-[10px];
+      @apply bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white p-[10px];
     }
   }
   label {
