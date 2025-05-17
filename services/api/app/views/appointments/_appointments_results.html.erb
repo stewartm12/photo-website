@@ -1,0 +1,98 @@
+<%= form_with url: store_appointments_path(Current.store), method: :get,
+  data: {
+    turbo_frame: 'appointments_results',
+    turbo_action: 'advance',
+    controller: 'submit',
+    action: 'input->submit#submit'
+  } do |f| %>
+  <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 md:flex-row md:items-center md:justify-between mb-8 ' do %>
+    <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+      <%= f.search_field :customer_search, value: params[:customer_search], autocomplete: 'customer-search', placeholder: 'Search Appointments...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+    <% end %>
+    <%= content_tag :div, class: 'flex flex-wrap gap-2' do %>
+      <%= content_tag :div, class: 'flex items-center gap-2' do %>
+        <%= content_tag :span, 'Filter By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+        <%= f.select :status, options_for_select(Appointment.statuses.keys, params[:status]), { include_blank: 'Select Status' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @appointments.any? %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
+    <%= content_tag :div, class: 'overflow-x-auto' do %>
+      <%= content_tag :table, class: 'w-full' do %>
+        <%= content_tag :thead do %>
+          <%= content_tag :tr, class: 'border-b border-gray-300 bg-stone-200' do %>
+            <%= content_tag :th, 'Customer', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Package', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Date & Time', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Status', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Created', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Actions', class: 'px-4 py-3 text-left' %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :tbody do %>
+          <% @appointments.each do |appointment| %>
+            <%= content_tag :tr, class: 'border-b border-gray-300 odd:bg-white even:bg-stone-100' do %>
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex flex-col' do %>
+                  <%= content_tag :span, appointment.customer.full_name, class: 'font-medium' %>
+                  <%= content_tag :span, appointment.customer.email, class: 'text-sm text-gray-500 truncate max-w-[200px]' %>
+                <% end %>
+              <% end %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex items-center gap-2' do %>
+                  <%= icon 'cube', class: 'size-4 text-gray-500' %>
+                  <%= content_tag :span, appointment.package.gallery.name %>
+                <% end %>
+                <%= content_tag :span, "$#{appointment.package.price}", class: 'text-sm text-gray-500' %>
+              <% end %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex items-center gap-1' do %>
+                  <%= icon 'calendar', class: 'size-4 text-gray-500' %>
+                  <%= content_tag :span, appointment.preferred_date_time.strftime("%-m/%-d/%Y") %>
+                <% end %>
+                <%= content_tag :div, class: 'flex items-center gap-1 text-sm text-gray-500' do %>
+                  <%= icon 'clock', class: 'size-4 text-gray-500' %>
+                  <%= content_tag :span, appointment.preferred_date_time.strftime("%-l:%M%p")%>
+                <% end %>
+              <% end %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= appointment_badge_status(appointment) %>
+              <% end %>
+
+              <%= content_tag :td, appointment.created_at.strftime("%-m/%-d/%Y"), class: 'px-4 py-3 text-gray-500' %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex gap-2' do %>
+                  <%= link_to store_appointment_path(Current.store, appointment), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
+                  <% end %>
+                  <%= link_to edit_store_appointment_path(Current.store, appointment), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= content_tag :div, class: 'p-4 text-center' do %>
+    <%= content_tag :h3, 'No existing appointments yet in your store.',
+      class: 'text-lg font-semibold mb-2' %>
+    <%= content_tag :p, 'To create an appointment, please click on the Create Gallery button above.', class: 'text-sm text-gray-500 mb-4' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'flex items-center justify-between mt-6' do %>
+  <%== pagy_info(@pagy) %>
+  <%== pagy_nav(@pagy) %>
+<% end %>

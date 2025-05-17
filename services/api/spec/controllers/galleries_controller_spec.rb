@@ -13,11 +13,11 @@ RSpec.describe GalleriesController, type: :controller do
     context 'when user is authenticated' do
       let(:user) { create(:user) }
       let(:store) { create(:store, owner: user) }
-      let!(:store_membership) { create(:store_membership, store: store, user: user) }
       let(:session) { create(:session, user: user) }
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
       before do
+        create(:store_membership, store: store, user: user)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -42,7 +42,7 @@ RSpec.describe GalleriesController, type: :controller do
         let(:full_gallery) { create(:gallery, store: store, name: 'full gallery', slug: 'full-gallery') }
 
         it 'filters galleries by name' do
-          get :index, params: { store_slug: store.slug, search: 'empty' }
+          get :index, params: { store_slug: store.slug, name: 'empty' }
 
           expect(controller.instance_variable_get(:@galleries)).to include(empty_gallery)
           expect(controller.instance_variable_get(:@galleries)).not_to include(full_gallery)

@@ -27,6 +27,25 @@ module ApplicationHelper
     end
   end
 
+  def appointment_badge_status(appt)
+    status_classes = {
+      pending:     'bg-yellow-100 text-yellow-700',
+      confirmed:   'bg-blue-100 text-blue-700',
+      in_progress: 'bg-indigo-100 text-indigo-700',
+      editing:     'bg-purple-100 text-purple-700',
+      delivered:   'bg-teal-100 text-teal-700',
+      completed:   'bg-green-100 text-green-700',
+      cancelled:   'bg-red-100 text-red-700',
+      no_show:     'bg-gray-100 text-gray-700'
+    }
+
+    status = status_classes[appt.status.to_sym]
+
+    content_tag :div, class: "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent #{status}" do
+      appt.status
+    end
+  end
+
   def store_abbreviation
     words = Current.store.name.to_s.split
 

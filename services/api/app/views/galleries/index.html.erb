@@ -4,7 +4,7 @@
       <%= content_tag :h1, 'Galleries', class: 'text-2xl font-bold' %>
       <%= content_tag :p, 'Manage your photo galleries', class: 'text-gray-500' %>
     <% end %>
-    <%= link_to new_store_gallery_path, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
+    <%= link_to new_store_gallery_path(Current.store), class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
       <%= icon 'plus' %>
       <%= content_tag :span, 'New Gallery' %>
     <% end %>

@@ -1,4 +1,3 @@
-
 <%= content_tag :div, class: 'p-6' do %>
   <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between mb-8' do %>
     <%= content_tag :div do %>
@@ -7,11 +6,11 @@
     <% end %>
 
     <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
-      <%= link_to root_path, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
+      <%= link_to new_store_gallery_path(Current.store), class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
         <%= icon 'arrow-up-tray' %>
         <%= content_tag :span, 'New Gallery' %>
       <% end %>
-      <%= link_to new_store_gallery_path, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 border border-gray-300 bg-white h-10 px-4 py-2 hover:bg-gray-100' do %>
+      <%= link_to new_store_gallery_path(Current.store), class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 border border-gray-300 bg-white h-10 px-4 py-2 hover:bg-gray-100' do %>
         <%= icon 'plus' %>
         <%= content_tag :span, 'New Gallery' %>
       <% end %>
