@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_29_213201) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_17_223002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -95,6 +96,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_29_213201) do
     t.datetime "updated_at", null: false
     t.bigint "store_id", null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["first_name", "last_name", "email"], name: "index_customers_on_first_name_and_last_name_and_email", opclass: :gin_trgm_ops, using: :gin
     t.index ["store_id"], name: "index_customers_on_store_id"
   end
 
