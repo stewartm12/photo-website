@@ -1,4 +1,7 @@
 <%= content_tag :div, class: "min-h-screen px-6 py-8" do %>
+  <%= content_tag :div, class: 'container mx-auto flex justify-center p-4 mb-4' do %>
+    <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
+  <% end %>
   <%= content_tag :div, class: 'flex items-center justify-between mb-8' do %>
     <%= content_tag :div do %>
       <%= content_tag :h1, 'Your Stores', class: "text-3xl font-bold mb-1" %>

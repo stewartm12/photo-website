@@ -1,4 +1,8 @@
-<%= content_tag :div, class: "min-h-screen flex items-center justify-center bg-gray-100" do %>
+<%= content_tag :div, class: "min-h-screen flex flex-col space-y-2 items-center justify-center bg-gray-100" do %>
+  <%= link_to root_path, class: 'flex items-center text-sm text-gray-500 hover:underline' do %>
+    <%= icon "arrow-left", class: "size-4" %> Back to Home Page
+  <% end %>
+
   <%= content_tag :div, class: "w-full max-w-md bg-white backdrop-blur p-6 rounded-xl shadow-lg" do %>
     <%= content_tag :h2, "Sign Up", class: "text-3xl font-semibold text-center mb-6" %>
 

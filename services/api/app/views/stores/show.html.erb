@@ -1,0 +1,178 @@
+<%= content_tag :div, class: 'p-6' do %>
+  <%= content_tag :div, class: 'max-w-7xl mx-auto' do %>
+    <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between mb-8' do %>
+      <%= content_tag :div do %>
+        <%= content_tag :h1, Current.store.name, class: 'text-2xl font-bold' %>
+        <%= content_tag :p, 'Dashboard Overview', class: 'text-gray-500' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
+        <%= link_to root_path, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
+          <%= icon 'arrow-up-tray' %>
+          <%= content_tag :span, 'New Gallery' %>
+        <% end %>
+        <%= link_to new_store_gallery_path, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 border border-gray-300 bg-white h-10 px-4 py-2 hover:bg-gray-100' do %>
+          <%= icon 'plus' %>
+          <%= content_tag :span, 'New Gallery' %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8' do %>
+      <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :h3, 'Galleries', class: 'tracking-tight text-sm font-medium text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+            <%= icon 'table-cells', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+            <%= content_tag :span, @total_galleries, class: 'text-2xl font-bold' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :h3, 'Collections', class: 'tracking-tight text-sm font-medium text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+            <%= icon 'folder-open', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+            <%= content_tag :span, @total_collections, class: 'text-2xl font-bold' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :h3, 'Photos', class: 'tracking-tight text-sm font-medium text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+            <%= icon 'photo', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+            <%= content_tag :span, @total_photos, class: 'text-2xl font-bold' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :h3, 'Appointments', class: 'tracking-tight text-sm font-medium text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+            <%= icon 'calendar', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+            <%= content_tag :span, @total_appointments, class: 'text-2xl font-bold' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :h3, 'Customers', class: 'tracking-tight text-sm font-medium text-gray-500' %>
+        <% end %>
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+            <%= icon 'users', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+            <%= content_tag :span, @total_customers, class: 'text-2xl font-bold' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid grid-cols-1 lg:grid-cols-3 gap-8' do %>
+      <%= content_tag :div, class: 'lg:col-span-2' do %>
+        <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm h-full' do %>
+          <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center justify-between' do %>
+            <%= content_tag :div do %>
+              <%= content_tag :h3, 'Recent Galleries', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+              <%= content_tag :p, 'Your most recently created galleries', class: 'text-sm text-gray-500' %>
+            <% end %>
+            <%= link_to store_galleries_path(Current.store), class: 'inline-flex items-center justify-center text-sm font-medium hover:bg-gray-100 hover:text-black h-9 rounded-md px-3 gap-1 text-[oklch(66.14%_0.0661_72.71)]' do %>
+              <%= content_tag :span, 'View All'  %>
+              <%= icon 'arrow-right', class: 'size-4' %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :div, class: 'p-6 pt-0' do %>
+            <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
+              <% @recent_galleries.each do |gallery| %>
+                <%= content_tag :div, class: 'flex border border-gray-300 rounded-lg overflow-hidden' do %>
+                  <%= content_tag :div, class: 'flex-1 p-3' do %>
+                    <%= content_tag :h3, gallery.name, class: 'font-medium' %>
+                    <%= content_tag :p, "#{gallery.photos.size} photos", class: 'text-sm text-gray-500' %>
+                    <%= link_to 'View Gallery', store_gallery_path(Current.store, gallery), class: 'inline-flex items-center justify-center gap-2 text-sm font-medium underline-offset-4 hover:underline rounded-md p-0 h-auto text-[oklch(66.14%_0.0661_72.71)]' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'space-y-8' do %>
+        <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+          <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+            <%= content_tag :h3, 'Upcoming Appointments', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+            <%= content_tag :p, 'Your scheduled appointments', class: 'text-sm text-gray-500' %>
+          <% end %>
+
+          <%= content_tag :div, class: 'p-6 pt-0' do %>
+            <%= content_tag :div, class: 'space-y-4' do %>
+              <% @upcoming_appointments.each do |appt| %>
+                <%= content_tag :div, class: 'flex items-start' do %>
+                  <%= content_tag :div, class: 'bg-[oklch(95%_0.03_72.71)] p-2 rounded-md mr-3' do %>
+                    <%= icon 'calendar', class: 'size-5 text-[oklch(66.14%_0.0661_72.71)]' %>
+                  <% end %>
+
+                  <%= content_tag :div do %>
+                    <%= content_tag :h4, appt.package.gallery.name, class: 'font-medium' %>
+                    <%= content_tag :div, class: 'text-sm text-gray-500 flex items-center mt-1' do %>
+                      <%= icon 'clock', class: 'size-3 mr-1' %>
+                      <%= content_tag :p, appt.preferred_date_time.strftime("%B %d, %Y at %I:%M %p") %>
+                    <% end %>
+                    <%= content_tag :p, appt.customer.full_name, class: 'text-sm text-gray-500' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :div, class: 'flex justify-center items-center p-6 pt-0' do %>
+            <%= link_to store_appointments_path(Current.store), class: 'inline-flex items-center justify-center text-sm font-medium hover:bg-gray-100 hover:text-black h-9 rounded-md px-3 gap-1 text-[oklch(66.14%_0.0661_72.71)]' do %>
+              <%= content_tag :span, 'View all appointments'  %>
+              <%= icon 'arrow-right', class: 'size-4' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+          <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+            <%= content_tag :h3, 'Recent Customers', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+            <%= content_tag :p, 'Your newest customers', class: 'text-sm text-gray-500' %>
+          <% end %>
+
+          <%= content_tag :div, class: 'p-6 pt-0' do %>
+            <%= content_tag :div, class: 'space-y-4' do %>
+              <% @newest_customers.each do |customer| %>
+                <%= content_tag :div, class: 'flex items-center' do %>
+                  <%= content_tag :div do %>
+                    <%= content_tag :h4, customer.full_name, class: 'font-medium' %>
+                    <%= content_tag :p, customer.email, class: 'text-sm text-gray-500' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :div, class: 'flex justify-center items-center p-6 pt-0' do %>
+            <%= link_to store_customers_path(Current.store), class: 'inline-flex items-center justify-center text-sm font-medium hover:bg-gray-100 hover:text-black h-9 rounded-md px-3 gap-1 text-[oklch(66.14%_0.0661_72.71)]' do %>
+              <%= content_tag :span, 'View all customers'  %>
+              <%= icon 'arrow-right', class: 'size-4' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

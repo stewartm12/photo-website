@@ -4,10 +4,18 @@ class StoresController < ApplicationController
   end
 
   def show
-    @store = Store.find_by(slug: params[:store_slug])
-    @galleries = @store.galleries
-    @collections = @store.collections
-    @appointments = @store.appointments
+    @total_galleries = Current.store.galleries.count
+    @total_collections = Collection.joins(:gallery).where(galleries: { store: Current.store }).count
+    @total_appointments = Current.store.appointments.count
+    @total_customers = Current.store.customers.count
+    @total_photos = Photo.joins('INNER JOIN collections ON collections.id = photos.imageable_id')
+                    .joins('INNER JOIN galleries ON galleries.id = collections.gallery_id')
+                    .where(photos: { imageable_type: 'Collection' }, galleries: { store_id: Current.store.id })
+                    .count
+
+    @recent_galleries = Current.store.galleries.order(id: :desc).limit(5).includes(collections: :photos)
+    @upcoming_appointments = Current.store.appointments.where(status: 'pending').order(preferred_date_time: :desc).limit(5)
+    @newest_customers = Current.store.customers.order(id: :desc).limit(3)
   end
 
   def new

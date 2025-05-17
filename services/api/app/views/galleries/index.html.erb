@@ -1,14 +1,16 @@
-<%= content_tag :div, class: 'mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between' do %>
-  <%= content_tag :div do %>
-    <%= content_tag :h2, 'Galleries', class: 'text-2xl font-bold' %>
-    <%= content_tag :p, 'Manage your photography galleries and collections', class: 'text-gray-500' %>
-  <% end %>
-  <%= link_to new_store_gallery_path, class: 'inline-flex items-center gap-2 bg-white px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' do %>
-      <%= icon 'plus' %>
-      <%= content_tag :span, 'New Gallery' %>
+<%= content_tag :div, class: 'p-4' do %>
+  <%= content_tag :div, class: 'mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :h2, 'Galleries', class: 'text-2xl font-bold' %>
+      <%= content_tag :p, 'Manage your photography galleries and collections', class: 'text-gray-500' %>
     <% end %>
-<% end %>
+    <%= link_to new_store_gallery_path, class: 'inline-flex items-center gap-2 bg-white px-4 py-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' do %>
+        <%= icon 'plus' %>
+        <%= content_tag :span, 'New Gallery' %>
+      <% end %>
+  <% end %>
 
-<%= turbo_frame_tag 'galleries_results' do %>
-  <%= render 'galleries/galleries_results' %>
+  <%= turbo_frame_tag 'galleries_results' do %>
+    <%= render 'galleries/galleries_results' %>
+  <% end %>
 <% end %>
