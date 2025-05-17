@@ -53,15 +53,17 @@ RSpec.describe StoresController, type: :controller do
       let(:session) { create(:session, user: user) }
       let(:store) { create(:store) }
       let(:customer) { create(:customer, store: store) }
-      let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
-      let(:collection) { create(:collection, gallery: gallery) }
+      let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
+      let!(:collection) { create(:collection, gallery: gallery) }
       let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let!(:old_appointment) { create(:appointment, package: package, customer: customer, store: store, status: 'completed') }
 
       before do
         create(:store_membership, user: user, store: store)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
+        allow(Current).to receive(:store).and_return(store)
       end
 
       it 'returns a successful response' do
@@ -70,13 +72,32 @@ RSpec.describe StoresController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'assigns all @ variables' do
+      it 'grabs all the total for galleries, collections, appointments, customers and photos' do
         get :show, params: { store_slug: store.slug }
 
-        expect(controller.instance_variable_get(:@store)).to eq(store)
-        expect(controller.instance_variable_get(:@galleries)).to match_array([gallery])
-        expect(controller.instance_variable_get(:@collections)).to match_array([collection])
-        expect(controller.instance_variable_get(:@appointments)).to match_array([appointment])
+        expect(controller.instance_variable_get(:@total_galleries)).to eq(1)
+        expect(controller.instance_variable_get(:@total_collections)).to eq(1)
+        expect(controller.instance_variable_get(:@total_appointments)).to eq(2)
+        expect(controller.instance_variable_get(:@total_customers)).to eq(1)
+        expect(controller.instance_variable_get(:@total_photos)).to eq(0)
+      end
+
+      it 'grabs the recent galleries' do
+        get :show, params: { store_slug: store.slug }
+
+        expect(controller.instance_variable_get(:@recent_galleries)).to match_array([gallery])
+      end
+
+      it 'grabs the upcoming appointments' do
+        get :show, params: { store_slug: store.slug }
+
+        expect(controller.instance_variable_get(:@upcoming_appointments)).to match_array([appointment])
+      end
+
+      it 'grabs the newest customers' do
+        get :show, params: { store_slug: store.slug }
+
+        expect(controller.instance_variable_get(:@newest_customers)).to match_array([customer])
       end
     end
   end

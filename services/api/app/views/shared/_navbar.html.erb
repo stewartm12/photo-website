@@ -13,16 +13,10 @@
 
     <% if Current.store.present? %>
       <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-xs' do %>
-        <%= content_tag :div, class: 'bg-caramel size-10 rounded-md flex justify-center items-center text-black' do %>
-          <%= store_abbreviation %>
-        <% end %>
-        <%= content_tag :div do %>
-          <%= Current.store.name %>
-        <% end %>
+        <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
       <% end %>
     <% elsif Current.user.present? %>
       <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-xs' do %>
-        <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
         <%= button_to 'Sign Out',
           session_path,
           method: :delete,
@@ -45,23 +39,23 @@
   <%= content_tag :nav, class: 'bg-stone-200 absolute flex flex-col justify-between text-center p-3 w-1/2 h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ease-in-out transform -translate-x-full', data: { navbar_target: 'content' } do %>
     <% if Current.store.present? %>
       <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
-        <%= nav_link_to store_home_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+        <%= nav_link_to store_home_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-2 rounded-md' do %>
           <%= icon 'home', class: 'size-4' %>
           <%= content_tag :p, 'Home' %>
         <% end %>
-        <%= nav_link_to store_galleries_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+        <%= nav_link_to store_galleries_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-2 rounded-md' do %>
           <%= icon 'square-3-stack-3d', class: 'size-4' %>
           <%= content_tag :p, 'Galleries' %>
         <% end %>
-        <%= nav_link_to store_appointments_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+        <%= nav_link_to store_appointments_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-2 rounded-md' do %>
           <%= icon 'inbox', class: 'size-4' %>
           <%= content_tag :p, 'Appointments' %>
         <% end %>
-        <%= nav_link_to store_customers_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+        <%= nav_link_to store_customers_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-2 rounded-md' do %>
           <%= icon 'user', class: 'size-4' %>
           <%= content_tag :p, 'Customers' %>
         <% end %>
-        <%= nav_link_to store_pricings_path(Current.store), class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' do %>
+        <%= nav_link_to store_pricings_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-2 rounded-md' do %>
           <%= icon 'banknotes', class: 'size-4' %>
           <%= content_tag :p, 'Pricings' %>
         <% end %>
@@ -81,7 +75,6 @@
 
     <% elsif Current.user.present? %>
       <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
-        <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
         <%= button_to 'Sign Out',
           session_path,
           method: :delete,

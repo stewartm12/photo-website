@@ -45,7 +45,7 @@ module ApplicationHelper
   end
 
   def nav_link_to(name = nil, options = nil, html_options = nil, &block)
-    active_class = current_page?(name) ? 'bg-stone-100' : ''
+    active_class = current_page?(name) ? 'bg-[oklch(95%_0.03_72.71)] text-[oklch(66.14%_0.0661_72.71)]' : ''
     options[:class] = "#{options[:class]} #{active_class}".strip
     link_to(name, options, html_options, &block)
   end

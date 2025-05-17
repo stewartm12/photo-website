@@ -14,6 +14,9 @@ class GraphqlController < ApiController
     domain = request.headers['X-Store-Domain']
     current_store = Store.find_by(domain: domain)
 
+    # Raise error if store not found
+    raise ActiveRecord::RecordNotFound, "Store not found for domain: #{domain}" unless current_store
+
     context = {
       current_store: current_store
     }
