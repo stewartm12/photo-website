@@ -1,0 +1,70 @@
+<%= form_with url: store_customers_path(Current.store), method: :get,
+  data: {
+    turbo_frame: 'customers_results',
+    turbo_action: 'advance',
+    controller: 'submit',
+    action: 'input->submit#submit'
+  } do |f| %>
+  <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 md:flex-row md:items-center md:justify-between mb-8 ' do %>
+    <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+      <%= f.search_field :customer_search, value: params[:customer_search], autocomplete: 'customer-search', placeholder: 'Search customers...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @customers.any? %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
+    <%= content_tag :div, class: 'overflow-x-auto' do %>
+      <%= content_tag :table, class: 'w-full' do %>
+        <%= content_tag :thead do %>
+          <%= content_tag :tr, class: 'border-b border-gray-300 bg-stone-200' do %>
+            <%= content_tag :th, 'Full Name', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Email', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Added', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Actions', class: 'px-4 py-3 text-left' %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :tbody do %>
+          <% @customers.each do |customer| %>
+            <%= content_tag :tr, class: 'border-b border-gray-300 odd:bg-white even:bg-stone-100' do %>
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                  <%= content_tag :span, customer.full_name, class: 'font-medium' %>
+              <% end %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex items-center gap-2' do %>
+                  <%= icon 'envelope', class: 'size-4 text-gray-500' %>
+                  <%= content_tag :span, customer.email %>
+                <% end %>
+              <% end %>
+
+              <%= content_tag :td, customer.created_at.strftime("%-m/%-d/%Y"), class: 'px-4 py-3 text-gray-500' %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex gap-2' do %>
+                  <%= link_to store_customer_path(Current.store, customer), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
+                  <% end %>
+                  <%= link_to edit_store_customer_path(Current.store, customer), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= content_tag :div, class: 'p-4 text-center' do %>
+    <%= content_tag :h3, 'No existing customers yet in your store.',
+      class: 'text-lg font-semibold mb-2' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'flex items-center justify-between mt-6' do %>
+  <%== pagy_info(@pagy) %>
+  <%== pagy_nav(@pagy) %>
+<% end %>
