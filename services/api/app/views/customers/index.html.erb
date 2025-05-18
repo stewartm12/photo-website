@@ -1,0 +1,12 @@
+<%= content_tag :div, class: 'p-6' do %>
+  <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between mb-8' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :h1, 'Customers', class: 'text-2xl font-bold' %>
+      <%= content_tag :p, 'Manage your customer database', class: 'text-gray-500' %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag 'customers_results' do %>
+    <%= render 'customers/customers_results' %>
+  <% end %>
+<% end %>

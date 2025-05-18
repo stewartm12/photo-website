@@ -29,7 +29,7 @@ RSpec.describe AppointmentsController, type: :controller do
       end
 
       it 'returns a successful response' do
-        get :show, params: { store_slug: store.slug, id: collection.id }
+        get :index, params: { store_slug: store.slug }
 
         expect(response).to have_http_status(:ok)
       end
