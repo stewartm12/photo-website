@@ -6,7 +6,7 @@ class Gallery < ApplicationRecord
   has_many :photos, through: :collections
   has_many :packages, dependent: :destroy
   has_many :add_ons, dependent: :destroy
-  belongs_to :store
+  belongs_to :store, counter_cache: true
 
   accepts_nested_attributes_for :photo
 
