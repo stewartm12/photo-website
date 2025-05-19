@@ -67,7 +67,7 @@ class GalleriesController < ApplicationController
 
   def filtered_galleries
     Current.store.galleries
-         .includes(collections: :photos)
+         .includes(collections: { photos: :image_attachment }, photos: :image_attachment)
          .then { |g| search_params[:name].present? ? g.where('name ILIKE ?', "%#{search_params[:name]}%") : g }
          .then { |g| search_params[:status].present? ? g.where(active: search_params[:status]) : g }
          .then { |g| g.order(safe_sort_order) }
