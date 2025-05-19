@@ -24,8 +24,8 @@
               <%= gallery_badge_status(gallery) %>
             <% end %>
             <%= content_tag :div, class: 'flex items-center gap-2' do %>
-              <%= content_tag :span, "#{gallery.packages.count} packages,", class: 'text-sm text-gray-500' %>
-              <%= content_tag :span, "#{gallery.add_ons.count} add-ons", class: 'text-sm text-gray-500' %>
+              <%= content_tag :span, "#{gallery.packages_count} packages,", class: 'text-sm text-gray-500' %>
+              <%= content_tag :span, "#{gallery.add_ons_count} add-ons", class: 'text-sm text-gray-500' %>
             <% end %>
           <% end %>
         <% end %>

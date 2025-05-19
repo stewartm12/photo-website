@@ -99,7 +99,7 @@
               <%= content_tag :div, class: 'flex border border-gray-300 rounded-lg overflow-hidden' do %>
                 <%= content_tag :div, class: 'flex-1 p-3' do %>
                   <%= content_tag :h3, gallery.name, class: 'font-medium' %>
-                  <%= content_tag :p, "#{gallery.photos.size} photos", class: 'text-sm text-gray-500' %>
+                  <%= content_tag :p, "#{gallery.photos.count} photos", class: 'text-sm text-gray-500' %>
                   <%= link_to 'View Gallery', store_gallery_path(Current.store, gallery), class: 'inline-flex items-center justify-center gap-2 text-sm font-medium underline-offset-4 hover:underline rounded-md p-0 h-auto text-[oklch(66.14%_0.0661_72.71)]' %>
                 <% end %>
               <% end %>

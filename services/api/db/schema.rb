@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_17_223002) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_045221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -108,6 +108,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_223002) do
     t.string "slug"
     t.boolean "active", default: false
     t.bigint "store_id", null: false
+    t.integer "collections_count", default: 0, null: false
+    t.integer "packages_count", default: 0, null: false
+    t.integer "add_ons_count", default: 0, null: false
     t.index ["name"], name: "index_galleries_on_name", unique: true
     t.index ["slug"], name: "index_galleries_on_slug", unique: true
     t.index ["store_id"], name: "index_galleries_on_store_id"
@@ -183,6 +186,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_223002) do
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "galleries_count", default: 0, null: false
     t.index ["domain"], name: "index_stores_on_domain", unique: true
     t.index ["owner_id"], name: "index_stores_on_owner_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true

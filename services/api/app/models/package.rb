@@ -1,5 +1,5 @@
 class Package < ApplicationRecord
-  belongs_to :gallery
+  belongs_to :gallery, counter_cache: true
   has_many :appointments
 
   validates :name, :price, :gallery, presence: true
