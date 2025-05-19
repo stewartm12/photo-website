@@ -18,7 +18,7 @@ class AppointmentsController < ApplicationController
   end
 
   def filtered_appointments
-    appointments = Current.store.appointments.joins(:customer)
+    appointments = Current.store.appointments.includes(:customer, package: :gallery).joins(:customer)
 
     if search_params[:customer_search].present?
       appointments = appointments.where(
