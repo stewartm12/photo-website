@@ -1,0 +1,5 @@
+<%= render_flash_stream %>
+
+<%= turbo_stream.update 'collections_results' do %>
+  <%= render 'collections/collections_results' %>
+<% end %>

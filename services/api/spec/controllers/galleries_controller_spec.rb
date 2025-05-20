@@ -80,29 +80,10 @@ RSpec.describe GalleriesController, type: :controller do
     end
   end
 
-  describe 'GET #show' do
-    let(:user) { create(:user) }
-    let(:store) { create(:store, owner: user) }
-    let!(:store_membership) { create(:store_membership, store: store, user: user) }
-    let(:session) { create(:session, user: user) }
-    let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
-
-    before do
-      allow(controller).to receive(:resume_session).and_return(session)
-      allow(Current).to receive(:user).and_return(user)
-    end
-
-    it 'returns a successful response' do
-      get :show, params: { store_slug: store.slug, id: gallery.id }
-
-      expect(response).to have_http_status(:ok)
-    end
-  end
-
   describe 'GET #new' do
     context 'when user is not authenticated' do
       it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug' }
+        get :new, params: { store_slug: 'store_slug' }
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -121,7 +102,7 @@ RSpec.describe GalleriesController, type: :controller do
       end
 
       it 'returns a successful response' do
-        get :show, params: { store_slug: store.slug, id: gallery.id }
+        get :new, params: { store_slug: store.slug, id: gallery.id }
 
         expect(response).to have_http_status(:ok)
       end
@@ -137,7 +118,7 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'POST #create' do
     context 'when user is not authenticated' do
       it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug' }
+        post :create, params: { store_slug: 'store_slug' }
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -146,10 +127,10 @@ RSpec.describe GalleriesController, type: :controller do
     context 'when user is authenticated' do
       let(:user) { create(:user) }
       let(:store) { create(:store, owner: user) }
-      let!(:store_membership) { create(:store_membership, store: store, user: user) }
       let(:session) { create(:session, user: user) }
 
       before do
+        create(:store_membership, store: store, user: user)
         allow(controller).to receive(:resume_session).and_return(session)
         allow(Current).to receive(:user).and_return(user)
       end
@@ -250,7 +231,7 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'GET #edit' do
     context 'when user is not authenticated' do
       it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug' }
+        get :edit, params: { store_slug: 'store_slug', id: 'gallery_id' }
 
         expect(response).to redirect_to(new_session_path)
       end
@@ -274,7 +255,7 @@ RSpec.describe GalleriesController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'correctly assign the respective @ varirables' do
+      it 'correctly assign the respective @gallery' do
         get :edit, params: { store_slug: store.slug, id: gallery.id }
 
         expect(controller.instance_variable_get(:@gallery)).to eq(gallery)
@@ -285,7 +266,7 @@ RSpec.describe GalleriesController, type: :controller do
   describe 'PATCH #update' do
     context 'when user is not authenticated' do
       it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug' }
+        patch :update, params: { store_slug: 'store_slug', id: 'gallery_id' }
 
         expect(response).to redirect_to(new_session_path)
       end

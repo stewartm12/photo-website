@@ -36,9 +36,11 @@ Rails.application.routes.draw do
     patch '/', to: 'stores#update', as: :update
 
     resources :appointments, only: %i[index show edit update]
-    resources :collections, only: %i[index show]
     resources :customers, only: %i[index show edit update]
-    resources :galleries, only: %i[index show new create edit update destroy]
-    resources :pricings, only: %i[index show new create edit update destroy]
+    resources :pricings
+
+    resources :galleries, only: %i[index new create edit update destroy] do
+      resources :collections
+    end
   end
 end

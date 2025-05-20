@@ -7,8 +7,6 @@ class GalleriesController < ApplicationController
     @pagy, @galleries = pagy(filtered_galleries)
   end
 
-  def show; end
-
   def new
     @gallery = Current.store.galleries.new
   end
@@ -47,7 +45,7 @@ class GalleriesController < ApplicationController
 
   def destroy
     @gallery.destroy
-
+    flash.now[:success] = 'Gallery deleted!'
     @pagy, @galleries = pagy(filtered_galleries)
   end
 

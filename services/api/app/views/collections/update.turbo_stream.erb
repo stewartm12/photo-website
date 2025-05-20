@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @collection.errors.empty? %>
+  <%= turbo_stream.update 'collections_results' do %>
+    <%= render 'collections/collections_results' %>
+  <% end %>
+<% end %>

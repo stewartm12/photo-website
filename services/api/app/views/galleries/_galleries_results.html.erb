@@ -63,7 +63,7 @@
               <%= content_tag :td, gallery.created_at.strftime("%-m/%-d/%Y"), class: 'px-4 py-3 text-gray-500' %>
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex gap-2' do %>
-                  <%= link_to store_collections_path(Current.store, gallery), data: { turbo_frame: '_top' } do %>
+                  <%= link_to store_gallery_collections_path(Current.store, gallery), data: { turbo_frame: '_top' } do %>
                     <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
                   <% end %>
                   <%= link_to edit_store_gallery_path(Current.store, gallery), data: { turbo_frame: '_top' } do %>
