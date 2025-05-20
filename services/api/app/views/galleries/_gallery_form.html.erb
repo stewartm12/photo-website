@@ -99,8 +99,8 @@
           <% end %>
         <% end %>
         <%= content_tag :div, class: 'items-center p-6 pt-0 flex flex-col gap-2' do %>
-          <%= f.submit title, class: 'w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark cursor-pointer' %>
-          <%= link_to 'Cancel', store_galleries_path(Current.store), class: 'w-full py-2 px-4 rounded-lg cursor-pointer flex justify-center items-center border border-gray-400' %>
+          <%= f.submit title, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white hover:cursor-pointer' %>
+          <%= link_to 'Cancel', store_galleries_path(Current.store), class: 'w-full inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium border border-gray-400 bg-white hover:bg-gray-100 h-10 px-4 py-2' %>
         <% end %>
       <% end %>
       <% if show_steps %>
