@@ -3,26 +3,15 @@ require 'rails_helper'
 RSpec.describe CustomersController, type: :controller do
   describe 'GET #index' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :index, { store_slug: 'store_slug' }
     end
 
     describe 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let!(:customer1) { create(:customer, first_name: 'john', last_name: 'doe', email: 'johndoe@email.com', store: store) }
       let!(:customer2) { create(:customer, first_name: 'bob', last_name: 'builder', email: 'bobbuilder@email.com', store: store) }
       let!(:customer3) { create(:customer, first_name: 'eric', last_name: 'grace', email: 'tester@email.com', store: store) }
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
 
       it 'returns a successful response' do
         get :index, params: { store_slug: store.slug }

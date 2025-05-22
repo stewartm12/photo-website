@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_19_231003) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_20_182850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -61,6 +61,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_19_231003) do
     t.datetime "updated_at", null: false
     t.index ["add_on_id"], name: "index_appointment_add_ons_on_add_on_id"
     t.index ["appointment_id"], name: "index_appointment_add_ons_on_appointment_id"
+  end
+
+  create_table "appointment_events", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.bigint "user_id"
+    t.string "event_type", null: false
+    t.text "message", null: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_appointment_events_on_appointment_id"
+    t.index ["user_id"], name: "index_appointment_events_on_user_id"
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -208,6 +220,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_19_231003) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "appointment_events", "appointments"
+  add_foreign_key "appointment_events", "users"
   add_foreign_key "appointments", "stores"
   add_foreign_key "customers", "stores"
   add_foreign_key "galleries", "stores"

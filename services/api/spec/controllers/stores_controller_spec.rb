@@ -3,26 +3,15 @@ require 'rails_helper'
 RSpec.describe StoresController, type: :controller do
   describe 'GET #index' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index
-
-        expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :index, {}
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:session) { create(:session, user: user) }
-      let(:store) { create(:store) }
+      include_context 'with authenticated user'
+
       let(:store_2) { create(:store) }
 
-      before do
-        create(:store_membership, user: user, store: store)
-        create(:store_membership, user: user, store: store_2)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
+      before { create(:store_membership, user: user, store: store_2) }
 
       it 'returns a successful response' do
         get :index
@@ -40,18 +29,12 @@ RSpec.describe StoresController, type: :controller do
 
   describe 'GET #show' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index
-
-        expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :show, { store_slug: 'store_slug' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:session) { create(:session, user: user) }
-      let(:store) { create(:store) }
+      include_context 'with authenticated user'
+
       let(:customer) { create(:customer, store: store) }
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:collection) { create(:collection, gallery: gallery) }
@@ -59,12 +42,12 @@ RSpec.describe StoresController, type: :controller do
       let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
       let!(:old_appointment) { create(:appointment, package: package, customer: customer, store: store, status: 'completed') }
 
-      before do
-        create(:store_membership, user: user, store: store)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-        allow(Current).to receive(:store).and_return(store)
-      end
+      # before do
+      #   create(:store_membership, user: user, store: store)
+      #   allow(controller).to receive(:resume_session).and_return(session)
+      #   allow(Current).to receive(:user).and_return(user)
+      #   allow(Current).to receive(:store).and_return(store)
+      # end
 
       it 'returns a successful response' do
         get :show, params: { store_slug: store.slug }
@@ -104,23 +87,11 @@ RSpec.describe StoresController, type: :controller do
 
   describe 'GET #new' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index
-
-        expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :new, {}
     end
 
     context 'when user is authenticated' do
-      let(:store) { create(:store) }
-      let(:user) { create(:user) }
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
+      include_context 'with authenticated user'
 
       it 'returns a successful response' do
         get :new, params: { store_slug: store.slug }
@@ -132,22 +103,11 @@ RSpec.describe StoresController, type: :controller do
 
   describe 'POST #create' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index
-
-        expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :post, :create, {}
     end
 
     context 'when user is authenticated' do
-      let(:store) { create(:store) }
-      let(:user) { create(:user) }
-
-      before do
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
+      include_context 'with authenticated user'
 
       context 'when store is valid' do
         let(:params) do

@@ -6,6 +6,7 @@ RSpec.describe Appointment, type: :model do
     it { should belong_to(:package) }
     it { should belong_to(:store) }
     it { should have_many(:appointment_add_ons) }
+    it { should have_many(:appointment_events) }
     it { should have_many(:add_ons) }
     it { should have_many(:locations) }
   end
@@ -25,17 +26,53 @@ RSpec.describe Appointment, type: :model do
 
   describe 'callbacks' do
     context 'after_create' do
-      let(:store) { create(:store) }
-      let(:customer) { create(:customer, store: store) }
-      let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
-      let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { build(:appointment, package: package, customer: customer, store: store) }
+      include_context 'with appointment and related records'
 
       it 'notifies the customer' do
         expect(AppointmentMailer).to deliver_later(:new_appointment_email)
 
         appointment.save
       end
+    end
+  end
+
+  describe '#package_price' do
+    include_context 'with appointment and related records'
+
+    it 'returns the package price' do
+      expect(appointment.package_price).to eq(package.price)
+    end
+  end
+
+  describe '#add_ons_price' do
+    include_context 'with appointment and related records'
+
+    let(:add_on1) { create(:add_on, gallery: gallery, price: 5.00) }
+    let(:add_on2) { create(:add_on, gallery: gallery, price: 10.00) }
+
+    before do
+      create(:appointment_add_on, appointment: appointment, add_on: add_on1, quantity: 4)
+      create(:appointment_add_on, appointment: appointment, add_on: add_on2, quantity: 5)
+    end
+
+    it 'returns the sum of the add-ons price' do
+      expect(appointment.add_ons_price).to eq(70.00)
+    end
+  end
+
+  describe '#total_price' do
+    include_context 'with appointment and related records'
+
+    let(:add_on1) { create(:add_on, gallery: gallery, price: 5.00) }
+    let(:add_on2) { create(:add_on, gallery: gallery, price: 10.00) }
+
+    before do
+      create(:appointment_add_on, appointment: appointment, add_on: add_on1, quantity: 4)
+      create(:appointment_add_on, appointment: appointment, add_on: add_on2, quantity: 5)
+    end
+
+    it 'returns the total price of the appointment' do
+      expect(appointment.total_price).to eq(70.00 + package.price)
     end
   end
 end
