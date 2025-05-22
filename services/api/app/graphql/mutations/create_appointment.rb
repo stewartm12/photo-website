@@ -25,6 +25,8 @@ module Mutations
         build_location(appointment, args[:address], args[:note]) if args[:address]
 
         appointment.save!
+
+        appointment.appointment_events.create!(event_type: :appointment_created, message: 'Customer booked appointment online', metadata: { created_by: 'online booking' })
       end
 
       { appointment: appointment, errors: [] }

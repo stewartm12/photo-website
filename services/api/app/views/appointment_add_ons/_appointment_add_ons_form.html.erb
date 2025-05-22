@@ -1,0 +1,68 @@
+<%= form_with url: url, model: appointment, data: { controller: "appointment-add-on" } do |f| %>
+  <%= content_tag :div, class: 'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-400 bg-white p-6 shadow-lg duration-200 rounded-md' do %>
+    <%= content_tag :div, class: 'flex flex-col space-y-1.5 text-center sm:text-left' do %>
+      <%= content_tag :h2, title, class: 'text-lg font-semibold leading-none tracking-tight' %>
+      <%= content_tag :p, description, class: 'text-sm text-gray-500' %>
+    <% end %>
+
+    <%= content_tag :div, class: 'mb-6' do %>
+      <%= content_tag :h3, 'Current Add-ons', class: 'text-sm font-medium mb-3' %>
+      <%= content_tag :div, class: 'space-y-3 max-h-[200px] overflow-y-auto pr-2', data: { appointment_add_on_target: 'list' } do %>
+        <% @appointment_add_ons.each_with_index do |app_add_on, index| %>
+          <%= content_tag :div, class: 'flex items-center justify-between p-3 bg-gray-50 rounded-md', data: { appointment_add_on_target: 'addon' } do %>
+            <%= content_tag :div, class: 'flex-1' do %>
+              <%= content_tag :div, class: 'flex items-center gap-2' do %>
+                <%= content_tag :span, app_add_on.add_on.name, class: 'font-medium' %>
+              <% end %>
+              <%= content_tag :span, "#{number_to_currency(app_add_on.add_on.price, unit: "$", precision: 2)} each", class: 'text-sm text-gray-500' %>
+            <% end %>
+
+            <%= content_tag :div, class: 'flex items-center gap-3' do %>
+              <%= f.fields_for :appointment_add_ons, app_add_on, child_index: index do |addon_form| %>
+                <%= addon_form.hidden_field :add_on_id, value: app_add_on.add_on_id %>
+                <%= addon_form.number_field :quantity, min: 1, class: 'border rounded-md px-2 py-1 w-16', value: app_add_on.quantity, id: "appointment_appointment_add_ons_quantity_#{index}" %>
+              <% end %>
+              <%= button_tag type: :button,
+                class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-7 w-7 text-red-500 hover:text-red-600 hover:bg-red-50',
+                data: { action: 'appointment-add-on#remove' } do %>
+                <%= icon 'x-mark', class: 'text-red-500' %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'border-t border-gray-400 pt-4 mt-2' do %>
+        <%= content_tag :h3, 'Add New Add-On', class: 'text-sm font-medium mb-3' %>
+        <%= content_tag :div, class: 'grid gap-4' do %>
+          <%= content_tag :div, class: 'grid grid-cols-[1fr_120px] gap-3 items-center' do %>
+            <%= content_tag :div do %>
+              <%= select_tag :add_on_select,
+                add_on_options_with_price(appointment.package.gallery.add_ons),
+                prompt: 'Select Add-On',
+                class: 'w-full bg-white p-2 rounded-md font-medium text-sm border border-gray-300 cursor-pointer',
+                data: { appointment_add_on_target: 'addOnSelect' } %>
+            <% end %>
+            <%= content_tag :div do %>
+              <%= number_field_tag 'quantity', 1, min: 1, data: { appointment_add_on_target: 'addOnQuantity' }%>
+            <% end %>
+          <% end %>
+          <%= button_tag 'Add',
+            type: :button,
+            class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white',
+            data: { action: 'appointment-add-on#add' } %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-6 border-t border-gray-300 pt-4' do %>
+      <%= content_tag :div, class: 'flex items-center justify-center w-full' do %>
+        <%= f.submit submit_text, class: 'w-auto inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white cursor-pointer' %>
+      <% end %>
+    <% end %>
+
+    <%= button_tag type: 'button', class: 'absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 hover:cursor-pointer', data: { action: 'modal#hideModal' } do %>
+      <%= icon 'x-mark' %>
+    <% end %>
+  <% end %>
+<% end %>

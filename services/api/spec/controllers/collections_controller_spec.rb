@@ -3,26 +3,15 @@ require 'rails_helper'
 RSpec.describe CollectionsController, type: :controller do
   describe 'GET #index' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :index, params: { store_slug: 'store_slug', gallery_id: 'gallery_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :index, { store_slug: 'store_slug', gallery_id: '1' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:baby_collection) { create(:collection, gallery: gallery, name: 'baby collection', shoot_date: Date.today - 1.day) }
       let!(:turtle_collection) { create(:collection, gallery: gallery, name: 'turtle collection', shoot_date: Date.today) }
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
 
       it 'returns a successful response' do
         get :index, params: { store_slug: store.slug, gallery_id: gallery.id }
@@ -67,17 +56,10 @@ RSpec.describe CollectionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:user) { create(:user) }
-    let(:store) { create(:store, owner: user) }
-    let(:session) { create(:session, user: user) }
+    include_context 'with authenticated user'
+
     let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
     let(:collection) { create(:collection, gallery: gallery) }
-
-    before do
-      create(:store_membership, store: store, user: user)
-      allow(controller).to receive(:resume_session).and_return(session)
-      allow(Current).to receive(:user).and_return(user)
-    end
 
     it 'returns a successful response' do
       get :show, params: { store_slug: store.slug, gallery_id: gallery.id, id: collection.id }
@@ -88,24 +70,13 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe 'GET #new' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :new, params: { store_slug: 'store_slug', gallery_id: 'gallery_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :new, { store_slug: 'store_slug', gallery_id: 'gallery_id' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let!(:store_membership) { create(:store_membership, store: store, user: user) }
-      let(:session) { create(:session, user: user) }
-      let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
+      include_context 'with authenticated user'
 
-      before do
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
+      let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
       it 'returns a successful response' do
         get :new, params: { store_slug: store.slug, gallery_id: gallery.id }
@@ -123,17 +94,12 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe 'POST #create' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        post :create, params: { store_slug: 'store_slug', gallery_id: 'gallery_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :post, :create, { store_slug: 'store_slug', gallery_id: 'gallery_id' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
       let(:params) do
@@ -145,12 +111,6 @@ RSpec.describe CollectionsController, type: :controller do
             shoot_date: Date.today
           }
         }
-      end
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
       end
 
       context 'with invalid parameters' do
@@ -179,25 +139,14 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe 'GET #edit' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        get :edit, params: { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :get, :edit, { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:collection) { create(:collection, gallery: gallery) }
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
 
       it 'returns a successful response' do
         get :edit, params: { store_slug: store.slug, gallery_id: gallery.id, id: collection.id }
@@ -215,17 +164,12 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe 'PATCH #update' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        patch :update, params: { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :patch, :update, { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:collection) { create(:collection, gallery: gallery) }
 
@@ -239,12 +183,6 @@ RSpec.describe CollectionsController, type: :controller do
             shoot_date: Date.today
           }
         }
-      end
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
       end
 
       context 'with invalid parameters' do
@@ -273,25 +211,14 @@ RSpec.describe CollectionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'when user is not authenticated' do
-      it 'redirects to the login page' do
-        delete :destroy, params: { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
-
-        expect(response).to redirect_to(new_session_path)
-      end
+      include_examples 'redirects to login', :delete, :destroy, { store_slug: 'store_slug', gallery_id: 'gallery_id', id: 'collection_id' }
     end
 
     context 'when user is authenticated' do
-      let(:user) { create(:user) }
-      let(:store) { create(:store, owner: user) }
-      let(:session) { create(:session, user: user) }
+      include_context 'with authenticated user'
+
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:collection) { create(:collection, gallery: gallery) }
-
-      before do
-        create(:store_membership, store: store, user: user)
-        allow(controller).to receive(:resume_session).and_return(session)
-        allow(Current).to receive(:user).and_return(user)
-      end
 
       it 'destroys the collection' do
         expect {

@@ -61,4 +61,16 @@ module ApplicationHelper
     options[:class] = "#{options[:class]} #{active_class}".strip
     link_to(name, options, html_options, &block)
   end
+
+  def initials(name)
+    return '' if name.blank?
+
+    name.split.map { |n| n[0] }.join[0, 2].upcase
+  end
+
+  def add_on_options_with_price(add_ons)
+    add_ons.map do |add_on|
+      content_tag(:option, add_on.name, value: add_on.id, data: { price: add_on.price })
+    end.join.html_safe
+  end
 end

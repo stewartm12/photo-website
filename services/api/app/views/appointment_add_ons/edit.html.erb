@@ -2,12 +2,12 @@
   <%= content_tag :div, data: { controller: :modal, modal_target: 'modal', action: 'turbo:submit-end->modal#submitEnd keyup@window->modal#closeWithKeyboard click@window->modal#closeBackground' } do %>
     <%= content_tag :div, nil, class: 'fixed inset-0 bg-black opacity-50 z-60', data: { action: 'click->modal#hideModal' } %>
     <%= content_tag :div, class: 'fixed left-1/2 top-1/2 z-70 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 bg-white p-6 shadow-lg sm:rounded-lg' do %>
-      <%= render 'appointment_form',
+      <%= render 'appointment_add_ons/appointment_add_ons_form',
         appointment: @appointment,
-        url: store_appointment_path(Current.store, @appointment),
-        title: 'Edit Appointment',
-        description: 'Update the details of this Appointment.',
-        submit_text: 'Update Appointment'
+        url: store_appointment_appointment_add_ons_path(Current.store, @appointment),
+        title: 'Manage Appointment Add Ons',
+        description: 'Add or remove or adjust quantities of Add On sevices.',
+        submit_text: 'Update Add Ons'
       %>
     <% end %>
   <% end %>
