@@ -77,7 +77,7 @@ RSpec.describe AppointmentAddOnsController, type: :controller do
         it 'rescues and returns an error message' do
           patch :update, params: params, as: :turbo_stream
 
-          expect(flash[:error]).to eq('Failed to update add-ons: Validation failed: Add on must exist')
+          expect(flash[:alert]).to eq('Failed to update add-ons: Validation failed: Add on must exist')
         end
       end
 

@@ -1,13 +1,27 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: %i[edit update]
 
+  def new
+    @location = appointment.locations.new
+  end
+
+  def create
+    @location = appointment.locations.new(location_params)
+
+    if @location.save
+      flash.now[:success] = 'Location created successfully.'
+    else
+      flash.now[:alert] = @location.errors.full_messages.to_sentence
+    end
+  end
+
   def edit; end
 
   def update
     if @location.update(location_params)
       flash.now[:success] = 'Location updated successfully.'
     else
-      flash.now[:error] = @location.errors.full_messages.to_sentence
+      flash.now[:alert] = @location.errors.full_messages.to_sentence
     end
   end
 

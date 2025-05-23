@@ -34,7 +34,7 @@
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                  <%= icon 'envelope', class: 'size-4 text-gray-500' %>
+                  <%= icon 'envelope', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
                   <%= content_tag :span, customer.email %>
                 <% end %>
               <% end %>
@@ -45,9 +45,6 @@
                 <%= content_tag :div, class: 'flex gap-2' do %>
                   <%= link_to store_customer_path(Current.store, customer), data: { turbo_frame: '_top' } do %>
                     <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
-                  <% end %>
-                  <%= link_to edit_store_customer_path(Current.store, customer), data: { turbo_frame: '_top' } do %>
-                    <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
                   <% end %>
                 <% end %>
               <% end %>
