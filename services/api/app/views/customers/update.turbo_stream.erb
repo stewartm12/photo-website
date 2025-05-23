@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @customer.errors.empty? %>
+  <%= turbo_stream.update 'customer_details' do %>
+    <%= render 'customers/customer_details' %>
+  <% end %>
+<% end %>

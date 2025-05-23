@@ -17,7 +17,7 @@ class AppointmentAddOnsController < ApplicationController
 
     flash.now[:success] = 'Add-ons updated successfully.'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now[:error] = "Failed to update add-ons: #{e.message}"
+    flash.now[:alert] = "Failed to update add-ons: #{e.message}"
   end
 
   private
