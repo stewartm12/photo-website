@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
     resources :galleries, only: %i[index new create edit update destroy] do
       resources :collections
+      resources :packages, only: %i[new create edit update destroy]
+      resources :add_ons, only: %i[new create edit update destroy]
     end
   end
 end
