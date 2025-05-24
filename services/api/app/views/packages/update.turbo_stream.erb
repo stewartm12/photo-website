@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @package.errors.empty? %>
+  <%= turbo_stream.update "packages_results_gallery#{@gallery.id}" do %>
+    <%= render 'pricings/packages_results', gallery: @gallery %>
+  <% end %>
+<% end %>

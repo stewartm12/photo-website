@@ -107,7 +107,7 @@
               <%= content_tag :h3, @appointment.customer.full_name, class: 'text-lg font-medium' %>
               <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4 mt-4' do %>
                 <%= content_tag :div, class: 'flex items-center space-x-1' do %>
-                  <%= link_to "mailto:#{@appointment.customer.email}?subject=Customer+Inquiry&body=Hi%2C+I+have+a+question+about...", class: 'flex items-center gap-2' do %>
+                  <%= link_to "mailto:#{@appointment.customer.email}?subject=Customer+Inquiry&body=Hi%2C+I+have+a+question+about...", class: 'flex items-center self-center gap-2' do %>
                     <%= icon 'envelope', class: 'size-4 text-gray-400' %>
                     <%= content_tag :span, @appointment.customer.email, class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
                   <% end %>
@@ -115,13 +115,13 @@
                   <%= link_to "https://mail.google.com/mail/?view=cm&fs=1&to=#{@appointment.customer.email}&su=Subject+here&body=Body+text+here",
                     target: '_blank',
                     rel: 'noopener' do %>
-                    <%= icon 'envelope', class: 'size-4 text-red-400 hover:underline' %>
+                    <%= icon 'envelope', class: 'size-4 text-red-400 self-center hover:underline' %>
                   <% end %>
                   <%= content_tag :p, '|', class: 'text-gray-700' %>
                   <%= link_to "https://outlook.office.com/mail/deeplink/compose?to=#{@appointment.customer.email}&subject=Subject+here&body=Body+text+here",
                     target: '_blank',
                     rel: 'noopener' do %>
-                    <%= icon 'envelope', class: 'size-4 text-blue-400 hover:underline' %>
+                    <%= icon 'envelope', class: 'size-4 text-blue-400 self-center hover:underline' %>
                   <% end %>
                 <% end %>
 

@@ -1,0 +1,11 @@
+<%= render_flash_stream %>
+
+<% if @package.persisted? %>
+  <%= turbo_stream.update "add_on_packages_count_#{@gallery.id}" do %>
+    <%= render 'pricings/add_on_packages_count', gallery: @gallery %>
+  <% end %>
+
+  <%= turbo_stream.update "packages_results_gallery#{@gallery.id}" do %>
+    <%= render 'pricings/packages_results', gallery: @gallery %>
+  <% end %>
+<% end %>

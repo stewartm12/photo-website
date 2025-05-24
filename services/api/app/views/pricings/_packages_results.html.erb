@@ -1,0 +1,53 @@
+<%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' do %>
+  <% if gallery.packages.any? %>
+    <% gallery.packages.each do |package| %>
+      <%= content_tag :div, class: 'rounded-lg border border-gray-400 bg-white shadow-sm relative' do %>
+        <% if package.popular? %>
+          <%= content_tag :div, 'Popular', class: 'absolute top-0 right-0 bg-[oklch(66.14%_0.0661_72.71)] text-white text-xs font-bold px-3 py-1 rounded-bl-lg' %>
+        <% end %>
+        <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+          <%= content_tag :div, class: 'flex justify-between items-start' do %>
+            <%= content_tag :h3, package.name, class: 'text-2xl font-semibold leading-none tracking-tight' %>
+
+            <%= content_tag :div, class: 'flex space-x-2' do %>
+              <%= link_to edit_store_gallery_package_path(Current.store, gallery, package), data: { turbo_frame: 'modal' } do %>
+                <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
+              <% end %>
+
+              <%= button_to store_gallery_package_path(Current.store, gallery, package),
+                method: :delete,
+                data: { turbo_confirm: 'Are you sure you want to delete this collection?' } do %>
+                <%= icon 'trash', class: 'size-5 text-red-500 hover:text-red-800 cursor-pointer' %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :p, number_to_currency(package.price, unit: "$", precision: 2), class: 'text-sm text-gray-500 flex items-center mt-1' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'p-6 pt-0' do %>
+          <%= content_tag :div, class: 'flex items-center gap-2 text-sm text-gray-500 mb-2' do %>
+            <%= icon 'clock', class: 'size-4' %>
+            <%= content_tag :span, package.formatted_duration %>
+            <%= content_tag :span, '•', class: 'mx-1' %>
+            <%= content_tag :span, "#{package.edited_images} edited images" %>
+          <% end %>
+
+          <%= content_tag :ul, class: 'space-y-1' do %>
+            <% package.features.each do |feature| %>
+              <%= content_tag :li, class: 'flex items-start gap-2 text-sm' do %>
+                <%= icon 'check', class: 'text-green-500 size-4' %>
+                <%= content_tag :span, feature %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= content_tag :div, class: 'col-span-3 flex flex-col items-center justify-center text-center p-6' do %>
+      <%= content_tag :h4, 'No existing packages yet in this gallery.', class: 'text-lg mb-2' %>
+      <%= content_tag :p, 'To create your first package, please click on the New package button above.', class: 'text-sm text-gray-500 mb-4' %>
+    <% end %>
+  <% end %>
+<% end %>
