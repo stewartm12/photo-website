@@ -384,6 +384,7 @@ GEM
     ruby-vips (2.2.3)
       ffi (~> 1.12)
       logger
+    rubyzip (2.4.1)
     securerandom (0.4.1)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
@@ -500,6 +501,7 @@ DEPENDENCIES
   rspec-rails
   rubocop-rails-omakase
   ruby-vips
+  rubyzip
   shoulda-matchers
   simplecov
   solid_cable

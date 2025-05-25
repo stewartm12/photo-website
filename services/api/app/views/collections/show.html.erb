@@ -1,3 +1,68 @@
-<%= content_tag :div do %>
-  This is the collection page for this store
+<%= content_tag :div, class: 'p-6' do %>
+  <%= content_tag :div, class: 'flex items-center gap-2 mb-6 text-sm' do %>
+    <%= link_to 'Home', store_home_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= link_to 'Galleries', store_galleries_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= link_to @gallery.name, store_gallery_collections_path(Current.store, @gallery), class: 'text-gray-500 hover:text-gray-700'  %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= content_tag :span, @collection.name %>
+  <% end %>
+
+  <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between mb-8' do %>
+    <%= turbo_frame_tag 'collection_photo_info' do %>
+      <%= content_tag :div do %>
+        <%= content_tag :h1, @collection.name, class: 'text-2xl font-bold' %>
+        <%= content_tag :p, "#{@collection.photos_count} photos • Shot on #{@collection.shoot_date.strftime('%B %d, %Y')}", class: 'text-gray-500' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
+      <%= link_to new_store_gallery_collection_photo_path(Current.store, @gallery, @collection), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white' do %>
+        <%= icon 'arrow-up-tray', class: 'mr-2 size-4' %>
+        <%= content_tag :span, 'Upload Photos' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= form_with url: bulk_delete_store_gallery_collection_photos_path(Current.store, @gallery, @collection), method: :delete, data: { controller: 'photo-selector', photo_selector_store_slug_value: Current.store.slug, photo_selector_gallery_id_value: @gallery.id, photo_selector_collection_id_value: @collection.id } do %>
+    <%= content_tag :div, class: 'bg-gray-50 border border-gray-300 rounded-md p-3 mb-6 hidden items-center justify-between', data: { photo_selector_target: 'actionsBar' }  do %>
+      <%= content_tag :div, class: 'flex items-center gap-2' do %>
+        <%= check_box_tag 'select_all', '', false, id: 'select-all', class: 'peer size-4 shrink-0 rounded-sm border border-gray-300', data: { action: 'photo-selector#toggleSelectAll', photo_selector_target: 'selectAll' } %>
+        <%= content_tag :span, '0 photos selected', data: { photo_selector_target: 'selectedCount' } %>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex gap-2' do %>
+        <%= button_tag type: 'button', data: { action: 'photo-selector#downloadSelected', photo_selector_target: 'downloadBtn' }, class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer', disabled: true do %>
+          <%= icon 'arrow-down' %>
+          <%= content_tag :span, 'Download' %>
+        <% end %>
+        <%= button_tag type: 'submit',
+          data: { turbo_confirm: 'Are you sure you want to delete selected photos?', photo_selector_target: 'deleteBtn', action: 'photo-selector#handleDeleteClick' },
+          class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start text-red-500 cursor-pointer disabled:bg-gray-100 disabled:cursor-text',
+          disabled: true do %>
+          <%= icon 'trash' %>
+          <%= content_tag :span, 'Delete' %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid gap-4', style: 'grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));' do %>
+      <% @collection.photos.each do |photo| %>
+        <%= content_tag :div, id: "photo_#{photo.id}", class: 'rounded-lg border border-gray-300 bg-gray-50 shadow-sm overflow-hidden group cursor-pointer' do %>
+          <%= content_tag :div, class: 'relative' do %>
+            <%= content_tag :div, class: 'absolute top-2 left-2 z-10' do %>
+              <%= check_box_tag 'photo_ids[]', photo.id, false, id: "photo-#{photo.id}", data: { action: 'photo-selector#toggleCheckbox', photo_selector_target: 'checkbox' }, class: 'peer size-4 shrink-0 rounded-sm border bg-white border-gray-300' %>
+            <% end %>
+
+            <%= content_tag :div, class: 'relative', style: 'aspect-ratio: 1114 / 1008;' do %>
+              <%= image_tag photo.image.variant(resize_to_limit: [300, 300]), class: 'object-cover', style: 'position: absolute; height: 100%; width: 100%; inset: 0px;' %>
+            <% end %>
+
+            <%= content_tag :div, nil, class: 'absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

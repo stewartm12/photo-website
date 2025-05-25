@@ -23,8 +23,8 @@ class Photo < ApplicationRecord
       errors.add(:image, 'must be a JPEG, PNG, WEBP, or AVIF')
     end
 
-    if image.byte_size > 5.megabytes
-      errors.add(:image, 'is too big (max 5MB)')
+    if image.byte_size > 10.megabytes
+      errors.add(:image, 'is too big (max 10MB)')
     end
   end
 end

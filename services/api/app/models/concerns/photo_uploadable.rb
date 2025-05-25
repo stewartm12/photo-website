@@ -2,17 +2,23 @@ module PhotoUploadable
   extend ActiveSupport::Concern
 
   def build_photo_from_image(uploaded_file, store_slug:)
-    file_key = generate_file_key(uploaded_file.original_filename, store_slug)
-    alt_text = generate_alt_text(uploaded_file.original_filename)
+    file_name = filename_from_upload(uploaded_file)
+    file_key = generate_file_key(file_name, store_slug)
+    alt_text = generate_alt_text(file_name)
 
-    build_photo(file_key: file_key, alt_text: alt_text)
-
-    attach_uploaded_file(uploaded_file, file_key)
+    if respond_to?(:photo) && respond_to?(:build_photo)
+      build_photo(file_key: file_key, alt_text: alt_text)
+      attach_uploaded_file(uploaded_file, file_key)
+    elsif respond_to?(:photos)
+      new_photo = photos.build(file_key: file_key, alt_text: alt_text)
+      new_photo.image.attach(uploaded_file)
+    end
   end
 
   def update_photo_image(uploaded_file, store_slug:)
-    file_key = generate_file_key(uploaded_file.original_filename, store_slug)
-    alt_text = generate_alt_text(uploaded_file.original_filename)
+    file_name = filename_from_upload(uploaded_file)
+    file_key = generate_file_key(file_name, store_slug)
+    alt_text = generate_alt_text(file_name)
 
     attach_uploaded_file(uploaded_file, file_key)
 
@@ -20,6 +26,14 @@ module PhotoUploadable
   end
 
   private
+
+  def filename_from_upload(uploaded_file)
+    if uploaded_file.respond_to?(:original_filename)
+      uploaded_file.original_filename
+    else
+      uploaded_file.filename.to_s
+    end
+  end
 
   def attach_uploaded_file(uploaded_file, file_key)
     photo.image.attach(

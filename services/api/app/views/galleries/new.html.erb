@@ -1,4 +1,12 @@
-<%= content_tag :div, class: 'container mx-auto p-6' do %>
+<%= content_tag :div, class: 'p-6' do %>
+  <%= content_tag :div, class: 'flex items-center gap-2 mb-6 text-sm' do %>
+    <%= link_to 'Home', store_home_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= link_to 'Galleries', store_galleries_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= content_tag :span, 'Creating new gallery' %>
+  <% end %>
+
   <%= render 'galleries/gallery_form',
     title: 'Create Gallery',
     page_description: 'Add a new gallery to organize your photography collections',

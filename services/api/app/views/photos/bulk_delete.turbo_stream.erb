@@ -1,0 +1,14 @@
+<%= render_flash_stream %>
+
+<% @deleted_ids.each do |photo_id| %>
+  <%= turbo_stream.remove "photo_#{photo_id}" %>
+<% end %>
+
+<%= turbo_stream.replace 'collection_photo_info' do %>
+  <%= turbo_frame_tag 'collection_photo_info' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :h1, @collection.name, class: 'text-2xl font-bold' %>
+      <%= content_tag :p, "#{@collection.photos_count} photos • Shot on #{@collection.shoot_date.strftime('%B %d, %Y')}", class: 'text-gray-500' %>
+    <% end %>
+  <% end %>
+<% end %>

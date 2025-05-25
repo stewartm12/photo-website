@@ -19,7 +19,7 @@ class GalleriesController < ApplicationController
       flash.now[:alert] = 'Please upload an image.' and return
     end
 
-    @gallery.build_photo_from_image(photo_param, store_slug: Current.store)
+    @gallery.build_photo_from_image(photo_param, store_slug: Current.store.slug)
 
     if @gallery.save
       redirect_to store_galleries_path(Current.store), success: 'Gallery created successfully.'
@@ -33,7 +33,7 @@ class GalleriesController < ApplicationController
   def update
     if (image_param = gallery_params.dig(:photo_attributes, :image))
 
-      @gallery.update_photo_image(image_param, store_slug: Current.store)
+      @gallery.update_photo_image(image_param, store_slug: Current.store.slug)
     end
 
     if @gallery.update(gallery_params.except(:photo_attributes))
