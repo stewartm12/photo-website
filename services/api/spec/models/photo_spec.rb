@@ -38,7 +38,7 @@ RSpec.describe Photo, type: :model do
       before do
         # Generate a 6MB dummy file if it doesn't exist
         unless File.exist?(large_file_path)
-          File.open(large_file_path, 'wb') { |f| f.write('0' * 6.megabytes) }
+          File.open(large_file_path, 'wb') { |f| f.write('0' * 15.megabytes) }
         end
 
         photo.image.attach(
@@ -50,7 +50,7 @@ RSpec.describe Photo, type: :model do
 
       it 'adds an error on :image' do
         photo.valid?
-        expect(photo.errors[:image]).to include('is too big (max 5MB)')
+        expect(photo.errors[:image]).to include('is too big (max 10MB)')
       end
     end
   end

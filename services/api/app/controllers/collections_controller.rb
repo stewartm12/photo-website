@@ -7,7 +7,9 @@ class CollectionsController < ApplicationController
     load_collections
   end
 
-  def show; end
+  def show
+    @collection = gallery.collections.includes(photos: :image_attachment).find_by(id: params[:id])
+  end
 
   def new
     @collection = gallery.collections.new

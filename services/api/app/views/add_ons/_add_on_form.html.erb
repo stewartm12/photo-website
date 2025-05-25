@@ -19,7 +19,7 @@
       <%= content_tag :div, class: 'flex items-center space-x-2' do %>
         <%= content_tag :span, 'Limited?', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70' %>
         <%= f.label :limited, class: 'relative inline-flex items-center cursor-pointer' do %>
-          <%= f.check_box :limited, class: "sr-only peer"%>
+          <%= f.check_box :limited, class: 'sr-only peer'%>
           <%= content_tag :div, nil, class: 'w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-emerald-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600' %>
         <% end %>
       <% end %>

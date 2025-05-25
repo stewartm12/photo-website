@@ -46,7 +46,7 @@ end
 # require only the support files necessary.
 #
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
-
+require 'support/active_storage_helper'
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -92,6 +92,8 @@ RSpec.configure do |config|
 
   # Configure FactoryBot to work with RSpec
   config.include FactoryBot::Syntax::Methods
+
+  config.include ActiveStorageHelper
 
   # Use DatabaseCleaner to clear the database between tests
   config.before(:suite) do

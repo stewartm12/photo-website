@@ -54,12 +54,12 @@
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex items-center gap-1' do %>
                   <%= icon 'calendar', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
-                    <% scheduled_date = appointment.preferred_date_time.present? ? appointment.preferred_date_time.strftime("%-m/%-d/%Y") : 'TBD' %>
+                    <% scheduled_date = appointment.preferred_date_time.present? ? appointment.preferred_date_time.strftime('%-m/%-d/%Y') : 'TBD' %>
                   <%= content_tag :span, scheduled_date %>
                 <% end %>
                 <%= content_tag :div, class: 'flex items-center gap-1 text-sm text-gray-500' do %>
                   <%= icon 'clock', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
-                    <% scheduled_time = appointment.preferred_date_time.present? ? appointment.preferred_date_time.strftime("%-l:%M%p") : 'TBD' %>
+                    <% scheduled_time = appointment.preferred_date_time.present? ? appointment.preferred_date_time.strftime('%-l:%M%p') : 'TBD' %>
                   <%= content_tag :span, scheduled_time %>
                 <% end %>
               <% end %>
@@ -68,7 +68,7 @@
                 <%= appointment_badge_status(appointment) %>
               <% end %>
 
-              <%= content_tag :td, appointment.created_at.strftime("%-m/%-d/%Y"), class: 'px-4 py-3 text-gray-500' %>
+              <%= content_tag :td, appointment.created_at.strftime('%-m/%-d/%Y'), class: 'px-4 py-3 text-gray-500' %>
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex gap-2' do %>

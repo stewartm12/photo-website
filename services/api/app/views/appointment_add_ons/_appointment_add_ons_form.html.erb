@@ -1,4 +1,4 @@
-<%= form_with url: url, model: appointment, data: { controller: "appointment-add-on" } do |f| %>
+<%= form_with url: url, model: appointment, data: { controller: 'appointment-add-on' } do |f| %>
   <%= content_tag :div, class: 'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-400 bg-white p-6 shadow-lg duration-200 rounded-md' do %>
     <%= content_tag :div, class: 'flex flex-col space-y-1.5 text-center sm:text-left' do %>
       <%= content_tag :h2, title, class: 'text-lg font-semibold leading-none tracking-tight' %>
@@ -14,7 +14,7 @@
               <%= content_tag :div, class: 'flex items-center gap-2' do %>
                 <%= content_tag :span, app_add_on.add_on.name, class: 'font-medium' %>
               <% end %>
-              <%= content_tag :span, "#{number_to_currency(app_add_on.add_on.price, unit: "$", precision: 2)} each", class: 'text-sm text-gray-500' %>
+              <%= content_tag :span, "#{number_to_currency(app_add_on.add_on.price, unit: '$', precision: 2)} each", class: 'text-sm text-gray-500' %>
             <% end %>
 
             <%= content_tag :div, class: 'flex items-center gap-3' do %>

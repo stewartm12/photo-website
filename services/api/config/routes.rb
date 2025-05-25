@@ -44,7 +44,15 @@ Rails.application.routes.draw do
     resources :pricings
 
     resources :galleries, only: %i[index new create edit update destroy] do
-      resources :collections
+      resources :collections do
+        resources :photos, only: %i[new create destroy] do
+          collection do
+            get :download
+            delete :bulk_delete
+          end
+        end
+      end
+
       resources :packages, only: %i[new create edit update destroy]
       resources :add_ons, only: %i[new create edit update destroy]
     end

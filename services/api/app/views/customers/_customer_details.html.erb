@@ -1,162 +1,161 @@
-<%= content_tag :div, class: 'p-6' do %>
-  <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6' do %>
-    <%= content_tag :div, class: 'flex items-center gap-3' do %>
-      <%= content_tag :h1, "Customer ##{@customer.id} - #{@customer.full_name}", class: 'text-2xl font-bold' %>
+
+<%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6' do %>
+  <%= content_tag :div, class: 'flex items-center gap-3' do %>
+    <%= content_tag :h1, "Customer ##{@customer.id} - #{@customer.full_name}", class: 'text-2xl font-bold' %>
+  <% end %>
+
+  <%= content_tag :div, class: 'flex items-center gap-2' do %>
+    <%= link_to 'Edit Customer',
+      edit_store_customer_path(Current.store, @customer),
+      class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm text-white font-medium border border-gray-300 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] h-9 rounded-md px-3 cursor-pointer',
+      data: { turbo_frame: 'modal' }
+    %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'grid grid-cols-1 lg:grid-cols-3 gap-6' do %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm lg:col-span-2' do %>
+    <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center' do %>
+      <%= content_tag :h1, 'Customer Details', class: 'text-2xl font-semibold leading-none tracking-tight' %>
     <% end %>
 
-    <%= content_tag :div, class: 'flex items-center gap-2' do %>
-      <%= link_to 'Edit Customer',
-        edit_store_customer_path(Current.store, @customer),
-        class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm text-white font-medium border border-gray-300 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] h-9 rounded-md px-3 cursor-pointer',
-        data: { turbo_frame: 'modal' }
-      %>
+    <%= content_tag :div, class: 'p-6 pt-0' do %>
+      <%= content_tag :div, class: 'flex items-start gap-4' do %>
+        <%= content_tag :span, class: 'relative shrink-0 bg-gray-100 flex justify-center items-center rounded-full h-12 w-12' do %>
+          <%= initials(@customer.full_name) %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex-1' do %>
+          <%= content_tag :h2, @customer.full_name, class: 'text-xl font-semibold' %>
+          <%= content_tag :p, "Customer since #{@customer.created_at.strftime('%b %d, %Y')}", class: 'text-sm text-gray-500' %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, nil, class: 'shrink-0 border border-b border-gray-300 h-[1px] w-full my-6' %>
+
+      <%= content_tag :div, class: 'space-y-4' do %>
+        <%= content_tag :div do %>
+          <%= content_tag :h3, 'Contact Information', class: 'text-[oklch(66.14%_0.0661_72.71)] font-medium underline underline-offset-4' %>
+          <%= content_tag :div, class: 'mt-2 space-y-2' do %>
+            <%= content_tag :div, class: 'flex items-center gap-2' do %>
+              <%= content_tag :div, class: 'flex items-center space-x-1' do %>
+                <%= link_to "mailto:#{@customer.email}?subject=Customer+Inquiry&body=Hi%2C+I+have+a+question+about...", class: 'flex items-center gap-2' do %>
+                  <%= icon 'envelope', class: 'size-4 text-gray-400' %>
+                  <%= content_tag :span, @customer.email, class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
+                <% end %>
+                <%= content_tag :p, '|', class: 'text-gray-700' %>
+                <%= link_to "https://mail.google.com/mail/?view=cm&fs=1&to=#{@customer.email}&su=Subject+here&body=Body+text+here",
+                  target: '_blank',
+                  rel: 'noopener' do %>
+                  <%= icon 'envelope', class: 'size-4 text-red-400 hover:underline' %>
+                <% end %>
+                <%= content_tag :p, '|', class: 'text-gray-700' %>
+                <%= link_to "https://outlook.office.com/mail/deeplink/compose?to=#{@customer.email}&subject=Subject+here&body=Body+text+here",
+                  target: '_blank',
+                  rel: 'noopener' do %>
+                  <%= icon 'envelope', class: 'size-4 text-blue-400 hover:underline' %>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <%= content_tag :div, class: 'flex items-center gap-2' do %>
+              <%= icon 'phone', class: 'size-4 text-gray-400' %>
+              <% if @customer.phone_number.present? %>
+                <%= link_to number_to_phone(@customer.phone_number, area_code: true), "tel:#{@customer.phone_number}", class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
+              <% else %>
+                <%= content_tag :p, 'N/A' %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :div do %>
+          <%= content_tag :h3, 'Customer Information', class: 'text-[oklch(66.14%_0.0661_72.71)] font-medium underline underline-offset-4' %>
+          <%= content_tag :div, class: 'mt-2 grid grid-cols-2 gap-4' do %>
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'ID', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+              <%= content_tag :p, @customer.id %>
+            <% end %>
+
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Joined', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+              <%= content_tag :p, @customer.created_at.strftime('%b %d, %Y') %>
+            <% end %>
+
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Last Updated', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+              <%= content_tag :p, @customer.updated_at.strftime('%b %d, %Y') %>
+            <% end %>
+
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Store ID', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+              <%= content_tag :p, @customer.store.id %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 
-  <%= content_tag :div, class: 'grid grid-cols-1 lg:grid-cols-3 gap-6' do %>
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm lg:col-span-2' do %>
-      <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center' do %>
-        <%= content_tag :h1, 'Customer Details', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+    <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+      <%= content_tag :h3, 'Customer Stats', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+    <% end %>
+
+    <%= content_tag :div, class: 'p-6 pt-0 space-y-6' do %>
+      <%= content_tag :div do %>
+        <%= content_tag :h3, 'Total Spent', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+        <%= content_tag :span, number_to_currency(@customer_appointments.sum(&:total_price), unit: '$', precision: 2), class: 'text-3xl font-bold' %>
       <% end %>
 
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-start gap-4' do %>
-          <%= content_tag :span, class: 'relative shrink-0 bg-gray-100 flex justify-center items-center rounded-full h-12 w-12' do %>
-            <%= initials(@customer.full_name) %>
-          <% end %>
+      <%= content_tag :div do %>
+        <%= content_tag :h3, 'Appointments', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
+        <%= content_tag :span, @customer.appointments.count, class: 'text-3xl font-bold' %>
+      <% end %>
+    <% end %>
+  <% end %>
 
-          <%= content_tag :div, class: 'flex-1' do %>
-            <%= content_tag :h2, @customer.full_name, class: 'text-xl font-semibold' %>
-            <%= content_tag :p, "Customer since #{@customer.created_at.strftime("%b %d, %Y")}", class: 'text-sm text-gray-500' %>
-          <% end %>
-        <% end %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm lg:col-span-3' do %>
+    <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
+      <%= content_tag :h3, 'Appointments', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+    <% end %>
 
-        <%= content_tag :div, nil, class: 'shrink-0 border border-b border-gray-300 h-[1px] w-full my-6' %>
-
-        <%= content_tag :div, class: 'space-y-4' do %>
-          <%= content_tag :div do %>
-            <%= content_tag :h3, 'Contact Information', class: 'text-[oklch(66.14%_0.0661_72.71)] font-medium underline underline-offset-4' %>
-            <%= content_tag :div, class: 'mt-2 space-y-2' do %>
-              <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                <%= content_tag :div, class: 'flex items-center space-x-1' do %>
-                  <%= link_to "mailto:#{@customer.email}?subject=Customer+Inquiry&body=Hi%2C+I+have+a+question+about...", class: 'flex items-center gap-2' do %>
-                    <%= icon 'envelope', class: 'size-4 text-gray-400' %>
-                    <%= content_tag :span, @customer.email, class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
-                  <% end %>
-                  <%= content_tag :p, '|', class: 'text-gray-700' %>
-                  <%= link_to "https://mail.google.com/mail/?view=cm&fs=1&to=#{@customer.email}&su=Subject+here&body=Body+text+here",
-                    target: '_blank',
-                    rel: 'noopener' do %>
-                    <%= icon 'envelope', class: 'size-4 text-red-400 hover:underline' %>
-                  <% end %>
-                  <%= content_tag :p, '|', class: 'text-gray-700' %>
-                  <%= link_to "https://outlook.office.com/mail/deeplink/compose?to=#{@customer.email}&subject=Subject+here&body=Body+text+here",
-                    target: '_blank',
-                    rel: 'noopener' do %>
-                    <%= icon 'envelope', class: 'size-4 text-blue-400 hover:underline' %>
-                  <% end %>
-                <% end %>
-              <% end %>
-
-              <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                <%= icon 'phone', class: 'size-4 text-gray-400' %>
-                <% if @customer.phone_number.present? %>
-                  <%= link_to number_to_phone(@customer.phone_number, area_code: true), "tel:#{@customer.phone_number}", class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
-                <% else %>
-                  <%= content_tag :p, 'N/A' %>
-                <% end %>
-              <% end %>
+    <%= content_tag :div, class: 'p-6 pt-0' do %>
+      <%= content_tag :div, class: 'relative w-full overflow-auto' do %>
+        <%= content_tag :table, class: 'w-full caption-bottom text-sm' do %>
+          <%= content_tag :thead do %>
+            <%= content_tag :tr, class: 'border-b border-gray-300 hover:bg-gray-100' do %>
+              <%= content_tag :th, 'ID', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
+              <%= content_tag :th, 'Package', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
+              <%= content_tag :th, 'Date & Time', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
+              <%= content_tag :th, 'Status', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
+              <%= content_tag :th, 'Cost', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
+              <%= content_tag :th, 'Action', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
             <% end %>
           <% end %>
 
-          <%= content_tag :div do %>
-            <%= content_tag :h3, 'Customer Information', class: 'text-[oklch(66.14%_0.0661_72.71)] font-medium underline underline-offset-4' %>
-            <%= content_tag :div, class: 'mt-2 grid grid-cols-2 gap-4' do %>
-              <%= content_tag :div do %>
-                <%= content_tag :span, 'ID', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-                <%= content_tag :p, @customer.id %>
-              <% end %>
-
-              <%= content_tag :div do %>
-                <%= content_tag :span, 'Joined', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-                <%= content_tag :p, @customer.created_at.strftime("%b %d, %Y") %>
-              <% end %>
-
-              <%= content_tag :div do %>
-                <%= content_tag :span, 'Last Updated', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-                <%= content_tag :p, @customer.updated_at.strftime("%b %d, %Y") %>
-              <% end %>
-
-              <%= content_tag :div do %>
-                <%= content_tag :span, 'Store ID', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-                <%= content_tag :p, @customer.store.id %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
-        <%= content_tag :h3, 'Customer Stats', class: 'text-2xl font-semibold leading-none tracking-tight' %>
-      <% end %>
-
-      <%= content_tag :div, class: 'p-6 pt-0 space-y-6' do %>
-        <%= content_tag :div do %>
-          <%= content_tag :h3, 'Total Spent', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-          <%= content_tag :span, number_to_currency(@customer_appointments.sum(&:total_price), unit: "$", precision: 2), class: 'text-3xl font-bold' %>
-        <% end %>
-
-        <%= content_tag :div do %>
-          <%= content_tag :h3, 'Appointments', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-          <%= content_tag :span, @customer.appointments.count, class: 'text-3xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
-
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm lg:col-span-3' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
-        <%= content_tag :h3, 'Appointments', class: 'text-2xl font-semibold leading-none tracking-tight' %>
-      <% end %>
-
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'relative w-full overflow-auto' do %>
-          <%= content_tag :table, class: 'w-full caption-bottom text-sm' do %>
-            <%= content_tag :thead do %>
+          <%= content_tag :tbody, class: '[&_tr:last-child]:border-0' do %>
+            <% @customer_appointments.order(id: :desc).each do |appointment| %>
               <%= content_tag :tr, class: 'border-b border-gray-300 hover:bg-gray-100' do %>
-                <%= content_tag :th, 'ID', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-                <%= content_tag :th, 'Package', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-                <%= content_tag :th, 'Date & Time', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-                <%= content_tag :th, 'Status', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-                <%= content_tag :th, 'Cost', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-                <%= content_tag :th, 'Action', class: 'h-12 px-4 text-left align-middle font-medium text-gray-500' %>
-              <% end %>
-            <% end %>
-
-            <%= content_tag :tbody, class: '[&_tr:last-child]:border-0' do %>
-              <% @customer_appointments.order(id: :desc).each do |appointment| %>
-                <%= content_tag :tr, class: 'border-b border-gray-300 hover:bg-gray-100' do %>
-                  <%= content_tag :td, "##{appointment.id}", class: 'p-4 align-middle' %>
-                  <%= content_tag :td, class: 'p-4 align-middle' do %>
-                    <%= content_tag :div, class: 'flex items-center gap-1' do %>
-                      <%= content_tag :span, appointment.package.name %>
-                      <%= content_tag :p, "(#{appointment.package.gallery.name})", class: 'text-sm text-gray-500' %>
-                    <% end %>
+                <%= content_tag :td, "##{appointment.id}", class: 'p-4 align-middle' %>
+                <%= content_tag :td, class: 'p-4 align-middle' do %>
+                  <%= content_tag :div, class: 'flex items-center gap-1' do %>
+                    <%= content_tag :span, appointment.package.name %>
+                    <%= content_tag :p, "(#{appointment.package.gallery.name})", class: 'text-sm text-gray-500' %>
                   <% end %>
-                  <%= content_tag :td, class: 'p-4 align-middle' do %>
-                    <%= content_tag :div, class: 'flex items-center gap-1' do %>
-                      <%= icon 'calendar-days', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
-                        <% scheduled_time = appointment.preferred_date_time.present? ?  appointment.preferred_date_time.strftime("%B %-d, %Y at %I:%M %p") : 'TBD' %>
-                      <%= content_tag :span, scheduled_time %>
-                    <% end %>
+                <% end %>
+                <%= content_tag :td, class: 'p-4 align-middle' do %>
+                  <%= content_tag :div, class: 'flex items-center gap-1' do %>
+                    <%= icon 'calendar-days', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
+                      <% scheduled_time = appointment.preferred_date_time.present? ?  appointment.preferred_date_time.strftime('%B %-d, %Y at %I:%M %p') : 'TBD' %>
+                    <%= content_tag :span, scheduled_time %>
                   <% end %>
-                  <%= content_tag :td, appointment_badge_status(appointment), class: 'p-4 align-middle' %>
-                  <%= content_tag :td, number_to_currency(appointment.total_price, unit: "$", precision: 2), class: 'p-4 align-middle' %>
-                  <%= content_tag :td, class: 'p-4 align-middle' do %>
-                    <%= link_to store_appointment_path(Current.store, appointment), data: { turbo_frame: '_top' } do %>
-                      <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
-                    <% end %>
+                <% end %>
+                <%= content_tag :td, appointment_badge_status(appointment), class: 'p-4 align-middle' %>
+                <%= content_tag :td, number_to_currency(appointment.total_price, unit: '$', precision: 2), class: 'p-4 align-middle' %>
+                <%= content_tag :td, class: 'p-4 align-middle' do %>
+                  <%= link_to store_appointment_path(Current.store, appointment), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
                   <% end %>
                 <% end %>
               <% end %>
