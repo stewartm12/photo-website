@@ -1,6 +1,16 @@
 class AppointmentAddOnsController < ApplicationController
   def edit
-    @appointment_add_ons = appointment.appointment_add_ons.includes(:add_on)
+    @appointment_add_ons = appointment.appointment_add_ons.each_with_object({}) do |addon, hash|
+      store_add_on = AddOn.find_by(name: addon.name)
+
+      hash[addon.id] = {
+        id: store_add_on&.id,
+        name: addon.name,
+        price: addon.price,
+        quantity: addon.quantity,
+        limited: addon.limited
+      }
+    end
   end
 
   def update
@@ -8,15 +18,19 @@ class AppointmentAddOnsController < ApplicationController
       appointment.appointment_add_ons.destroy_all
 
       app_add_on_params.values.each do |app_add_on|
+        add_on = AddOn.find(app_add_on[:add_on_id])
+
         appointment.appointment_add_ons.create!(
-          add_on_id: app_add_on[:add_on_id],
+          name: add_on.name,
+          price: add_on.price,
+          limited: add_on.limited,
           quantity: app_add_on[:quantity]
         )
       end
     end
 
     flash.now[:success] = 'Add-ons updated successfully.'
-  rescue ActiveRecord::RecordInvalid => e
+  rescue => e
     flash.now[:alert] = "Failed to update add-ons: #{e.message}"
   end
 

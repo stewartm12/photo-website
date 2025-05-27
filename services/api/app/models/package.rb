@@ -1,8 +1,8 @@
 class Package < ApplicationRecord
   belongs_to :gallery, counter_cache: true
-  has_many :appointments
 
   validates :name, :price, :gallery, presence: true
+  validates :outfit_change, inclusion: { in: [true, false] }
 
   def formatted_duration
     hours = duration / 60

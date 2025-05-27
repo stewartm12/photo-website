@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::CreateAppointment, type: :request do
-  let(:package) { create(:package, gallery: Gallery.first) }
-  let(:add_on) { create(:add_on, gallery: Gallery.first) }
+  let(:store2) { create(:store) }
+  let(:gallery) { create(:gallery, store: store2) }
+  let!(:package) { create(:package, gallery: gallery) }
+  let!(:add_on) { create(:add_on, gallery: gallery) }
 
   let(:mutation) do
     <<~GQL
@@ -38,7 +40,6 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
     end
 
     context 'when request is authorized' do
-      let(:store) { create(:store) }
       let(:variables) do
         {
           input: {
@@ -51,7 +52,7 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
       end
 
       it 'returns a 200' do
-        post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store.domain  }
+        post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store2.domain  }
         expect(response.status).to eq(200)
       end
 
@@ -73,7 +74,7 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
 
         it 'creates an appointment successfully' do
           expect do
-            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store.domain  }
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store2.domain  }
           end.to change(Appointment, :count).by(1)
           .and change(AppointmentAddOn, :count).by(1)
           .and change(Customer, :count).by(1)
@@ -86,7 +87,7 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
 
           it 'successfully creates a new location record' do
             expect do
-              post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store.domain  }
+              post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store2.domain  }
             end.to change(Location, :count).by(1)
           end
         end
@@ -106,7 +107,7 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
           end
 
           it 'returns an error' do
-            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store.domain  }
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store2.domain  }
 
             json_response = JSON.parse(response.body)
             expect(json_response).to have_key('errors')
@@ -138,7 +139,7 @@ RSpec.describe Mutations::CreateAppointment, type: :request do
           before { allow_any_instance_of(Appointment).to receive(:save!).and_raise(exception) }
 
           it 'returns an error' do
-            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store.domain  }
+            post '/graphql', params: { query: mutation, variables: variables }, headers: { 'Authorization' => ENV['API_ACCESS_TOKEN'], 'X-Store-Domain' => store2.domain  }
             json_response = JSON.parse(response.body)
 
             expect(json_response['data']['createAppointment']).to match(

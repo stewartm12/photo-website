@@ -38,9 +38,8 @@ RSpec.describe StoresController, type: :controller do
       let(:customer) { create(:customer, store: store) }
       let!(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let!(:collection) { create(:collection, gallery: gallery) }
-      let(:package) { create(:package, gallery: gallery) }
-      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
-      let!(:old_appointment) { create(:appointment, package: package, customer: customer, store: store, status: 'completed') }
+      let!(:appointment) { create(:appointment, customer: customer, store: store) }
+      let!(:old_appointment) { create(:appointment, customer: customer, store: store, status: 'completed') }
 
       # before do
       #   create(:store_membership, user: user, store: store)

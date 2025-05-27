@@ -22,6 +22,7 @@ module Mutations
         appointment = build_appointment(args, customer)
 
         build_appointment_add_ons(appointment, args[:add_on_ids])
+        build_appointment_package(appointment, args[:package_id])
         build_location(appointment, args[:address], args[:note]) if args[:address]
 
         appointment.save!
@@ -53,18 +54,40 @@ module Mutations
 
     def build_appointment(args, customer)
       customer.appointments.new(
-        package_id: args[:package_id],
         preferred_date_time: args[:preferred_date_time],
         additional_notes: args[:additional_notes],
         store: context[:current_store]
       )
     end
 
-    def build_appointment_add_ons(appointment, add_on_ids)
-      return unless add_on_ids
+    def build_appointment_package(appointment, package_id)
+      return unless package_id
 
-      add_on_ids.each do |id|
-        appointment.appointment_add_ons.build(add_on_id: id)
+      package = context[:current_store].packages.find_by(id: package_id)
+
+      appointment.build_appointment_package(
+        name: package.name,
+        price: package.price,
+        edited_images: package.edited_images,
+        outfit_change: package.outfit_change,
+        duration: package.duration,
+        features: package.features,
+        gallery_name: package.gallery.name
+      )
+    end
+
+    def build_appointment_add_ons(appointment, add_on_ids)
+      return unless add_on_ids.present?
+
+      add_ons = AddOn.where(id: add_on_ids)
+
+      add_ons.each do |add_on|
+        appointment.appointment_add_ons.build(
+          quantity: 1,
+          name: add_on.name,
+          price: add_on.price,
+          limited: add_on.limited
+        )
       end
     end
 

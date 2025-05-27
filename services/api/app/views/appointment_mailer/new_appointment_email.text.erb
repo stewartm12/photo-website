@@ -10,7 +10,7 @@ Appointment Details:
 --------------------
 Customer Name: <%= @customer.full_name %>
 Phone Number: <%= @customer.phone_number.presence || 'N/A' %>
-Session Type: <%= @appointment.package.gallery.name %> (<%= @appointment.package.name %>)
+Session Type: <%= @appointment.appointment_package.gallery_name %> (<%= @appointment.appointment_package.name %>)
 Preferred Date & Time: <%= @appointment.preferred_date_time&.strftime('%B %d, %Y at %I:%M %p').presence || 'N/A' %>
 Additional Notes: <%= @appointment.additional_notes.presence || 'No additional notes provided' %>
 

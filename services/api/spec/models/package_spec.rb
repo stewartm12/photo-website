@@ -6,13 +6,39 @@ RSpec.describe Package, type: :model do
 
   describe 'associations' do
     it { should belong_to(:gallery) }
-    it { should have_many(:appointments) }
   end
 
-  describe 'associations' do
+  describe 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:price) }
     it { should validate_presence_of(:gallery) }
+
+    context '#outfit_change' do
+      context 'when true' do
+        let(:package) { build(:package, outfit_change: true) }
+
+        it 'is valid when outfit_change is true' do
+          expect(package).to be_valid
+        end
+      end
+
+      context 'when false' do
+        let(:package) { build(:package, outfit_change: false) }
+
+        it 'is valid when outfit_change is false' do
+          expect(package).to be_valid
+        end
+      end
+
+      context 'when invalid' do
+        let(:package) { build(:package, outfit_change: nil) }
+
+        it 'is invalid when outfit_change is nil' do
+          expect(package).not_to be_valid
+          expect(package.errors[:outfit_change]).to include("is not included in the list")
+        end
+      end
+    end
   end
 
   describe '#formatted_duration' do

@@ -62,12 +62,12 @@
                 <%= content_tag :p, location_address, class: 'font-medium' %>
                 <%= content_tag :p, @appointment.locations.first&.note, class: 'text-sm text-gray-500 mt-1' %>
               <% end %>
-              <% if @appointment.locations %>
-                <%= link_to new_store_appointment_location_path(Current.store, @appointment), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-gray-100 hover:text-gray-600 h-10 w-10 text-gray-500 cursor-pointer', data: { turbo_frame: 'modal' } do %>
+              <% if @appointment.locations.any? %>
+                <%= link_to edit_store_appointment_location_path(Current.store, @appointment, @appointment.locations.first), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-gray-100 hover:text-gray-600 h-10 w-10 text-gray-500 cursor-pointer', data: { turbo_frame: 'modal' } do %>
                   <%= icon 'pencil-square' %>
                 <% end %>
               <% else %>
-                <%= link_to edit_store_appointment_location_path(Current.store, @appointment, @appointment.locations.first), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-gray-100 hover:text-gray-600 h-10 w-10 text-gray-500 cursor-pointer', data: { turbo_frame: 'modal' } do %>
+                <%= link_to new_store_appointment_location_path(Current.store, @appointment), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-gray-100 hover:text-gray-600 h-10 w-10 text-gray-500 cursor-pointer', data: { turbo_frame: 'modal' } do %>
                   <%= icon 'pencil-square' %>
                 <% end %>
               <% end %>
@@ -232,12 +232,12 @@
           <%= content_tag :div, class: 'flex items-start gap-3' do %>
             <%= content_tag :div do %>
               <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                <%= content_tag :span, @appointment.package.name %>
+                <%= content_tag :span, @appointment.appointment_package.name %>
               <% end %>
             <% end %>
           <% end %>
 
-          <%= content_tag :span, number_to_currency(@appointment.package_price, unit: "$", precision: 2), class: 'font-medium' %>
+          <%= content_tag :span, number_to_currency(@appointment.appointment_package.price, unit: "$", precision: 2), class: 'font-medium' %>
         <% end %>
 
         <%= content_tag :div, class: 'flex items-center justify-between py-2 border-b border-gray-300 last:border-0' do %>
@@ -272,7 +272,7 @@
           <% end %>
 
           <%= content_tag :div do %>
-            <%= content_tag :h3, @appointment.package.name, class: 'font-medium' %>
+            <%= content_tag :h3, @appointment.appointment_package.name, class: 'font-medium' %>
             <%= content_tag :p, 'selected package for the appointment',class: 'text-sm text-gray-500 mt-1' %>
           <% end %>
         <% end %>
@@ -280,7 +280,7 @@
 
       <%= content_tag :div, class: 'items-center p-6 pt-0 border-t border-gray-300 flex justify-between' do %>
         <%= content_tag :span, 'Total Package', class: 'font-medium' %>
-        <%= content_tag :span, number_to_currency(@appointment.package_price, unit: "$", precision: 2), class: 'font-bold' %>
+        <%= content_tag :span, number_to_currency(@appointment.appointment_package.price, unit: "$", precision: 2), class: 'font-bold' %>
       <% end %>
     <% end %>
 
@@ -301,23 +301,23 @@
 
       <%= content_tag :div, class: 'p-6 pt-0' do %>
         <%= content_tag :div, class: 'space-y-3' do %>
-          <% @appointment.appointment_add_ons.each do |a_on| %>
+          <% @appointment.appointment_add_ons.each do |app_add_on| %>
             <%= content_tag :div, class: 'flex items-center justify-between py-2 border-b border-gray-300 last:border-0' do %>
               <%= content_tag :div, class: 'flex items-start gap-3' do %>
                 <%= content_tag :div do %>
                   <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                    <%= content_tag :span, a_on.add_on.name %>
+                    <%= content_tag :span, app_add_on.name %>
                   <% end %>
 
                   <%= content_tag :div, class: 'flex items-center gap-1 text-sm text-gray-500' do %>
-                    <%= content_tag :span, number_to_currency(a_on.add_on.price, unit: "$", precision: 2) %>
+                    <%= content_tag :span, number_to_currency(app_add_on.price, unit: "$", precision: 2) %>
                     <%= content_tag :span, 'x' %>
-                    <%= content_tag :span, a_on.quantity %>
+                    <%= content_tag :span, app_add_on.quantity %>
                   <% end %>
                 <% end %>
               <% end %>
 
-              <%= content_tag :span, number_to_currency(a_on.total_price, unit: "$", precision: 2), class: 'font-medium' %>
+              <%= content_tag :span, number_to_currency(app_add_on.total_price, unit: "$", precision: 2), class: 'font-medium' %>
             <% end %>
           <% end %>
         <% end %>

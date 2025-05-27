@@ -11,8 +11,7 @@ RSpec.describe LocationsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let(:appointment) { create(:appointment, customer: customer, store: store) }
 
       it 'returns a successful response' do
         get :new, params: { store_slug: store.slug, appointment_id: appointment.id }
@@ -38,8 +37,7 @@ RSpec.describe LocationsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let(:appointment) { create(:appointment, customer: customer, store: store) }
 
       let(:params) do
         {
@@ -85,8 +83,7 @@ RSpec.describe LocationsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let(:appointment) { create(:appointment, customer: customer, store: store) }
       let!(:location) { create(:location, appointment: appointment) }
 
       it 'returns a successfull response' do
@@ -113,8 +110,7 @@ RSpec.describe LocationsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let(:appointment) { create(:appointment, customer: customer, store: store) }
       let!(:location) { create(:location, appointment: appointment) }
 
       let(:params) do

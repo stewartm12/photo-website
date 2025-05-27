@@ -46,9 +46,12 @@
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex items-center gap-2' do %>
                   <%= icon 'cube', class: 'size-4 text-[oklch(66.14%_0.0661_72.71)]' %>
-                  <%= content_tag :span, appointment.package.gallery.name %>
+                  <%= content_tag :div, class: 'flex items-center gap-1' do %>
+                    <%= content_tag :span, appointment.appointment_package.name %>
+                    <%= content_tag :p, "(#{appointment.appointment_package.gallery_name})", class: 'text-sm text-gray-500' %>
+                  <% end %>
                 <% end %>
-                <%= content_tag :span, "$#{appointment.package.price}", class: 'text-sm text-gray-500' %>
+                <%= content_tag :span, "$#{appointment.appointment_package.price}", class: 'text-sm text-gray-500' %>
               <% end %>
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
