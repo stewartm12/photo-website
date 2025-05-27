@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_20_182850) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_25_235527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -55,11 +55,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_20_182850) do
 
   create_table "appointment_add_ons", force: :cascade do |t|
     t.bigint "appointment_id", null: false
-    t.bigint "add_on_id", null: false
     t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["add_on_id"], name: "index_appointment_add_ons_on_add_on_id"
+    t.string "name", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.boolean "limited", null: false
     t.index ["appointment_id"], name: "index_appointment_add_ons_on_appointment_id"
   end
 
@@ -75,9 +76,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_20_182850) do
     t.index ["user_id"], name: "index_appointment_events_on_user_id"
   end
 
+  create_table "appointment_packages", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.string "name", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.integer "edited_images", default: 0
+    t.boolean "outfit_change", default: false
+    t.integer "duration", default: 0
+    t.string "features", default: [], array: true
+    t.string "gallery_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_appointment_packages_on_appointment_id"
+  end
+
   create_table "appointments", force: :cascade do |t|
     t.bigint "customer_id", null: false
-    t.bigint "package_id", null: false
     t.datetime "preferred_date_time"
     t.text "additional_notes"
     t.datetime "created_at", null: false
@@ -85,7 +99,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_20_182850) do
     t.bigint "store_id", null: false
     t.integer "status", default: 0, null: false
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
-    t.index ["package_id"], name: "index_appointments_on_package_id"
     t.index ["status"], name: "index_appointments_on_status"
     t.index ["store_id"], name: "index_appointments_on_store_id"
   end

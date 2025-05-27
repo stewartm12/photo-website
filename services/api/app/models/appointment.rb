@@ -1,11 +1,10 @@
 class Appointment < ApplicationRecord
   belongs_to :customer
-  belongs_to :package
   belongs_to :store
-  has_many :appointment_events
+  has_many :locations, dependent: :destroy
+  has_many :appointment_events, dependent: :destroy
   has_many :appointment_add_ons, dependent: :destroy
-  has_many :add_ons, through: :appointment_add_ons
-  has_many :locations
+  has_one :appointment_package, dependent: :destroy, autosave: true
 
   after_create :notify_customer
 
@@ -27,11 +26,11 @@ class Appointment < ApplicationRecord
   end
 
   def package_price
-    package.price
+    appointment_package.price
   end
 
   def add_ons_price
-    appointment_add_ons.includes(:add_on).sum(&:total_price)
+    appointment_add_ons.sum(&:total_price)
   end
 
   private

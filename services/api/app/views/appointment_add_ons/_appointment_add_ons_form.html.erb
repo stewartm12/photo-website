@@ -8,19 +8,19 @@
     <%= content_tag :div, class: 'mb-6' do %>
       <%= content_tag :h3, 'Current Add-ons', class: 'text-sm font-medium mb-3' %>
       <%= content_tag :div, class: 'space-y-3 max-h-[200px] overflow-y-auto pr-2', data: { appointment_add_on_target: 'list' } do %>
-        <% @appointment_add_ons.each_with_index do |app_add_on, index| %>
+        <% @appointment_add_ons.values.each_with_index do |app_add_on, index| %>
           <%= content_tag :div, class: 'flex items-center justify-between p-3 bg-gray-50 rounded-md', data: { appointment_add_on_target: 'addon' } do %>
             <%= content_tag :div, class: 'flex-1' do %>
               <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                <%= content_tag :span, app_add_on.add_on.name, class: 'font-medium' %>
+                <%= content_tag :span, app_add_on[:name], class: 'font-medium' %>
               <% end %>
-              <%= content_tag :span, "#{number_to_currency(app_add_on.add_on.price, unit: '$', precision: 2)} each", class: 'text-sm text-gray-500' %>
+              <%= content_tag :span, "#{number_to_currency(app_add_on[:price], unit: '$', precision: 2)} each", class: 'text-sm text-gray-500' %>
             <% end %>
 
             <%= content_tag :div, class: 'flex items-center gap-3' do %>
-              <%= f.fields_for :appointment_add_ons, app_add_on, child_index: index do |addon_form| %>
-                <%= addon_form.hidden_field :add_on_id, value: app_add_on.add_on_id %>
-                <%= addon_form.number_field :quantity, min: 1, class: 'border rounded-md px-2 py-1 w-16', value: app_add_on.quantity, id: "appointment_appointment_add_ons_quantity_#{index}" %>
+              <%= f.fields_for :appointment_add_ons, AppointmentAddOn.new, child_index: index do |addon_form| %>
+                <%= addon_form.hidden_field :add_on_id, value: app_add_on[:id] %>
+                <%= addon_form.number_field :quantity, min: 1, class: 'border rounded-md px-2 py-1 w-16', value: app_add_on[:quantity], id: "appointment_appointment_add_ons_quantity_#{index}" %>
               <% end %>
               <%= button_tag type: :button,
                 class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-7 w-7 text-red-500 hover:text-red-600 hover:bg-red-50',
@@ -38,7 +38,7 @@
           <%= content_tag :div, class: 'grid grid-cols-[1fr_120px] gap-3 items-center' do %>
             <%= content_tag :div do %>
               <%= select_tag :add_on_select,
-                add_on_options_with_price(appointment.package.gallery.add_ons),
+                add_on_options_with_price(Current.store.add_ons),
                 prompt: 'Select Add-On',
                 class: 'w-full bg-white p-2 rounded-md font-medium text-sm border border-gray-300 cursor-pointer',
                 data: { appointment_add_on_target: 'addOnSelect' } %>

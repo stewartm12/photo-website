@@ -6,7 +6,7 @@ FactoryBot.define do
     outfit_change { Faker::Boolean.boolean }
     duration { Faker::Number.between(from: 30, to: 120) }
     popular { Faker::Boolean.boolean }
-    features { [] }
+    features { Array.new(Faker::Number.between(from: 1, to: 4)) { Faker::Marketing.buzzwords } }
     association :gallery
   end
 end

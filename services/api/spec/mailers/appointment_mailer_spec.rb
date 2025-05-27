@@ -4,8 +4,8 @@ RSpec.describe AppointmentMailer, type: :mailer do
   describe '.new_appointment_email' do
     let(:customer) { create(:customer, store: Store.first) }
     let(:gallery) { Gallery.first }
-    let(:package) { create(:package, gallery: gallery) }
-    let(:appointment) { create(:appointment, customer: customer, package: package, store: Store.first) }
+    let(:appointment) { create(:appointment, customer: customer, store: Store.first) }
+    let!(:appointment_package) { create(:appointment_package, appointment: appointment) }
 
     it 'sends the email to the customer and includes the correct BCC' do
       email = AppointmentMailer.new_appointment_email(appointment, customer).deliver_now

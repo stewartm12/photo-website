@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = Current.store.appointments.includes(appointment_add_ons: :add_on).find_by(id: params[:id])
+    @appointment = Current.store.appointments.find_by(id: params[:id])
   end
 
   def edit; end
@@ -40,7 +40,7 @@ class AppointmentsController < ApplicationController
   end
 
   def filtered_appointments
-    appointments = Current.store.appointments.includes(:customer, package: :gallery).joins(:customer)
+    appointments = Current.store.appointments.includes(:customer, :appointment_package).joins(:customer)
 
     if search_params[:customer_search].present?
       appointments = appointments.where(

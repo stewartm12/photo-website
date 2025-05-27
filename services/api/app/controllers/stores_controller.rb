@@ -14,7 +14,7 @@ class StoresController < ApplicationController
                     .count
 
     @recent_galleries = Current.store.galleries.order(id: :desc).limit(5)
-    @upcoming_appointments = Current.store.appointments.eager_load(:customer, package: :gallery).where(status: :pending).order(preferred_date_time: :desc).limit(5)
+    @upcoming_appointments = Current.store.appointments.includes(:customer, :appointment_package).where(status: :pending).order(preferred_date_time: :desc).limit(5)
     @newest_customers = Current.store.customers.order(id: :desc).limit(3)
   end
 

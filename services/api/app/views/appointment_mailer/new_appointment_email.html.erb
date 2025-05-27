@@ -25,7 +25,7 @@
 
     <%= content_tag :p do %>
       <%= content_tag :strong, 'Session Type: ', style: 'font-weight: bold;'  %>
-      <%= @appointment.package.gallery.name %> (<%= @appointment.package.name %>)
+      <%= @appointment.appointment_package.gallery_name %> (<%= @appointment.appointment_package.name %>)
     <% end %>
 
     <%= content_tag :p do %>

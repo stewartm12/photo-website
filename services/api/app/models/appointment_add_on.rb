@@ -1,10 +1,9 @@
 class AppointmentAddOn < ApplicationRecord
   belongs_to :appointment
-  belongs_to :add_on
 
-  validates :quantity, presence: true
+  validates :quantity, :name, :price, presence: true
 
   def total_price
-    add_on.price * quantity
+    quantity * price
   end
 end

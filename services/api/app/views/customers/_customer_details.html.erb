@@ -140,8 +140,8 @@
                 <%= content_tag :td, "##{appointment.id}", class: 'p-4 align-middle' %>
                 <%= content_tag :td, class: 'p-4 align-middle' do %>
                   <%= content_tag :div, class: 'flex items-center gap-1' do %>
-                    <%= content_tag :span, appointment.package.name %>
-                    <%= content_tag :p, "(#{appointment.package.gallery.name})", class: 'text-sm text-gray-500' %>
+                    <%= content_tag :span, appointment.appointment_package.name %>
+                    <%= content_tag :p, "(#{appointment.appointment_package.gallery_name})", class: 'text-sm text-gray-500' %>
                   <% end %>
                 <% end %>
                 <%= content_tag :td, class: 'p-4 align-middle' do %>

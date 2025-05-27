@@ -2,6 +2,8 @@ class Store < ApplicationRecord
   has_many :store_memberships
   has_many :users, through: :store_memberships
   has_many :galleries
+  has_many :packages, through: :galleries
+  has_many :add_ons, through: :galleries
   has_many :collections, through: :galleries
   has_many :appointments
   has_many :customers

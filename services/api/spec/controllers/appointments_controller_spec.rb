@@ -11,10 +11,9 @@ RSpec.describe AppointmentsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let!(:appointment) { create(:appointment, customer: customer, store: store) }
       let(:customer2) { create(:customer, store: store, first_name: 'tester', last_name: 'lastname', email: 'tester@email.com') }
-      let!(:appointment2) { create(:appointment, package: package, customer: customer2, store: store, status: 'in_progress') }
+      let!(:appointment2) { create(:appointment, customer: customer2, store: store, status: 'in_progress') }
 
       it 'returns a successful response' do
         get :index, params: { store_slug: store.slug }
@@ -68,8 +67,7 @@ RSpec.describe AppointmentsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store) }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let!(:appointment) { create(:appointment, customer: customer, store: store) }
 
       it 'returns a successfull response' do
         get :show, params: { store_slug: store.slug, id: appointment.id }
@@ -95,8 +93,7 @@ RSpec.describe AppointmentsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store) }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store) }
+      let!(:appointment) { create(:appointment, customer: customer, store: store) }
 
       it 'returns a successfull response' do
         get :edit, params: { store_slug: store.slug, id: appointment.id }
@@ -122,8 +119,7 @@ RSpec.describe AppointmentsController, type: :controller do
 
       let(:gallery) { create(:gallery, store: store) }
       let(:customer) { create(:customer, store: store, first_name: 'john', last_name: 'bravo', email: 'first@email.com') }
-      let(:package) { create(:package, gallery: gallery) }
-      let!(:appointment) { create(:appointment, package: package, customer: customer, store: store, additional_notes: 'Boo') }
+      let!(:appointment) { create(:appointment, customer: customer, store: store, additional_notes: 'Boo') }
 
       context 'when params are invalid' do
         let(:params) do

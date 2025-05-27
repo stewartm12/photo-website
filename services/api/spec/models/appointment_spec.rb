@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.describe Appointment, type: :model do
   describe 'associations' do
     it { should belong_to(:customer) }
-    it { should belong_to(:package) }
     it { should belong_to(:store) }
     it { should have_many(:appointment_add_ons) }
+    it { should have_one(:appointment_package) }
     it { should have_many(:appointment_events) }
-    it { should have_many(:add_ons) }
     it { should have_many(:locations) }
   end
 
@@ -40,7 +39,7 @@ RSpec.describe Appointment, type: :model do
     include_context 'with appointment and related records'
 
     it 'returns the package price' do
-      expect(appointment.package_price).to eq(package.price)
+      expect(appointment_package.price).to eq(50.00)
     end
   end
 
@@ -51,28 +50,25 @@ RSpec.describe Appointment, type: :model do
     let(:add_on2) { create(:add_on, gallery: gallery, price: 10.00) }
 
     before do
-      create(:appointment_add_on, appointment: appointment, add_on: add_on1, quantity: 4)
-      create(:appointment_add_on, appointment: appointment, add_on: add_on2, quantity: 5)
+      create(:appointment_add_on, appointment: appointment, quantity: 4, price: 10)
+      create(:appointment_add_on, appointment: appointment, quantity: 5, price: 10)
     end
 
     it 'returns the sum of the add-ons price' do
-      expect(appointment.add_ons_price).to eq(70.00)
+      expect(appointment.add_ons_price).to eq(90.00)
     end
   end
 
   describe '#total_price' do
     include_context 'with appointment and related records'
 
-    let(:add_on1) { create(:add_on, gallery: gallery, price: 5.00) }
-    let(:add_on2) { create(:add_on, gallery: gallery, price: 10.00) }
-
     before do
-      create(:appointment_add_on, appointment: appointment, add_on: add_on1, quantity: 4)
-      create(:appointment_add_on, appointment: appointment, add_on: add_on2, quantity: 5)
+      create(:appointment_add_on, appointment: appointment, quantity: 4, price: 10)
+      create(:appointment_add_on, appointment: appointment, quantity: 5, price: 10)
     end
 
     it 'returns the total price of the appointment' do
-      expect(appointment.total_price).to eq(70.00 + package.price)
+      expect(appointment.total_price).to eq(140.00)
     end
   end
 end

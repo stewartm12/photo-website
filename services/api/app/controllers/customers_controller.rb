@@ -8,7 +8,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @customer_appointments = @customer.appointments.includes(package: :gallery)
+    @customer_appointments = @customer.appointments
   end
 
   def edit; end
