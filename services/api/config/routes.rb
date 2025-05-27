@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resource :password, param: :token
   resource :registration, only: %i[new create]
   resource :confirmation, only: %i[new show create]
-  resources :stores, only: %i[index new create edit update destroy]
+  resources :stores, only: %i[index new create]
 
   scope '/:store_slug', as: :store do
     get '/', to: 'stores#show', as: :home
@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
     resources :customers, only: %i[index show edit update]
     resources :pricings
+    resource :settings, only: :show
 
     resources :galleries, only: %i[index new create edit update destroy] do
       resources :collections do

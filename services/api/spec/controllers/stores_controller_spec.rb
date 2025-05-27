@@ -41,13 +41,6 @@ RSpec.describe StoresController, type: :controller do
       let!(:appointment) { create(:appointment, customer: customer, store: store) }
       let!(:old_appointment) { create(:appointment, customer: customer, store: store, status: 'completed') }
 
-      # before do
-      #   create(:store_membership, user: user, store: store)
-      #   allow(controller).to receive(:resume_session).and_return(session)
-      #   allow(Current).to receive(:user).and_return(user)
-      #   allow(Current).to receive(:store).and_return(store)
-      # end
-
       it 'returns a successful response' do
         get :show, params: { store_slug: store.slug }
 
