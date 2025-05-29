@@ -8,6 +8,10 @@
       <%= icon 'square-3-stack-3d', class: 'size-5' %>
       <%= content_tag :p, 'Galleries' %>
     <% end %>
+    <%= nav_link_to store_showcases_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-1 rounded-md' do %>
+      <%= icon 'squares-2x2', class: 'size-5' %>
+      <%= content_tag :p, 'Showcases' %>
+    <% end %>
     <%= nav_link_to store_appointments_path(Current.store), class: 'flex items-center space-x-2 hover:bg-stone-100 p-1 rounded-md' do %>
       <%= icon 'inbox', class: 'size-5' %>
       <%= content_tag :p, 'Appointments' %>

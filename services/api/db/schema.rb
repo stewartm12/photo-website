@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_25_235527) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -175,7 +175,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_235527) do
     t.datetime "updated_at", null: false
     t.string "section_key"
     t.integer "position"
-    t.index ["file_key"], name: "index_photos_on_file_key", unique: true
+    t.index ["imageable_type", "imageable_id", "file_key"], name: "index_photos_on_imageable_type_and_imageable_id_and_file_key", unique: true
     t.index ["imageable_type", "imageable_id"], name: "index_photos_on_imageable"
   end
 
@@ -193,7 +193,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_25_235527) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_showcases_on_name", unique: true
+    t.bigint "store_id", null: false
+    t.integer "photos_count", default: 0, null: false
+    t.index ["store_id", "name"], name: "index_showcases_on_store_id_and_name", unique: true
+    t.index ["store_id"], name: "index_showcases_on_store_id"
   end
 
   create_table "store_memberships", force: :cascade do |t|

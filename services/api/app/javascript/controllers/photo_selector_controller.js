@@ -7,7 +7,8 @@ export default class extends Controller {
   static values = {
     storeSlug: String,
     galleryId: Number,
-    collectionId: Number
+    collectionId: Number,
+    showcaseId: Number
   }
 
   connect() {
@@ -50,7 +51,7 @@ export default class extends Controller {
     this.actionsBarTarget.classList.remove("flex");
     this.selectedCountTarget.textContent = "0 photos selected"
     this.deleteBtnTarget.disabled = true
-    this.downloadBtnTarget.disabled = true
+    if (this.hasDownloadBtn) this.downloadBtnTarget.disabled = true;
   }
 
   toggleSelectAll() {
@@ -80,7 +81,7 @@ export default class extends Controller {
 
     // Enable/disable buttons
     this.deleteBtnTarget.disabled = count === 0;
-    this.downloadBtnTarget.disabled = count === 0;
+    if (this.hasDownloadBtn) this.downloadBtnTarget.disabled = count === 0;
 
     // Update select all checkbox state
     if (count === this.checkboxTargets.length) {

@@ -1,0 +1,5 @@
+<% showcase_sections.each do |section| %>
+  <%= content_tag :div, id: section, class: "#{'hidden' if section == showcase_sections[0]}", data: { tabs_target: 'tab'} do %>
+    <%= render 'section_photos', section: section, showcase_photos: showcase_photos %>
+  <% end %>
+<% end %>

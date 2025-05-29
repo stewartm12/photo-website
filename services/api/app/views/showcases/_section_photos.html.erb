@@ -1,0 +1,20 @@
+<%= content_tag :div, id: "showcase_photos_#{section}_grid", class: 'grid gap-4', style: 'grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));', data: { controller: 'sortable', sortable_url_value: store_photo_path(Current.store, id: ':id') } do %>
+  <% showcase_photos[section].sort_by(&:position).each do |photo| %>
+    <%= content_tag :div, id: "photo_#{photo.id}", class: 'rounded-lg border border-gray-300 bg-gray-50 shadow-sm overflow-hidden group cursor-pointer', data: { sortable_id: photo.id } do %>
+      <%= content_tag :div, class: 'relative' do %>
+        <%= content_tag :div, class: 'absolute top-2 left-2 z-10' do %>
+          <%= check_box_tag 'photo_ids[]', photo.id, false, id: "photo-#{photo.id}", data: { action: 'photo-selector#toggleCheckbox', photo_selector_target: 'checkbox' }, class: 'peer size-4 shrink-0 rounded-sm border bg-white border-gray-300' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'relative', style: 'aspect-ratio: 1114 / 1008;' do %>
+          <%= image_tag photo.image.variant(resize_to_limit: [300, 300]), class: 'object-cover', style: 'position: absolute; height: 100%; width: 100%; inset: 0px;' %>
+        <% end %>
+
+        <%= content_tag :div, nil, class: 'absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200' %>
+      <% end %>
+      <%= content_tag :div, class: 'border border-gray-300 flex justify-center items-center cursor-move', data: { sortable_handle: '' } do %>
+        <%= icon 'arrows-pointing-out', class: 'size-4 text-gray-400' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

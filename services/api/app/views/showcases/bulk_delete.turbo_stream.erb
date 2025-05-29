@@ -1,0 +1,22 @@
+<%= render_flash_stream %>
+
+<% @deleted_ids.each do |photo_id| %>
+  <%= turbo_stream.remove "photo_#{photo_id}" %>
+<% end %>
+
+<%= turbo_stream.replace 'section_buttons' do %>
+  <%= turbo_frame_tag 'section_buttons' do %>
+    <% @showcase_sections.each do |section| %>
+      <%= content_tag :button, section.titleize, type: 'button', id: section, class: 'inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium cursor-pointer', data: { tabs_target: "btn", action: "click->tabs#select click->photo-selector#clearSelections" } %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace 'collection_photo_info' do %>
+  <%= turbo_frame_tag 'showcase_photo_info' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :h1, @showcase.name, class: 'text-2xl font-bold' %>
+      <%= content_tag :p, "#{@showcase.photos_count} photos • #{@showcase.description}", class: 'text-gray-500' %>
+    <% end %>
+  <% end %>
+<% end %>

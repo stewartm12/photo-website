@@ -1,0 +1,68 @@
+<%= form_with url: store_showcases_path(Current.store), method: :get,
+  data: {
+    turbo_frame: 'showcases_results',
+    turbo_action: 'advance',
+    controller: 'submit',
+    action: 'input->submit#submit'
+  } do |f| %>
+  <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 md:flex-row md:items-center md:justify-between mb-8 ' do %>
+    <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+      <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search showcases...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @showcases.any? %>
+  <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
+    <%= content_tag :div, class: 'overflow-x-auto' do %>
+      <%= content_tag :table, class: 'w-full' do %>
+        <%= content_tag :thead do %>
+          <%= content_tag :tr, class: 'border-b border-gray-300 bg-stone-200' do %>
+            <%= content_tag :th, 'Showcase Name', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Photos', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Created', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Actions', class: 'px-4 py-3 text-left' %>
+          <% end %>
+        <% end %>
+
+        <%= content_tag :tbody do %>
+          <% @showcases.each do |showcase| %>
+            <%= content_tag :tr, class: 'border-b border-gray-300 odd:bg-white even:bg-stone-100' do %>
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                  <%= content_tag :span, showcase.name, class: 'font-medium' %>
+              <% end %>
+
+              <%= content_tag :td, showcase.photos_count, class: 'px-4 py-3' %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :span, showcase.created_at.strftime("%B %d, %Y"), class: 'font-medium' %>
+              <% end %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= content_tag :div, class: 'flex gap-2' do %>
+                  <%= link_to store_showcase_path(Current.store, showcase), data: { turbo_frame: '_top' } do %>
+                    <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
+                  <% end %>
+                  <%= button_to store_showcase_path(Current.store, showcase),
+                    method: :delete,
+                    data: { turbo_confirm: 'Are you sure you want to delete this showcase?' } do %>
+                    <%= icon 'trash', class: 'size-5 text-red-500 hover:text-red-800 cursor-pointer' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= content_tag :div, class: 'p-4 text-center' do %>
+    <%= content_tag :h3, 'No existing showcases yet in your store.', class: 'text-lg font-semibold mb-2' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'flex items-center justify-between mt-6' do %>
+  <%== pagy_info(@pagy) %>
+  <%== pagy_nav(@pagy) %>
+<% end %>

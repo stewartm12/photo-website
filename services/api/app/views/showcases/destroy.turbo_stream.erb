@@ -1,0 +1,5 @@
+<%= render_flash_stream %>
+
+<%= turbo_stream.update 'showcases_results' do %>
+  <%= render 'showcases/showcases_results' %>
+<% end %>

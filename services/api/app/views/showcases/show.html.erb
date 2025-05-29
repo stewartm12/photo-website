@@ -1,0 +1,58 @@
+<%= content_tag :div, class: 'p-6' do %>
+  <%= content_tag :div, class: 'flex items-center gap-2 mb-6 text-sm' do %>
+    <%= link_to 'Home', store_home_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= link_to 'Showcases', store_showcases_path(Current.store), class: 'text-gray-500 hover:text-gray-700'  %>
+    <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
+    <%= content_tag :span, @showcase.name %>
+  <% end %>
+
+  <%= content_tag :div, class: 'flex flex-col md:flex-row md:items-center md:justify-between mb-8' do %>
+    <%= turbo_frame_tag 'showcase_photo_info' do %>
+      <%= content_tag :div do %>
+        <%= content_tag :h1, @showcase.name, class: 'text-2xl font-bold' %>
+        <%= content_tag :p, "#{@showcase.photos_count} photos • #{@showcase.description}", class: 'text-gray-500' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
+      <%= link_to edit_store_showcase_path(Current.store, @showcase), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
+        <%= icon 'pencil-square', class: 'mr-2 size-4' %>
+        <%= content_tag :span, 'Edit' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= form_with url: bulk_delete_store_showcase_path(Current.store, @showcase), method: :delete, data: { controller: 'photo-selector' } do %>
+    <%= content_tag :div, class: 'bg-gray-50 border border-gray-300 rounded-md p-3 mb-6 hidden items-center justify-between', data: { photo_selector_target: 'actionsBar' }  do %>
+      <%= content_tag :div, class: 'flex items-center gap-2' do %>
+        <%= check_box_tag 'select_all', '', false, id: 'select-all', class: 'peer size-4 shrink-0 rounded-sm border border-gray-300', data: { action: 'photo-selector#toggleSelectAll', photo_selector_target: 'selectAll' } %>
+        <%= content_tag :span, '0 photos selected', data: { photo_selector_target: 'selectedCount' } %>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex gap-2' do %>
+        <%= button_tag type: 'submit',
+          data: { turbo_confirm: 'Are you sure you want to delete selected photos?', photo_selector_target: 'deleteBtn', action: 'photo-selector#handleDeleteClick' },
+          class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start text-red-500 cursor-pointer disabled:bg-gray-100 disabled:cursor-text',
+          disabled: true do %>
+          <%= icon 'trash' %>
+          <%= content_tag :span, 'Delete' %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, data: { controller: :tabs, tabs_active_class: 'bg-gray-900 text-gray-100', tabs_default_tab_value: @showcase_sections[0] } do %>
+      <%= content_tag :div, class: "inline-flex h-10 items-center justify-center rounded-md bg-gray-200 p-1 text-gray-500 mb-4" do %>
+        <%= turbo_frame_tag 'section_buttons' do %>
+          <% @showcase_sections.each do |section| %>
+            <%= content_tag :button, section.titleize, type: 'button', id: section, class: 'inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium cursor-pointer', data: { tabs_target: "btn", action: "click->tabs#select click->photo-selector#clearSelections" } %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= turbo_frame_tag 'showcase_sections' do %>
+        <%= render 'showcase_sections', showcase_sections: @showcase_sections, showcase_photos: @showcase_photos %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

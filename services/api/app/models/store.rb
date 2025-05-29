@@ -7,6 +7,7 @@ class Store < ApplicationRecord
   has_many :collections, through: :galleries
   has_many :appointments
   has_many :customers
+  has_many :showcases
 
   belongs_to :owner, class_name: 'User'
 
