@@ -6,6 +6,10 @@ class Photo < ApplicationRecord
   validates :file_key, presence: true, uniqueness: true
   validate :acceptable_image
 
+  acts_as_list top_of_list: 0
+
+  scope :ordered, -> { order(:position) }
+
   ACCEPTABLE_IMAGE_TYPES = %w[
     image/jpeg
     image/png

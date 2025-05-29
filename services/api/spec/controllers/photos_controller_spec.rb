@@ -78,6 +78,34 @@ RSpec.describe PhotosController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    context 'when user is not authenticated' do
+      include_examples 'redirects to login', :patch, :update, { store_slug: 'store_slug', id: '1' }
+    end
+
+    context 'when user is authenticated' do
+      include_context 'with authenticated user'
+
+      let!(:photo1) { create(:photo, position: 1) }
+      let!(:photo2) { create(:photo, position: 2) }
+
+      it 'reorders the photo to the new position' do
+        patch :update, params: { store_slug: store.slug, id: photo2.id, position: 1 }
+
+        expect(response).to have_http_status(:no_content)
+        expect(photo2.reload.position).to eq(1)
+        expect(photo1.reload.position).to eq(2)
+      end
+
+      it 'returns 204 no content even if position is the same' do
+        patch :update, params: { store_slug: store.slug, id: photo1.id, position: 1 }
+
+        expect(response).to have_http_status(:no_content)
+        expect(photo1.reload.position).to eq(1)
+      end
+    end
+  end
+
   describe 'GET #download' do
     context 'when user is not authenticated' do
       include_examples 'redirects to login', :get, :download, { store_slug: 'store_slug', gallery_id: '1', collection_id: '1' }
@@ -109,7 +137,7 @@ RSpec.describe PhotosController, type: :controller do
 
   describe 'DESTROY #bulk_delete' do
     context 'when user is not authenticated' do
-      include_examples 'redirects to login', :get, :download, { store_slug: 'store_slug', gallery_id: '1', collection_id: '1' }
+      include_examples 'redirects to login', :delete, :bulk_delete, { store_slug: 'store_slug', gallery_id: '1', collection_id: '1' }
     end
 
     context 'when user is authenticated' do

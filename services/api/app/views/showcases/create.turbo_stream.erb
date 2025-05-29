@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @showcase.persisted? %>
+  <%= turbo_stream.update 'showcases_results' do %>
+    <%= render 'showcases/showcases_results' %>
+  <% end %>
+<% end %>

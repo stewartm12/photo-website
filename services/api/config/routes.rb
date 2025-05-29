@@ -43,6 +43,13 @@ Rails.application.routes.draw do
     resources :customers, only: %i[index show edit update]
     resources :pricings
     resource :settings, only: :show
+    resources :showcases do
+      member do
+        delete :bulk_delete
+      end
+    end
+
+    resources :photos, only: [:update]
 
     resources :galleries, only: %i[index new create edit update destroy] do
       resources :collections do

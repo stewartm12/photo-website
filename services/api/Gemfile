@@ -77,6 +77,7 @@ group :test do
   gem 'webmock'
 end
 
+gem 'acts_as_list'
 gem 'aws-sdk-s3'
 gem 'graphql'
 gem 'httparty'

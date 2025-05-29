@@ -80,13 +80,13 @@ RSpec.describe GalleriesController, type: :controller do
       let(:gallery) { create(:gallery, store: store, name: 'gallery 1', slug: 'gallery-1') }
 
       it 'returns a successful response' do
-        get :new, params: { store_slug: store.slug, id: gallery.id }
+        get :new, params: { store_slug: store.slug }
 
         expect(response).to have_http_status(:ok)
       end
 
       it 'assigns @gallery' do
-        get :new, params: { store_slug: store.slug, id: gallery.id }
+        get :new, params: { store_slug: store.slug }
 
         expect(controller.instance_variable_get(:@gallery)).to be_a_new(Gallery)
       end

@@ -1,16 +1,17 @@
 module PhotoUploadable
   extend ActiveSupport::Concern
 
-  def build_photo_from_image(uploaded_file, store_slug:)
+  def build_photo_from_image(uploaded_file, store_slug:, section_key: nil, positioned: nil)
     file_name = filename_from_upload(uploaded_file)
     file_key = generate_file_key(file_name, store_slug)
     alt_text = generate_alt_text(file_name)
+    position = positioned ? self.photos_count + 1 : nil
 
     if respond_to?(:photo) && respond_to?(:build_photo)
       build_photo(file_key: file_key, alt_text: alt_text)
       attach_uploaded_file(uploaded_file, file_key)
     elsif respond_to?(:photos)
-      new_photo = photos.build(file_key: file_key, alt_text: alt_text)
+      new_photo = photos.build(file_key: file_key, alt_text: alt_text, section_key: section_key, position: position)
       new_photo.image.attach(uploaded_file)
     end
   end

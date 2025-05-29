@@ -22,6 +22,13 @@ class PhotosController < ApplicationController
     end
   end
 
+  def update
+    @photo = Photo.find_by(id: update_params[:id])
+    @photo.insert_at(update_params[:position].to_i)
+
+    head :no_content
+  end
+
   def download
     photo_ids = params[:photo_ids]
     photos = Photo.where(id: photo_ids)
@@ -53,6 +60,10 @@ class PhotosController < ApplicationController
     pp = params.expect(photo: [images: []])
     cleaned_images = pp[:images].reject(&:blank?)
     cleaned_images
+  end
+
+  def update_params
+    params.permit(:id, :position)
   end
 
   def delete_params
