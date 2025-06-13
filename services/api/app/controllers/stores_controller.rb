@@ -43,6 +43,6 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.expect(store: %i[name domain])
+    params.expect(store: %i[name domain email])
   end
 end

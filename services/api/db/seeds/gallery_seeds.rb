@@ -8,7 +8,7 @@ user = User.create!(
   password_confirmation: 'password'
 )
 
-store = Store.create!(name: 'Test Store', domain: 'test-store', owner: user)
+store = Store.create!(name: 'Test Store', domain: 'test-store', owner: user, email: 'store@email.com')
 
 StoreMembership.create!(user: user, store: store)
 

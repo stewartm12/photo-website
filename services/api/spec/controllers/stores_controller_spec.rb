@@ -106,7 +106,8 @@ RSpec.describe StoresController, type: :controller do
           {
             store: {
               name: 'Test 1',
-              domain: 'test1.com'
+              domain: 'test1.com',
+              email: 'tester@email.com'
             }
           }
         end

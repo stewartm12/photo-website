@@ -1,12 +1,6 @@
 <%= render_flash_stream %>
 
 <% if @appointment.errors.empty? %>
-  <%= turbo_stream.update 'appointment_display' do %>
-    <%= render 'appointments/appointment_content' %>
-  <% end %>
-<% end %>
-
-<% if @appointment.invoice %>
   <%= turbo_stream.update 'appointment_invoice' do %>
     <%= render 'appointments/appointment_invoice' %>
   <% end %>

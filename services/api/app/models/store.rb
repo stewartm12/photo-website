@@ -13,6 +13,7 @@ class Store < ApplicationRecord
 
   before_validation :generate_slug, on: :create
 
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, :domain, :slug, presence: true
   validates :domain, :slug, uniqueness: { case_sensitive: false }
 

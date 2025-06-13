@@ -5,6 +5,7 @@ class Appointment < ApplicationRecord
   has_many :appointment_events, dependent: :destroy
   has_many :appointment_add_ons, dependent: :destroy
   has_one :appointment_package, dependent: :destroy, autosave: true
+  has_one :invoice
 
   after_create :notify_customer
 
