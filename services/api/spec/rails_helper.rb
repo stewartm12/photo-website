@@ -16,6 +16,7 @@ SimpleCov.start 'rails' do
    # Exclude specific files
    %w[
     app/controllers/graphql_controller.rb
+    app/services/invoice_pdf_renderer.rb
     app/graphql/api_schema.rb
     app/graphql/types/node_type.rb
     app/graphql/types/mutation_type.rb

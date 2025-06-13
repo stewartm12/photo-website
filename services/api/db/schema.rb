@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_12_223737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -98,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
     t.datetime "updated_at", null: false
     t.bigint "store_id", null: false
     t.integer "status", default: 0, null: false
+    t.decimal "deposit", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["status"], name: "index_appointments_on_status"
     t.index ["store_id"], name: "index_appointments_on_store_id"
@@ -141,6 +142,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
     t.index ["name"], name: "index_galleries_on_name", unique: true
     t.index ["slug"], name: "index_galleries_on_slug", unique: true
     t.index ["store_id"], name: "index_galleries_on_store_id"
+  end
+
+  create_table "invoice_line_items", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
+    t.string "name", null: false
+    t.string "item_type", null: false
+    t.integer "quantity", default: 1, null: false
+    t.decimal "unit_price", null: false
+    t.decimal "total_price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_line_items_on_invoice_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "appointment_id", null: false
+    t.string "invoice_number", null: false
+    t.decimal "subtotal", null: false
+    t.decimal "tax"
+    t.decimal "total", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "unpaid", null: false
+    t.decimal "deposit", precision: 10, scale: 2, default: "0.0", null: false
+    t.datetime "paid_at"
+    t.decimal "paid_amount", precision: 10, scale: 2, default: "0.0"
+    t.index ["appointment_id"], name: "index_invoices_on_appointment_id"
+    t.index ["invoice_number"], name: "index_invoices_on_invoice_number", unique: true
   end
 
   create_table "locations", force: :cascade do |t|
@@ -217,6 +246,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "galleries_count", default: 0, null: false
+    t.string "email"
     t.index ["domain"], name: "index_stores_on_domain", unique: true
     t.index ["owner_id"], name: "index_stores_on_owner_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
@@ -241,6 +271,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_27_232239) do
   add_foreign_key "appointments", "stores"
   add_foreign_key "customers", "stores"
   add_foreign_key "galleries", "stores"
+  add_foreign_key "invoice_line_items", "invoices"
+  add_foreign_key "invoices", "appointments"
   add_foreign_key "sessions", "users"
   add_foreign_key "store_memberships", "stores"
   add_foreign_key "store_memberships", "users"

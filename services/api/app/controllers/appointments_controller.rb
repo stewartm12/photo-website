@@ -17,6 +17,7 @@ class AppointmentsController < ApplicationController
     message = params[:form_type] == 'quick_cancel' ? 'Appointment successfully cancelled.' : 'Appointment successfully updated.'
 
     if @appointment.update(appointment_params)
+      @appointment.invoice.update(deposit: appointment_params[:deposit]) if @appointment.invoice
       flash.now[:success] = message
     else
       flash.now[:alert] = @appointment.errors.full_messages.to_sentence
@@ -31,7 +32,7 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.expect(appointment: %i[status preferred_date_time additional_notes])
+    params.expect(appointment: %i[status deposit preferred_date_time additional_notes])
   end
 
   def set_appointment

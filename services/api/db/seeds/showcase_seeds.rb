@@ -1,5 +1,3 @@
-# Showcase.create(name: 'slideshow', description: 'The slideshow that appears on the homepage')
-# Showcase.create(name: 'service_card', description: 'The card links that appear on the homepage')
 Showcase.create(name: 'home', description: 'Contains photos connecting to the home page')
 Showcase.create(name: 'about_me', description: 'Contains photos connecting to the about me page')
 Showcase.create(name: 'contact', description: 'Contains photos connecting to the contact page')

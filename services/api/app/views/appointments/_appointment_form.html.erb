@@ -7,6 +7,11 @@
 
     <%= content_tag :div, class: 'grid gap-4 py-4' do %>
       <%= content_tag :div, class: 'grid gap-2' do %>
+        <%= f.label :deposit %>
+        <%= f.number_field :deposit, step: 0.01, min: 0 %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2' do %>
         <%= f.label :status %>
         <%= f.select :status, options_for_select(Appointment.statuses.map { |key, _| [key.humanize, key] }, appointment.status), { include_blank: 'Select Status' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400' %>
       <% end %>

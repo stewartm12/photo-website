@@ -46,6 +46,31 @@ module ApplicationHelper
     end
   end
 
+  def deposit_badge_status(amount)
+    deposit_status_color = amount > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+    deposit_status = amount > 0 ? 'Paid' : 'Unpaid'
+
+    content_tag :div, class: "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent #{deposit_status_color}" do
+      deposit_status
+    end
+  end
+
+  def invoice_badge_status(invoice)
+    invoice_status_classes = {
+      unpaid:    'bg-yellow-100 text-yellow-700',
+      overdue:   'bg-red-100 text-red-700',
+      paid:      'bg-green-100 text-green-700',
+      refunded:  'bg-pink-100 text-pink-700',
+      void:      'bg-gray-100 text-gray-700'
+    }
+
+    status = invoice_status_classes[invoice.status.to_sym]
+
+    content_tag :div, class: "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent #{status}" do
+      invoice.status
+    end
+  end
+
   def store_abbreviation
     words = Current.store.name.to_s.split
 

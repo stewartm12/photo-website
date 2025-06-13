@@ -1,0 +1,70 @@
+<% if @appointment.invoice %>
+  <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center justify-between' do %>
+    <%= content_tag :div do %>
+      <%= content_tag :h3, class: 'text-2xl font-semibold leading-none tracking-tight flex items-center gap-2' do %>
+        <%= icon 'document-text' %>
+        <%= content_tag :span, 'Invoice' %>
+      <% end %>
+
+      <%= content_tag :p, 'Payment status and invoice details', class: 'text-sm text-gray-500' %>
+    <% end %>
+
+    <%= invoice_badge_status(@appointment.invoice) %>
+  <% end %>
+
+  <%= content_tag :div, class: 'p-6 pt-0 space-y-4' do %>
+    <%= content_tag :div, class: 'space-y-3' do %>
+      <%= content_tag :div, class: 'flex items-center justify-between' do %>
+        <%= content_tag :span, 'Invoice Number', class: 'text-sm text-gray-500' %>
+        <%= content_tag :span, @appointment.invoice.invoice_number, class: 'font-mono text-sm'%>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex items-center justify-between' do %>
+        <%= content_tag :span, 'Issue Date', class: 'text-sm text-gray-500' %>
+        <%= content_tag :span, @appointment.invoice.created_at.strftime("%A, %B %-d, %Y"), class: 'text-sm'%>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'border-t border-gray-300 pt-4' do %>
+      <%= content_tag :div, class: 'space-y-2' do %>
+        <%= content_tag :div, class: 'flex items-center justify-between' do %>
+          <%= content_tag :span, 'Total Amount', class: 'text-sm text-gray-500' %>
+          <%= content_tag :span, number_to_currency(@appointment.invoice.total, unit: "$", precision: 2), class: 'font-medium' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center justify-between' do %>
+          <%= content_tag :span, 'Deposit Paid', class: 'text-sm text-gray-500' %>
+          <%= content_tag :span, "-#{number_to_currency(@appointment.invoice.deposit, unit: "$", precision: 2)}", class: 'font-medium' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center justify-between' do %>
+          <%= content_tag :span, 'Amount Paid', class: 'text-sm text-gray-500' %>
+          <%= content_tag :span, "-#{number_to_currency(@appointment.invoice.paid_amount, unit: "$", precision: 2)}", class: 'font-medium' %>
+        <% end %>
+
+        <%= content_tag :div, class: 'flex items-center justify-between' do %>
+          <%= content_tag :span, 'Amount Due', class: 'text-sm text-gray-500' %>
+          <%= content_tag :span, number_to_currency(@appointment.invoice.amount_due, unit: "$", precision: 2), class: 'font-medium text-orange-700' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :div, class: 'flex items-center p-6 border-t border-gray-300 pt-4' do %>
+    <%= content_tag :div, class: 'flex flex-col gap-2 w-full' do %>
+      <%= button_to store_appointment_invoice_path(Current.store, @appointment, invoice: { status: 'paid' }),
+        method: :patch,
+        disabled: @appointment.invoice.paid?,
+        data: { turbo_confirm: 'Client has fully paid the invoice?' },
+        class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 w-full bg-green-600 hover:bg-green-700 text-white cursor-pointer disabled:bg-green-700 disabled:cursor-not-allowed' do %>
+        <%= icon 'check' %>
+        <%= content_tag :span, 'Mark as Paid' %>
+      <% end %>
+
+      <%= link_to download_store_appointment_invoice_path(Current.store, @appointment), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full', data: { turbo: false } do %>
+        <%= icon 'document-text' %>
+        <%= content_tag :span, 'Download PDF' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -190,6 +190,14 @@
           <% end %>
 
           <%= content_tag :div, class: 'flex justify-between' do %>
+            <%= content_tag :span, 'Deposit', class: 'text-gray-500' %>
+            <%= content_tag :div do %>
+              <%= content_tag :span, number_to_currency(@appointment.deposit, unit: "$", precision: 2), class: 'font-medium' %>
+              <%= deposit_badge_status(@appointment.deposit) %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :div, class: 'flex justify-between' do %>
             <%= content_tag :span, 'ID', class: 'text-gray-500' %>
             <%= content_tag :span, "##{@appointment.id}" %>
           <% end %>
@@ -198,26 +206,14 @@
     <% end %>
 
     <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
-        <%= content_tag :h3, 'Quick Actions', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+      <%= turbo_frame_tag 'appointment_quick_actions' do %>
+        <%= render 'appointment_quick_actions' %>
       <% end %>
+    <% end %>
 
-      <%= content_tag :div, class: 'p-6 pt-0 space-y-2' do %>
-        <%= link_to "sms:#{@appointment.customer.phone_number}", class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer' do %>
-          <%= icon 'chat-bubble-left' %>
-          <%= content_tag :span, 'Send Message to Client' %>
-        <% end %>
-        <%= content_tag :span, class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer' do %>
-          <%= icon 'document-text' %>
-          <%= content_tag :span, 'Generate Invoice' %>
-        <% end %> <%# FIX THIS %>
-        <%= button_to store_appointment_path(Current.store, @appointment, appointment: { status: 'cancelled' }, form_type: 'quick_cancel'),
-            method: :patch,
-            disabled: @appointment.cancelled?,
-            data: { turbo_confirm: 'Are you sure you want to cancel this appointment?' }, class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start text-red-500 cursor-pointer disabled:bg-gray-100 disabled:cursor-text' do %>
-          <%= icon 'trash' %>
-          <%= content_tag :span, 'Cancel Appointment' %>
-        <% end %>
+    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+      <%= turbo_frame_tag 'appointment_invoice' do %>
+        <%= render 'appointment_invoice' %>
       <% end %>
     <% end %>
 

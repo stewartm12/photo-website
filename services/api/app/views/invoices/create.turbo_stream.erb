@@ -1,0 +1,11 @@
+<%= render_flash_stream %>
+
+<% if @invoice.persisted? %>
+  <%= turbo_stream.update 'appointment_quick_actions' do %>
+    <%= render 'appointments/appointment_quick_actions' %>
+  <% end %>
+
+  <%= turbo_stream.update 'appointment_invoice' do %>
+    <%= render 'appointments/appointment_invoice' %>
+  <% end %>
+<% end %>
