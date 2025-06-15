@@ -7,8 +7,7 @@ export default function CoverImage({ coverPhoto, gallery }) {
   return (
     <section className="relative h-[50vh] md:h-[60vh]">
       <Image
-        src={coverPhoto.fileKey}
-        loader={imageLoader}
+        src={coverPhoto.imageUrl}
         alt={`${coverPhoto.altText} - Featured Photo`}
         fill
         priority

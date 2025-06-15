@@ -46,7 +46,7 @@ export default async function ContactPage({ searchParams }) {
           <div className="flex justify-center justify-self-center w-full">
             <div className="relative aspect-[3/4] w-[85%] max-h-full rounded-lg overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.01]">
               <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${formPhoto.fileKey}`}
+                src={formPhoto.imageUrl}
                 className="object-cover"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

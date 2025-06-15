@@ -29,12 +29,14 @@ export const photosBySlugQuery = async (name) => {
             id
             fileKey
             altText
+            imageUrl
           }
         }
         photo {
           id
           fileKey
           altText
+          imageUrl
         }
       }
     }
@@ -53,6 +55,7 @@ export const galleryPackageData = async () => {
         photo {
           id
           fileKey
+          imageUrl
         }
         packages {
           id

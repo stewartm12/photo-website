@@ -6,5 +6,6 @@ module Types
     field :name, String, null: false
     field :description, String
     field :photos, [Types::PhotoType]
+    field :store, Types::StoreType
   end
 end

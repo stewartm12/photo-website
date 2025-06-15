@@ -21,14 +21,11 @@ export default function ImageContainer({ photo }) {
   return (
     <div className="w-full justify-self-center" style={{gridRow: `span ${photoSpans}`}}>
         <NextImage
-          src={photo.fileKey}
-          loader={imageLoader}
+          src={photo.imageUrl}
           alt={photo.altText}
           width={0}
           height={250}
           sizes="250px"
-          placeholder="blur"
-          blurDataURL={photo.blurredDataUrl}
           onLoad={({ target }) => {
             const { naturalWidth, naturalHeight } = target;
             setNaturalWidth(naturalWidth);

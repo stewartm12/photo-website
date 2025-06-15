@@ -20,7 +20,7 @@ async function getBase64(photoUrl) {
 export default async function addBlurredDataUrls(collections) {
   // Make all requests at once instead of awaiting each one - avoiding a waterfall
   const base64Promises = collections.flatMap(collection => 
-    collection.photos.map(photo => getBase64(`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${photo.fileKey}`))
+    collection.photos.map(photo => getBase64(photo.imageUrl))
   );
 
   // Resolve all requests in order

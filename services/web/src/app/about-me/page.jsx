@@ -11,6 +11,7 @@ import Image from "next/image";
 async function getAboutPagePhotos() {
   try {
     const response = await showcaseQuery("about_me");
+    
     const aboutPagePhotos = response.photos || [];
 
     return {
@@ -38,7 +39,7 @@ export default async function AboutMe() {
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh] overflow-hidden">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto.fileKey}`}
+          src={heroPhoto.imageUrl}
           alt="Victoria Gonzales - Professional Photographer"
           fill
           className="object-cover"
@@ -58,7 +59,7 @@ export default async function AboutMe() {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-200 rounded-lg"></div>
             <Image
-              src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${aboutMePhoto.fileKey}`}
+              src={aboutMePhoto.imageUrl}
               alt="Victoria Gonzales Portrait"
               width={500}
               height={600}
@@ -116,7 +117,7 @@ export default async function AboutMe() {
               <div className="relative">
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${philosophyPhoto.fileKey}`}
+                  src={philosophyPhoto.imageUrl}
                   className="object-cover rounded-lg shadow-lg relative z-10"
                   width={600}
                   height={600}
@@ -277,7 +278,7 @@ export default async function AboutMe() {
             { behindTheScenesPhotos.map(photo => (
               <div key={photo.id} className="aspect-square relative rounded-lg overflow-hidden group">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${photo.fileKey}`}
+                  src={photo.imageUrl}
                   alt={`${photo.altText}`}
                   width={300}
                   height={300}

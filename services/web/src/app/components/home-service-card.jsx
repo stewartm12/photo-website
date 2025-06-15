@@ -15,7 +15,6 @@ export default function ServiceCard({ imgSrc, title, description, link }) {
           <Image
             src={imgSrc}
             alt={title}
-            loader={imageLoader}
             fill
             sizes="(max-width: 640px) 90vw, 352px"
             className="object-cover transition-transform duration-500 group-hover:scale-105"

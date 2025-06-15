@@ -37,7 +37,7 @@ export default function PackageTabs({ galleries }) {
               <div className="sticky top-4">
                 <div className="aspect-square relative rounded-lg overflow-hidden mb-4">
                   <Image
-                    src={`https://${process.env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${gallery.photo.fileKey}`}
+                    src={gallery.photo.imageUrl}
                     alt={gallery.name}
                     width={500}
                     height={500}

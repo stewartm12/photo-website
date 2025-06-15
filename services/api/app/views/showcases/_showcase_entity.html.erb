@@ -1,0 +1,30 @@
+<%= content_tag :tr, id: dom_id(showcase), class: 'border-b border-gray-300 odd:bg-white even:bg-stone-100' do %>
+  <%= content_tag :td, class: 'px-4 py-3' do %>
+    <%= content_tag :div, class: 'grid' do %>
+      <%= content_tag :span, showcase.name, class: 'font-medium' %>
+      <%= content_tag :span, showcase.description, class: 'text-sm text-gray-500 truncate max-w-[200px]' %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :td, showcase.photos_count, class: 'px-4 py-3' %>
+
+  <%= content_tag :td, class: 'px-4 py-3' do %>
+    <%= content_tag :span, showcase.created_at.strftime("%B %d, %Y"), class: 'font-medium' %>
+  <% end %>
+
+  <%= content_tag :td, class: 'px-4 py-3' do %>
+    <%= content_tag :div, class: 'flex gap-2' do %>
+      <%= link_to store_showcase_path(Current.store, showcase), data: { turbo_frame: '_top' } do %>
+        <%= icon 'eye', class: 'size-5 text-gray-500 hover:text-gray-800' %>
+      <% end %>
+      <%= link_to edit_store_showcase_path(Current.store, showcase, case_type: 'info_update'), data: { turbo_frame: 'modal' } do %>
+        <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
+      <% end %>
+      <%= button_to store_showcase_path(Current.store, showcase),
+        method: :delete,
+        data: { turbo_confirm: 'Are you sure you want to delete this showcase?' } do %>
+        <%= icon 'trash', class: 'size-5 text-red-500 hover:text-red-800 cursor-pointer' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

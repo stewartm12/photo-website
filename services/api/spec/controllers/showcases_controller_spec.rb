@@ -175,6 +175,7 @@ RSpec.describe ShowcasesController, type: :controller do
         {
           store_slug: store.slug,
           id: home_showcase.id,
+          case_type: case_type,
           showcase: {
             name: name,
             description: 'a collection of photos for the home page.',
@@ -189,24 +190,33 @@ RSpec.describe ShowcasesController, type: :controller do
       context 'with valid parameters' do
         let(:name) { 'page' }
 
-        it 'updates the showcase name' do
-          patch :update, params: params, as: :turbo_stream
+        context 'when case_type is info_update' do
+          let(:case_type) { 'info_update' }
 
-          expect(home_showcase.reload.name).to eq('page')
+          it 'updates the showcase name' do
+            patch :update, params: params, as: :turbo_stream
+
+            expect(home_showcase.reload.name).to eq('page')
+          end
         end
 
-        it 'creates a new photo instance' do
-          patch :update, params: params, as: :turbo_stream
+        context 'when case_type is upload_photos' do
+          let(:case_type) { 'upload_photos' }
 
-          expect(home_showcase.photos.count).to eq(1)
-          expect(controller.instance_variable_get(:@showcase_sections)).to eq(['slideshow'])
-          expect(controller.instance_variable_get(:@photo)).to eq(home_showcase.photos.order(:id).last)
-          expect(flash[:success]).to eq('Showcase successfully updated')
+          it 'creates a new photo instance' do
+            patch :update, params: params, as: :turbo_stream
+
+            expect(home_showcase.photos.count).to eq(1)
+            expect(controller.instance_variable_get(:@showcase_sections)).to eq(['slideshow'])
+            expect(controller.instance_variable_get(:@photo)).to eq(home_showcase.photos.order(:id).last)
+            expect(flash[:success]).to eq('Showcase successfully updated')
+          end
         end
       end
 
       context 'with invalid parameters' do
         let(:name) { nil }
+        let(:case_type) { 'info_update' }
 
         it 'does not update the showcase name' do
           patch :update, params: params, as: :turbo_stream

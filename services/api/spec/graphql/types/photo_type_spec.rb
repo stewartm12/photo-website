@@ -11,6 +11,7 @@ RSpec.describe Types::PhotoType, type: :graphql do
   it { is_expected.to have_field(:section_key).of_type('String') }
   it { is_expected.to have_field(:position).of_type('Int') }
   it { is_expected.to have_field(:imageable).of_type('ImageableUnion') }
+  it { is_expected.to have_field(:image_url).of_type('String') }
 
   describe '#imageable' do
     let(:gallery) { Gallery.first }
