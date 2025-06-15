@@ -29,26 +29,41 @@ class ShowcasesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @case_type = params[:case_type] || 'info_update'
+  end
 
   def update
-    image_param = showcase_params.dig(:photo)
-    if (image_param = showcase_params.dig(:photo))
-      @showcase.photos_changed = true
-      @showcase.build_photo_from_image(image_param[:image], store_slug: Current.store.slug, section_key: image_param[:section_key], positioned: true)
-      @section = showcase_params[:photo][:section_key]
+    @case_type = params[:case_type] || 'info_update'
 
-      @existing_section = @showcase.photos.exists?(section_key: @section)
-    end
+    case @case_type
+    when 'info_update'
+      if @showcase.update(showcase_params.except(:photo))
+        flash.now[:success] = 'Showcase successfully updated'
+        load_showcases
+      else
+        flash.now[:alert] = @showcase.errors.full_messages.to_sentence
+      end
+    when 'upload_photos'
+      photo_param = showcase_params.dig(:photo)
 
-    if @showcase.update(showcase_params.except(:photo))
-      flash.now[:success] = 'Showcase successfully updated'
-      load_showcases
-      @showcase_photos = @showcase.photos.group_by(&:section_key)
-      @showcase_sections = @showcase_photos.keys.sort
-      @photo = @showcase.photos.order(:id).last
-    else
-      flash.now[:alert] = @showcase.errors.full_messages.to_sentence
+      if photo_param[:image]
+        @showcase.photos_changed = true
+        @showcase.build_photo_from_image(photo_param[:image], store_slug: Current.store.slug, section_key: photo_param[:section_key], positioned: true)
+        @section = showcase_params[:photo][:section_key]
+
+        @existing_section = @showcase.photos.exists?(section_key: @section)
+      end
+
+      if @showcase.save
+        flash.now[:success] = 'Showcase successfully updated'
+        load_showcases
+        @showcase_photos = @showcase.photos.group_by(&:section_key)
+        @showcase_sections = @showcase_photos.keys.sort
+        @photo = @showcase.photos.order(:id).last
+      else
+        flash.now[:alert] = @showcase.errors.full_messages.to_sentence
+      end
     end
   end
 

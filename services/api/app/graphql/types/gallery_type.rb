@@ -10,5 +10,6 @@ module Types
     field :collections, [Types::CollectionType]
     field :packages, [Types::PackageType]
     field :add_ons, [Types::AddOnType]
+    field :store, Types::StoreType
   end
 end

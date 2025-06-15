@@ -13,6 +13,7 @@ export const showcaseQuery = async(name) => {
           altText
           sectionKey
           position
+          imageUrl
         }
       }
     }

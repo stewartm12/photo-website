@@ -6,25 +6,29 @@
     <% end %>
 
     <%= content_tag :div, class: 'grid gap-4 py-4' do %>
-      <%= content_tag :div, class: 'grid gap-2' do %>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      <% end %>
-
-      <%= content_tag :div, class: 'grid gap-2' do %>
-        <%= f.label :description %>
-        <%= f.text_area :description, rows: 4, class: 'flex min-h-[80px] w-full rounded-md border border-neutral-light px-3 py-2 text-sm' %>
-      <% end %>
-
-      <%= f.fields_for :photo, Photo.new do |pf| %>
+      <% if !display_photo_form %>
         <%= content_tag :div, class: 'grid gap-2' do %>
-          <%= pf.label :section_key, 'Section Key' %>
-          <%= pf.text_field :section_key %>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
         <% end %>
 
         <%= content_tag :div, class: 'grid gap-2' do %>
-          <%= pf.label :image %>
-          <%= pf.file_field :image, direct_upload: true %>
+          <%= f.label :description %>
+          <%= f.text_area :description, rows: 4, class: 'flex min-h-[80px] w-full rounded-md border border-neutral-light px-3 py-2 text-sm' %>
+        <% end %>
+      <% end %>
+
+      <% if display_photo_form %>
+        <%= f.fields_for :photo, Photo.new do |pf| %>
+          <%= content_tag :div, class: 'grid gap-2' do %>
+            <%= pf.label :section_key, 'Section Key' %>
+            <%= pf.text_field :section_key %>
+          <% end %>
+
+          <%= content_tag :div, class: 'grid gap-2' do %>
+            <%= pf.label :image %>
+            <%= pf.file_field :image, direct_upload: true %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

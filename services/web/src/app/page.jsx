@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { showcaseQuery } from "@/graphql/queries/showcases";
 import { filterPhotosBySection } from "@/lib/utils";
 import Slideshow from "@/app/components/slideshow";
+import HirePhoto from "./components/hire_photo";
 import ServiceCard from "@/app/components/home-service-card";
-import Image from "next/image";
 import Link from "next/link";
 
 async function getHomePagePhotos() {
@@ -137,12 +137,9 @@ export default async function Home() {
             </div>
             <div className="relative">
               <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
-              <Image
-                src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${hirePhoto.fileKey}`}
-                alt="Why choose Victoria's Photography"
-                className="object-cover rounded-lg shadow-lg relative z-10"
-                width={600}
-                height={600}
+              <HirePhoto
+                imgSrc={hirePhoto.imageUrl}
+                altText={"Why choose Victoria's Photography"}
               />
             </div>
           </div>
@@ -155,21 +152,21 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
-              imgSrc={serviceCardPhotos[0]?.fileKey}
+              imgSrc={serviceCardPhotos[0]?.imageUrl}
               title={"View Galleries"}
               description={"Check out my work"}
               link="/galleries/engagement-couples-portraits"
             />
 
             <ServiceCard
-              imgSrc={serviceCardPhotos[1]?.fileKey}
+              imgSrc={serviceCardPhotos[1]?.imageUrl}
               title={"Contact Me"}
               description={"Let's get you booked"}
               link="/contact"
             />
 
             <ServiceCard
-              imgSrc={serviceCardPhotos[2]?.fileKey}
+              imgSrc={serviceCardPhotos[2]?.imageUrl}
               title={"Services"}
               description={"Pricing and packages"}
               link="/services"

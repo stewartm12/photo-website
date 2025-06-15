@@ -8,12 +8,12 @@ async function getGalleryPagePhotos(galleryName) {
   try {
     const gallery = await photosBySlugQuery(galleryName);
     const coverPhoto = gallery.photo;
-    const photosWithBlur = await addBlurredDataUrls(gallery.collections);
+    const collections = gallery.collections
 
     return {
       gallery,
       coverPhoto,
-      photosWithBlur,
+      collections,
     }
   } catch (err) {
     console.error("Failed to fetch homepage photos:", err);
@@ -21,14 +21,14 @@ async function getGalleryPagePhotos(galleryName) {
     return {
       gallery: {},
       coverPhoto: {},
-      photosWithBlur: [],
+      collections: [],
     }
   }
 }
 
 export default async function Gallery({ params }) {
   const { name } = await params;
-  const {gallery, coverPhoto, photosWithBlur } = await getGalleryPagePhotos(name);
+  const {gallery, coverPhoto, collections } = await getGalleryPagePhotos(name);
 
   return (
     <div>
@@ -43,7 +43,7 @@ export default async function Gallery({ params }) {
         </div>
 
         <div>
-          {photosWithBlur.map((collection) => (
+          {collections.map((collection) => (
             <div key={collection.name}>
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-semibold text-stone-800">{collection.name}</h3>

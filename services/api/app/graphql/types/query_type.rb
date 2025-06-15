@@ -34,15 +34,15 @@ module Types
     field :autocomplete_location, resolver: Resolvers::AutocompleteLocation
 
     def galleries
-      Gallery.includes(:photo, collections: :photos, packages: {}, add_ons: {}).where(active: true)
+      Gallery.where(active: true)
     end
 
     def gallery(slug:)
-      Gallery.includes(collections: :photos).find_by(slug: slug)
+      Gallery.find_by(slug: slug)
     end
 
     def showcase(name:)
-      Showcase.find_by(name: name)
+      Showcase.includes(photos: :image_attachment).find_by(name: name)
     end
   end
 end

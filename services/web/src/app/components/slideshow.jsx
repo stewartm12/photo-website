@@ -54,9 +54,8 @@ export default function Slideshow({ photos }) {
           style={{ willChange: "opacity" }}
         >
           <NextImage
-            src={photo.fileKey}
+            src={photo.imageUrl}
             alt={photo.altText}
-            loader={imageLoader}
             className="absolute inset-0 w-full h-full object-cover"
             quality={75}
             fill

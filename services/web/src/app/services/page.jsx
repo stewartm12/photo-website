@@ -28,7 +28,7 @@ export default async function ServicesPage() {
     <div className="min-h-screen pb-16">
       <section className="relative h-screen md:h-[60vh]">
         <Image
-          src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/${heroPhoto.fileKey}`}
+          src={heroPhoto.imageUrl}
           alt="Victoria's Photography Services"
           fill
           priority

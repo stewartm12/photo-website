@@ -16,9 +16,9 @@
     <% end %>
 
     <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
-      <%= link_to edit_store_showcase_path(Current.store, @showcase), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
-        <%= icon 'pencil-square', class: 'mr-2 size-4' %>
-        <%= content_tag :span, 'Edit' %>
+      <%= link_to edit_store_showcase_path(Current.store, @showcase, case_type: 'upload_photos'), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
+        <%= icon 'arrow-up-tray', class: 'mr-2 size-4' %>
+        <%= content_tag :span, 'Upload Photo' %>
       <% end %>
     <% end %>
   <% end %>
