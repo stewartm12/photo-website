@@ -1,7 +1,7 @@
 class Customer < ApplicationRecord
   encrypts :phone_number
 
-  belongs_to :store
+  belongs_to :store, counter_cache: true
   has_many :appointments
 
   validates :first_name, :last_name, :email, presence: true

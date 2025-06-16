@@ -114,21 +114,14 @@ RSpec.describe StoresController, type: :controller do
 
         it 'creates a new store' do
           expect {
-            post :create, params: params
+            post :create, params: params, as: :turbo_stream
           }.to change(Store, :count).by(1)
         end
 
         it 'creates a new store membership' do
           expect {
-            post :create, params: params
+            post :create, params: params, as: :turbo_stream
           }.to change(StoreMembership, :count).by(1)
-        end
-
-        it 'redirects to the stores index' do
-          post :create, params: params
-
-          expect(response).to have_http_status(:found)
-          expect(response).to redirect_to(stores_path)
         end
       end
 

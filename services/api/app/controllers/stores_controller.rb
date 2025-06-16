@@ -31,9 +31,9 @@ class StoresController < ApplicationController
       StoreMembership.create!(user: Current.user, store: @store)
     end
 
-    redirect_to stores_path, success: 'Store created successfully'
+    flash.now[:success] = 'Store created successfully'
   rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.record.errors.full_messages.join("\n ")
+    flash.now[:alert] = e.record.errors.full_messages.to_sentence
   end
 
   def edit; end

@@ -1,42 +1,25 @@
-<%= content_tag :div, class: "min-h-screen px-6 py-8" do %>
-  <%= content_tag :div, class: 'container mx-auto flex justify-center p-4 mb-4' do %>
-    <%= content_tag :span, "Welcome, #{Current.user.full_name}" %>
+<%= content_tag :div, class: 'p-8' do %>
+  <%= content_tag :div, class: 'mb-8' do %>
+    <%= content_tag :h1, "Welcome, #{Current.user.first_name}", class: 'text-3xl font-bold tracking-tight mb-2' %>
+    <%= content_tag :p, 'Manage your photography stores and access all your galleries, appointments, and customers in one place.', class: 'text-gray-500' %>
   <% end %>
-  <%= content_tag :div, class: 'flex items-center justify-between mb-8' do %>
+
+  <%= content_tag :div, class: 'flex items-center justify-between mb-6' do %>
     <%= content_tag :div do %>
-      <%= content_tag :h1, 'Your Stores', class: "text-3xl font-bold mb-1" %>
-      <%= content_tag :p, 'Manage and create your stores', class: "text-md text-gray-500" %>
+      <%= content_tag :h2, 'Your Stores', class: 'text-xl font-semibold' %>
+      <%= content_tag :p, "You have access to #{Current.user.stores.count} stores", class: 'text-gray-500 text-sm' %>
     <% end %>
 
-    <%= link_to "+ Create Store", new_store_path, class: "bg-black text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-gray-900" %>
+    <%= link_to new_store_path, class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
+      <%= icon 'plus', class: 'size-4 text-white' %>
+      <%= content_tag :span, 'Create Store'  %>
+    <% end %>
   <% end %>
 
-  <%= content_tag :div, class: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" do %>
-    <% @stores.each do |store| %>
-      <%= content_tag :div, class: "bg-white p-5 rounded-xl border border-gray-300 hover:shadow-lg transition-shadow duration-200" do %>
-        <%= content_tag :div, class: "flex items-center gap-4 mb-4" do %>
-          <%= content_tag :div do %>
-            <%= content_tag :h2, store.name, class: "font-semibold text-lg text-base" %>
-          <% end %>
-        <% end %>
-
-        <%= content_tag :div, class: "flex justify-between text-sm mb-4" do %>
-          <%= content_tag :div do %>
-            <%= content_tag :div, "Galleries", class: "text-gray-600" %>
-            <%= content_tag :div, store.galleries_count, class: "font-medium text-sm" %>
-          <% end %>
-          <%= content_tag :div do %>
-            <%= content_tag :div, 'Collections', class: "text-gray-600" %>
-            <%= content_tag :div, store.collections.count, class: "font-medium text-sm" %>
-          <% end %>
-        <% end %>
-
-        <%= content_tag :div, class: "mt-auto" do %>
-          <%= link_to store_home_path(store), class: "flex items-center justify-center gap-1 text-sm px-4 py-2 border rounded-md w-full hover:bg-gray-50" do %>
-            <%= icon 'shopping-bag', class: 'h-5 w-5' %>
-            <%= content_tag :span, "Manage Store" %>
-          <% end %>
-        <% end %>
+  <%= turbo_frame_tag 'stores' do %>
+    <%= content_tag :div, class: 'grid gap-6 md:grid-cols-2 lg:grid-cols-3' do %>
+      <% @stores.each do |store| %>
+        <%= render 'store_card', store: store %>
       <% end %>
     <% end %>
   <% end %>

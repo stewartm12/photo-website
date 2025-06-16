@@ -75,7 +75,7 @@ class GalleriesController < ApplicationController
     allowed_directions = %w[asc desc]
 
     column = search_params[:sort]
-    direction = params[:order]
+    direction = search_params[:order]
 
     column = allowed_columns.include?(column) ? column : 'name'
     direction = allowed_directions.include?(direction) ? direction : 'asc'
