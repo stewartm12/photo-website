@@ -1,6 +1,6 @@
 class Appointment < ApplicationRecord
   belongs_to :customer
-  belongs_to :store
+  belongs_to :store, counter_cache: true
   has_many :locations, dependent: :destroy
   has_many :appointment_events, dependent: :destroy
   has_many :appointment_add_ons, dependent: :destroy

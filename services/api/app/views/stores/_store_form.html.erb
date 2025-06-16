@@ -1,0 +1,59 @@
+<%= form_with url: url, model: store, data: { controller: 'store' } do |f| %>
+  <%= content_tag :div, class: 'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-gray-400 bg-white p-6 shadow-lg duration-200 rounded-md' do %>
+    <%= content_tag :div, class: 'flex flex-col space-y-1.5 text-center sm:text-left' do %>
+      <%= content_tag :h2, title, class: 'text-lg font-semibold leading-none tracking-tight' %>
+      <%= content_tag :p, description, class: 'text-sm text-gray-500' %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid gap-4 py-4' do %>
+      <%= content_tag :div, class: 'grid gap-2' do %>
+         <%= f.label :name, 'Store Name', class: 'block text-sm font-medium' %>
+        <%= f.text_field :name,
+          required: true,
+          placeholder: 'Store Name',
+          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm',
+          data: { store_target: 'name', action: 'input->store#generateSlug' }
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2' do %>
+        <%= f.label :email, class: 'block text-sm font-medium'%>
+        <%= f.email_field :email,
+          required: true,
+          placeholder: 'store-email@email.com',
+          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
+        %>
+      <%= content_tag :p, 'Used to send emails to clients from this address', class: 'text-gray-500 text-sm' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2' do %>
+        <%= f.label :domain, 'Store Domain', class: 'block text-sm font-medium' %>
+        <%= f.text_field :domain,
+          required: true,
+          placeholder: 'store-domain.com',
+          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
+        %>
+      <% end %>
+
+      <%= content_tag :div, class: 'grid gap-2' do %>
+        <%= f.label :slug, 'Store Slug', class: 'block text-sm font-medium' %>
+        <%= f.text_field :slug,
+          disabled: true,
+          placeholder: 'store-slug',
+          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm disabled:bg-gray-100',
+          data: { store_target: 'slug' }
+        %>
+      <%= content_tag :p, "This will be your store's URL (created from your store's name)", class: 'text-gray-500 text-sm' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2' do %>
+    <%= button_tag 'Cancel', type: 'button', class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium border border-gray-400 bg-white hover:bg-gray-100 h-10 px-4 py-2 hover:cursor-pointer', data: { action: 'modal#hideModal' } %>
+      <%= f.submit submit_text, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white hover:cursor-pointer' %>
+    <% end %>
+
+    <%= button_tag type: 'button', class: 'absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 hover:cursor-pointer', data: { action: 'modal#hideModal' } do %>
+      <%= icon 'x-mark' %>
+    <% end %>
+  <% end %>
+<% end %>

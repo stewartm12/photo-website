@@ -1,0 +1,65 @@
+<%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+  <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-3' do %>
+    <%= content_tag :div, class: 'flex items-start justify-between' do %>
+      <%= content_tag :div, class: 'flex items-center gap-3' do %>
+        <%= content_tag :div, class: 'p-2 bg-[oklch(66.14%_0.0661_72.71)]/10 rounded-lg' do %>
+          <%= icon 'building-storefront', class: 'size-5 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <% end %>
+
+        <%= content_tag :div do %>
+          <%= content_tag :h3, store.name, class: 'font-semibold tracking-tight text-lg' %>
+          <%= content_tag :p, store.slug, class: 'text-gray-500 text-sm' %>
+        <% end %>
+      <% end %>
+
+      <% if Current.user.owned_stores.include?(store) %>
+        <%= content_tag :div, 'Owner', class: 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent bg-green-100 text-green-700' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :div, class: 'p-6 pt-0 space-y-4' do %>
+    <%= content_tag :div, class: 'flex items-center gap-2 text-sm text-gray-500' do %>
+      <%= icon 'envelope', class: 'size-3 text-[oklch(66.14%_0.0661_72.71)]' %>
+      <%= content_tag :span, store.email %>
+    <% end %>
+
+    <%= content_tag :div, class: 'grid grid-cols-3 gap-4 py-3 border-t border-b border-gray-300' do %>
+      <%= content_tag :div, class: 'text-center' do %>
+        <%= content_tag :div, class: 'flex items-center justify-center gap-1 mb-1' do %>
+          <%= icon 'camera', class: 'size-3 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :span, 'Galleries', class: 'text-xs text-gray-500'  %>
+        <% end %>
+
+        <%= content_tag :p, store.galleries_count, class: 'font-semibold' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'text-center' do %>
+        <%= content_tag :div, class: 'flex items-center justify-center gap-1 mb-1' do %>
+          <%= icon 'camera', class: 'size-3 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :span, 'Appointments', class: 'text-xs text-gray-500'  %>
+        <% end %>
+
+        <%= content_tag :p, store.appointments_count, class: 'font-semibold' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'text-center' do %>
+        <%= content_tag :div, class: 'flex items-center justify-center gap-1 mb-1' do %>
+          <%= icon 'camera', class: 'size-3 text-[oklch(66.14%_0.0661_72.71)]' %>
+          <%= content_tag :span, 'Customers', class: 'text-xs text-gray-500'  %>
+        <% end %>
+
+        <%= content_tag :p, store.customers_count, class: 'font-semibold' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'flex items-center justify-end' do %>
+      <%= content_tag :div, class: 'flex gap-2' do %>
+        <%= link_to store_home_path(store), class: 'flex items-center justify-center gap-1 text-sm px-4 py-2 border rounded-md w-full text-white bg-black', data: { turbo_frame: '_top' } do %>
+          <%= icon 'shopping-bag', class: 'size-5 text-white' %>
+          <%= content_tag :span, 'Manage Store' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
