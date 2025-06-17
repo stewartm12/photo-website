@@ -1,0 +1,6 @@
+Hello,
+<%= @user.full_name %> has invited you to join their store on our platform.
+
+Click on the link below to accept the invitation:
+
+<%= store_store_membership_url(@store, token: @user.generate_invitation_token) %>

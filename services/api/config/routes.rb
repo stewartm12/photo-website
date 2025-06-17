@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     get '/edit', to: 'stores#edit', as: :edit
     patch '/', to: 'stores#update', as: :update
 
+    resource :store_membership, only: %i[show new create]
+
     resources :appointments, only: %i[index show edit update] do
       resources :locations, only: %i[new create edit update]
       resource :appointment_add_ons, only: %i[edit update]

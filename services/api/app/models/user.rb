@@ -15,8 +15,20 @@ class User < ApplicationRecord
 
   before_create :capitalize_names
 
+  generates_token_for :invitation_confirmation, expires_in: 1.hour
+
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  def generate_invitation_token
+    generate_token_for(:invitation_confirmation)
+  end
+
+  def send_invitation_email(email, store)
+    transaction do
+      InvitationMailer.invite(self, email, store).deliver_later
+    end
   end
 
   private

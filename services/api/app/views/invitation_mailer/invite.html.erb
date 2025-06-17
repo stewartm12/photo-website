@@ -1,0 +1,4 @@
+<%= content_tag :p, 'Hello,' %>
+<%= content_tag :p, "#{@user.full_name} has invited you to join their store on our platform" %>
+<%= content_tag :p, 'Click the link below to accept the invitation:' %>
+<%= link_to 'Accept Invitation', store_store_membership_url(@store, token: @user.generate_invitation_token) %>
