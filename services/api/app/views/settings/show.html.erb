@@ -105,10 +105,6 @@
   <% end %>
 
   <%= content_tag :div, class: 'flex justify-center' do %>
-    <%= button_to 'Sign Out',
-      session_path,
-      method: :delete,
-      data: { turbo_confirm: 'Are you sure you want to delete this gallery?' },
-      class: 'text-red-500 font-medium hover:underline cursor-pointer' %>
+    <%= button_to 'Sign Out', session_path, method: :delete, class: 'text-red-500 font-medium hover:underline cursor-pointer' %>
     <% end %>
 <% end %>

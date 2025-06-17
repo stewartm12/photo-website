@@ -22,22 +22,22 @@
               <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-yellow-500' %>
               <%= content_tag :div, nil, class: 'h-2 w-2 rounded-full bg-green-500' %>
             <% end %>
-            <%= content_tag :div, 'Cat Collection', class: 'text-xs font-medium' %>
+            <%= content_tag :div, 'NYC Collection', class: 'text-xs font-medium' %>
             <%= content_tag :div, nil, class: 'w-14' %>
           <% end %>
 
           <%= content_tag :div, class: 'grid grid-cols-2 gap-2 p-4' do %>
-            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
-              <%= image_tag 'cat-photo-1.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <%= content_tag :div, class: 'size-50 aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'nyc-photo-1.jpg', alt: 'Pix Cloud Logo', loading: 'lazy', width: 160, height: 160, class: 'h-full w-full object-cover' %>
             <% end %>
-            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
-              <%= image_tag 'cat-photo-2.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <%= content_tag :div, class: 'size-50 aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'nyc-photo-2.jpg', alt: 'Pix Cloud Logo', loading: 'lazy', width: 160, height: 160, class: 'h-full w-full object-cover' %>
             <% end %>
-            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
-              <%= image_tag 'cat-photo-3.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <%= content_tag :div, class: 'size-50 aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'nyc-photo-3.jpg', alt: 'Pix Cloud Logo', loading: 'lazy', width: 160, height: 160, class: 'h-full w-full object-cover' %>
             <% end %>
-            <%= content_tag :div, class: 'aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
-              <%= image_tag 'cat-photo-4.jpg', alt: 'Pix Cloud Logo', class: 'h-full w-full object-cover' %>
+            <%= content_tag :div, class: 'size-50 aspect-square rounded-md bg-muted/50 overflow-hidden' do %>
+              <%= image_tag 'nyc-photo-4.jpg', alt: 'Pix Cloud Logo', loading: 'lazy', width: 160, height: 160, class: 'h-full w-full object-cover' %>
             <% end %>
           <% end %>
         <% end %>
@@ -102,11 +102,12 @@
         <% end %>
 
         <%= content_tag :div, class: 'p-6 pt-0' do %>
-          <%= content_tag :p, 'Use our REST API or GraphQL endpoint to fetch photos and display them on your website.', class: 'text-sm text-gray-500' %>
+          <%= content_tag :p, 'Use our REST API or GraphQL endpoint to fetch photos and display them on your website. (In Progress)', class: 'text-sm text-gray-500' %>
         <% end %>
 
         <%= content_tag :div, class: 'flex items-center p-6 pt-0' do %>
-          <%= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
+          <%#= link_to new_registration_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
+          <%= link_to '#', class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer hover:bg-stone-100 text-[oklch(66.14%_0.0661_72.71)] font-medium' do %>
             <%= content_tag :span, 'Get Started' %>
             <%= icon 'arrow-right', class: 'size-4' %>
           <% end %>
@@ -122,11 +123,12 @@
       <%= content_tag :div, class: 'flex flex-col justify-center space-y-4' do %>
         <%= content_tag :div, class: 'space-y-2' do %>
           <%= content_tag :div, 'For Developers', class: 'inline-block rounded-lg bg-[oklch(90%_0.04_72.71)] px-3 py-1 text-sm' %>
-          <%= content_tag :h2, 'Powerful API for seamless integration', class: 'text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl'  %>
-          <%= content_tag :p, 'Powerful API for seamless integration', class: 'max-w-[600px] text-muted-foreground md:text-xl'  %>
+          <%= content_tag :h2, 'API for seamless integration', class: 'text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl'  %>
+          <%= content_tag :p, '(In Progress)', class: 'max-w-[600px] text-muted-foreground md:text-xl'  %>
         <% end %>
         <%= content_tag :div, class: 'flex flex-col gap-2 min-[400px]:flex-row' do %>
-          <%= link_to developers_info_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer bg-caramel hover:bg-caramel-dark font-medium text-white' do %>
+          <%#= link_to developers_info_path, class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer bg-caramel hover:bg-caramel-dark font-medium text-white' do %>
+          <%= link_to '#', class: 'flex space-x-2 items-center rounded-md p-2 text-sm hover:cursor-pointer bg-caramel hover:bg-caramel-dark font-medium text-white' do %>
             <%= content_tag :span, 'View API Documentation' %>
             <%= icon 'arrow-right', class: 'size-4' %>
           <% end %>
