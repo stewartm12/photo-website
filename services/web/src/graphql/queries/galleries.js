@@ -3,6 +3,11 @@ import { fetchData } from "@/utils/fetch-data";
 export const gallerySlugsQuery = async () => {
   const query = `
     query {
+      store {
+        photo {
+          imageUrl
+        }
+      }
       galleries {
         id
         name
@@ -12,7 +17,7 @@ export const gallerySlugsQuery = async () => {
     }
   `;
   const response = await fetchData(query);
-  return response.data.galleries;
+  return response.data;
 };
 
 export const photosBySlugQuery = async (name) => {

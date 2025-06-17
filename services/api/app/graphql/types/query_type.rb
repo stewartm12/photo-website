@@ -31,18 +31,30 @@ module Types
       argument :name, String, required: true, description: 'Name of the showcase.'
     end
 
+    field :store, Types::StoreType, null: true, description: 'Fetches the store based on domain header'
+
     field :autocomplete_location, resolver: Resolvers::AutocompleteLocation
 
     def galleries
-      Gallery.where(active: true)
+      current_store.galleries.includes(:packages, :add_ons, photo: { image_attachment: :blob }).where(active: true)
     end
 
     def gallery(slug:)
-      Gallery.find_by(slug: slug)
+      current_store.galleries.includes(:photo, collections: { photos: { image_attachment: :blob } }).find_by(slug: slug)
     end
 
     def showcase(name:)
-      Showcase.includes(photos: :image_attachment).find_by(name: name)
+      current_store.showcases.includes(photos: { image_attachment: :blob }).find_by(name: name)
+    end
+
+    def store()
+      current_store
+    end
+
+    private
+
+    def current_store
+      context[:current_store]
     end
   end
 end

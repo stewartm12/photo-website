@@ -30,6 +30,10 @@ class GraphqlController < ApiController
     handle_error_in_development(e)
   end
 
+  def current_store
+    context[:current_store]
+  end
+
   private
 
   def authenticate_request!

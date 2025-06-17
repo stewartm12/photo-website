@@ -1,7 +1,7 @@
 <%= render_flash_stream %>
 
 <% if @store.persisted? %>
-  <%= turbo_stream.prepend 'stores' do %>
+  <%= turbo_stream.append 'stores_results' do %>
     <%= render 'stores/store_card', store: @store %>
   <% end %>
 <% end %>
