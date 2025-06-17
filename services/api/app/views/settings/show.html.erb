@@ -9,9 +9,15 @@
         <%= content_tag :p, "Manage your store's basic information and setting", class: 'text-sm text-gray-500' %>
       <% end %>
 
-      <%= link_to store_edit_path(@store), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
-        <%= icon 'pencil-square', class: 'mr-2 size-4' %>
-        <%= content_tag :span, 'Edit Store' %>
+      <%= content_tag :div, class: 'flex items-center space-x-2' do %>
+        <%= link_to new_store_store_membership_path(@store), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap border rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-white hover:bg-gray-100', data: { turbo_frame: 'modal' } do %>
+          <%= icon 'user-plus' %>
+          <%= content_tag :span, 'Invite' %>
+        <% end %>
+        <%= link_to store_edit_path(@store), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
+          <%= icon 'pencil-square', class: 'mr-2 size-4' %>
+          <%= content_tag :span, 'Edit Store' %>
+        <% end %>
       <% end %>
     <% end %>
 
