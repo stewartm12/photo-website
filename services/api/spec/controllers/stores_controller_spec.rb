@@ -107,7 +107,8 @@ RSpec.describe StoresController, type: :controller do
             store: {
               name: 'Test 1',
               domain: 'test1.com',
-              email: 'tester@email.com'
+              email: 'tester@email.com',
+              photo: { image: Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test.jpg") }
             }
           }
         end
@@ -122,6 +123,12 @@ RSpec.describe StoresController, type: :controller do
           expect {
             post :create, params: params, as: :turbo_stream
           }.to change(StoreMembership, :count).by(1)
+        end
+
+        it 'creates a photo association' do
+          expect {
+            post :create, params: params, as: :turbo_stream
+          }.to change(Photo, :count).by(1)
         end
       end
 
@@ -144,6 +151,81 @@ RSpec.describe StoresController, type: :controller do
           expect {
             post :create, params: params, as: :turbo_stream
           }.not_to change(StoreMembership, :count)
+        end
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context 'when user is not authenticated' do
+      include_examples 'redirects to login', :get, :edit, { store_slug: 'some_slug' }
+    end
+
+    context 'when user is authenticated' do
+      include_context 'with authenticated user'
+
+      it 'returns a successful response' do
+        get :edit, params: { store_slug: store.slug }
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'when user is not authenticated' do
+      include_examples 'redirects to login', :patch, :update, { store_slug: 'some_slug' }
+    end
+
+    context 'when user is authenticated' do
+      include_context 'with authenticated user'
+      let!(:photo) { create(:photo, imageable: store) }
+
+      let(:params) do
+        {
+          store_slug: store.slug,
+          store: {
+            email: email,
+            photo: { image: image_file }
+          }
+        }
+      end
+
+      context 'with invalid parameters' do
+        let(:email) { 'wrong-email.com' }
+        let(:image_file) { nil }
+
+        it 'does not update the store' do
+          patch :update, params: params, as: :turbo_stream
+
+          expect(store.reload.email).not_to eq(email)
+          expect(flash[:alert]).to include('Email is invalid')
+        end
+      end
+
+      context 'with valid parameters' do
+        let(:email) { 'good-email@email.com' }
+        let(:image_file) { nil }
+
+        context 'when photo is not provided' do
+
+          it 'updates the store successfully' do
+            patch :update, params: params, as: :turbo_stream
+
+            expect(store.reload.email).to eq(email)
+            expect(flash[:success]).to include('Store updated successfully.')
+          end
+        end
+
+        context 'when photo is provided' do
+          let(:image_file) { Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test2.jpg") }
+
+          it 'updates the photo association' do
+            patch :update, params: params, as: :turbo_stream
+
+            expect(store.reload.photo.image.filename.to_s).to eq('test2.jpg')
+            expect(flash[:success]).to include('Store updated successfully.')
+          end
         end
       end
     end

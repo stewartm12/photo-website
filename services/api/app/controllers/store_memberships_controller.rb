@@ -21,7 +21,7 @@ class StoreMembershipsController < ApplicationController
   def new; end
 
   def create
-    Current.user.send_invitation_email(params[:email_address], Current.store)
+    Current.user.send_invitation_email(params[:email], Current.store)
     flash.now[:notice] = 'Invitation email sent successfully!'
   end
 end
