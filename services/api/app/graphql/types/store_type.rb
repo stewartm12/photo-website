@@ -5,5 +5,6 @@ module Types
     field :id, ID, null: false
     field :domain, String, null: false
     field :slug, String, null: false
+    field :photo, Types::PhotoType
   end
 end

@@ -2,8 +2,8 @@
   <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-3' do %>
     <%= content_tag :div, class: 'flex items-start justify-between' do %>
       <%= content_tag :div, class: 'flex items-center gap-3' do %>
-        <%= content_tag :div, class: 'p-2 bg-[oklch(66.14%_0.0661_72.71)]/10 rounded-lg' do %>
-          <%= icon 'building-storefront', class: 'size-5 text-[oklch(66.14%_0.0661_72.71)]' %>
+        <%= content_tag :span, class: 'relative shrink-0 bg-gray-100 flex justify-center items-center rounded-full h-12 w-12 overflow-hidden' do %>
+          <%= image_tag store.photo.image.variant(resize_to_fill: [60, 60]), class: 'object-cover w-full h-full' %>
         <% end %>
 
         <%= content_tag :div do %>

@@ -13,12 +13,7 @@ module Types
     def image_url
       return object.file_key unless object.image.attached?
 
-      Rails.application.routes.url_helpers.rails_blob_url(
-        object.image,
-        protocol: ActiveStorage::Current.url_options[:protocol],
-        host: 'localhost',
-        port: '3001'
-      )
+      Rails.application.routes.url_helpers.rails_blob_url(object.image)
     end
 
     def imageable

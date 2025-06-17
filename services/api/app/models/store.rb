@@ -1,4 +1,6 @@
 class Store < ApplicationRecord
+  include PhotoUploadable
+
   has_many :store_memberships
   has_many :users, through: :store_memberships
   has_many :galleries
@@ -8,6 +10,7 @@ class Store < ApplicationRecord
   has_many :appointments
   has_many :customers
   has_many :showcases
+  has_one :photo, as: :imageable, dependent: :destroy
 
   belongs_to :owner, class_name: 'User'
 

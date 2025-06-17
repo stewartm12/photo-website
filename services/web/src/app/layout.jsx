@@ -58,22 +58,22 @@ export const metadata = {
   // },
 };
 
-async function navbarSlugs() {
+async function storeData() {
   try {
-    const galleries = await gallerySlugsQuery();
-    return galleries;
+    const response = await gallerySlugsQuery();
+    return response;
   } catch {
     return [];
   }
 }
 
 export default async function RootLayout({ children }) {
-  const galleries = await navbarSlugs();
+  const data = await storeData();
 
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased flex flex-col min-h-screen`} >
-        <Navbar galleries={galleries} />
+        <Navbar galleries={data.galleries} logo={data.store.photo} />
         <main className="flex-1">{children}</main>
         <Toaster position="top-center" richColors />
         <Footer />

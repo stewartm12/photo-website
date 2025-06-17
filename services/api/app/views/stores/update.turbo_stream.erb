@@ -1,0 +1,18 @@
+<%= render_flash_stream %>
+
+<% if @store.errors.empty? %>
+  <%= turbo_stream.replace 'store-email' do %>
+    <%= turbo_frame_tag 'store-email' do %>
+      <%= content_tag :span, 'Email', class: 'text-sm font-medium text-gray-500' %>
+      <%= content_tag :p, @store.email, class: 'text-lg font-semibold' %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_stream.replace 'store-logo' do %>
+    <%= turbo_frame_tag 'store-logo' do %>
+      <%= content_tag :span, class: 'relative shrink-0 bg-gray-100 flex justify-center items-center rounded-full size-30 overflow-hidden' do %>
+        <%= image_tag @store.photo.image.variant(resize_to_fill: [100, 100]), class: 'object-cover w-full h-full' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

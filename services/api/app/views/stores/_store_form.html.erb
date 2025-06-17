@@ -6,14 +6,16 @@
     <% end %>
 
     <%= content_tag :div, class: 'grid gap-4 py-4' do %>
-      <%= content_tag :div, class: 'grid gap-2' do %>
-         <%= f.label :name, 'Store Name', class: 'block text-sm font-medium' %>
-        <%= f.text_field :name,
-          required: true,
-          placeholder: 'Store Name',
-          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm',
-          data: { store_target: 'name', action: 'input->store#generateSlug' }
-        %>
+      <% if form_method == :post %>
+        <%= content_tag :div, class: 'grid gap-2' do %>
+          <%= f.label :name, 'Store Name', class: 'block text-sm font-medium' %>
+          <%= f.text_field :name,
+            required: true,
+            placeholder: 'Store Name',
+            class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm',
+            data: { store_target: 'name', action: 'input->store#generateSlug' }
+          %>
+        <% end %>
       <% end %>
 
       <%= content_tag :div, class: 'grid gap-2' do %>
@@ -23,27 +25,36 @@
           placeholder: 'store-email@email.com',
           class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
         %>
-      <%= content_tag :p, 'Used to send emails to clients from this address', class: 'text-gray-500 text-sm' %>
+        <%= content_tag :p, 'Used to send emails to clients from this address', class: 'text-gray-500 text-sm' %>
+      <% end %>
+
+      <% if form_method == :post %>
+        <%= content_tag :div, class: 'grid gap-2' do %>
+          <%= f.label :domain, 'Store Domain', class: 'block text-sm font-medium' %>
+          <%= f.text_field :domain,
+            required: true,
+            placeholder: 'store-domain.com',
+            class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
+          %>
+        <% end %>
+
+        <%= content_tag :div, class: 'grid gap-2' do %>
+          <%= f.label :slug, 'Store Slug', class: 'block text-sm font-medium' %>
+          <%= f.text_field :slug,
+            disabled: true,
+            placeholder: 'store-slug',
+            class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm disabled:bg-gray-100',
+            data: { store_target: 'slug' }
+          %>
+          <%= content_tag :p, "This will be your store's URL (created from your store's name)", class: 'text-gray-500 text-sm' %>
+        <% end %>
       <% end %>
 
       <%= content_tag :div, class: 'grid gap-2' do %>
-        <%= f.label :domain, 'Store Domain', class: 'block text-sm font-medium' %>
-        <%= f.text_field :domain,
-          required: true,
-          placeholder: 'store-domain.com',
-          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
-        %>
-      <% end %>
-
-      <%= content_tag :div, class: 'grid gap-2' do %>
-        <%= f.label :slug, 'Store Slug', class: 'block text-sm font-medium' %>
-        <%= f.text_field :slug,
-          disabled: true,
-          placeholder: 'store-slug',
-          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm disabled:bg-gray-100',
-          data: { store_target: 'slug' }
-        %>
-      <%= content_tag :p, "This will be your store's URL (created from your store's name)", class: 'text-gray-500 text-sm' %>
+        <%= f.fields_for :photo, Photo.new do |pf| %>
+          <%= pf.label :image, 'Logo' %>
+          <%= pf.file_field :image, required: true, direct_upload: true %>
+        <% end %>
       <% end %>
     <% end %>
 

@@ -16,11 +16,9 @@
     <% end %>
   <% end %>
 
-  <%= turbo_frame_tag 'stores' do %>
-    <%= content_tag :div, class: 'grid gap-6 md:grid-cols-2 lg:grid-cols-3' do %>
-      <% @stores.each do |store| %>
-        <%= render 'store_card', store: store %>
-      <% end %>
+  <%= content_tag :div, id: 'stores_results', class: 'grid gap-6 md:grid-cols-2 lg:grid-cols-3' do %>
+    <% @stores.each do |store| %>
+      <%= render 'store_card', store: store %>
     <% end %>
   <% end %>
 <% end %>

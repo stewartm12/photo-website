@@ -8,29 +8,52 @@
         <% end %>
         <%= content_tag :p, "Manage your store's basic information and setting", class: 'text-sm text-gray-500' %>
       <% end %>
+
+      <%= link_to store_edit_path(@store), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:size-4 [&_svg]:shrink-0 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
+        <%= icon 'pencil-square', class: 'mr-2 size-4' %>
+        <%= content_tag :span, 'Edit Store' %>
+      <% end %>
     <% end %>
 
     <%= content_tag :div, class: 'p-6 pt-0 space-y-4' do %>
-      <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
-        <%= content_tag :div do %>
-          <%= content_tag :span, 'Store Name', class: 'text-sm font-medium text-gray-500' %>
-          <%= content_tag :p, @store.name, class: 'text-lg font-semibold' %>
+      <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-3 gap-6' do %>
+        <%= content_tag :div, class: 'flex flex-col items-center space-y-2' do %>
+          <%= content_tag :span, 'Store Logo', class: 'text-sm font-medium text-gray-500' %>
+          
+          <%= turbo_frame_tag 'store-logo' do %>
+            <%= content_tag :span, class: 'relative shrink-0 bg-gray-100 border flex justify-center items-center rounded-full size-30 overflow-hidden' do %>
+              <%= image_tag @store.photo.image.variant(resize_to_fill: [100, 100]), class: 'object-cover w-full h-full' %>
+            <% end %>
+          <% end %>
         <% end %>
 
-        <%= content_tag :div do %>
-          <%= content_tag :span, 'Store Domain', class: 'text-sm font-medium text-gray-500' %>
-          <%= content_tag :p, @store.domain, class: 'text-lg font-semibold' %>
-        <% end %>
+        <%= content_tag :div, class: 'md:col-span-2 space-y-4' do %>
+          <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Store Name', class: 'text-sm font-medium text-gray-500' %>
+              <%= content_tag :p, @store.name, class: 'text-lg font-semibold' %>
+            <% end %>
 
-        <%= content_tag :div do %>
-          <%= content_tag :span, 'Store Slug', class: 'text-sm font-medium text-gray-500' %>
-          <%= content_tag :p, @store.slug, class: 'text-lg font-semibold' %>
-          <%= content_tag :p, 'Auto-generated from store name', class: 'text-sm font-semibold text-gray-400' %>
-        <% end %>
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Store Domain', class: 'text-sm font-medium text-gray-500' %>
+              <%= content_tag :p, @store.domain, class: 'text-lg font-semibold' %>
+            <% end %>
+          <% end %>
 
-        <%= content_tag :div do %>
-          <%= content_tag :span, 'Created', class: 'text-sm font-medium text-gray-500' %>
-          <%= content_tag :p, @store.created_at.strftime('%b %d, %Y'), class: 'text-lg font-semibold' %>
+          <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
+            <%= content_tag :div do %>
+              <%= content_tag :span, 'Store Slug', class: 'text-sm font-medium text-gray-500' %>
+              <%= content_tag :p, @store.slug, class: 'text-lg font-semibold' %>
+              <%= content_tag :p, 'Auto-generated from store name', class: 'text-sm font-semibold text-gray-400' %>
+            <% end %>
+
+            <%= content_tag :div do %>
+              <%= turbo_frame_tag 'store-email' do %>
+                <%= content_tag :span, 'Email', class: 'text-sm font-medium text-gray-500' %>
+                <%= content_tag :p, @store.email, class: 'text-lg font-semibold' %>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
@@ -43,7 +66,7 @@
         <%= content_tag :span, 'Store Statistics' %>
       <% end %>
 
-      <%= content_tag :p, "Overview of your store's performance and activity", class: 'text-sm text-gray-500' %>
+      <%= content_tag :p, "Overview of your store's activity", class: 'text-sm text-gray-500' %>
     <% end %>
 
     <%= content_tag :div, class: 'p-6 pt-0' do %>

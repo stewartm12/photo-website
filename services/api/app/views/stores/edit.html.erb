@@ -4,11 +4,11 @@
     <%= content_tag :div, class: 'fixed left-1/2 top-1/2 z-70 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 bg-white p-6 shadow-lg sm:rounded-lg' do %>
       <%= render 'store_form',
         store: @store,
-        url: stores_path,
-        title: 'Create New Store',
-        description: "Set up a new photography store. You'll be able to manage galleries, appointments, and customers.",
-        submit_text: 'Create Store',
-        form_method: :post
+        url: store_update_path(@store),
+        title: 'Edit Existing Store',
+        description: "Update your store's information and settings",
+        submit_text: 'Update Store',
+        form_method: :patch
       %>
     <% end %>
   <% end %>

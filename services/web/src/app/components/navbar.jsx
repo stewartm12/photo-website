@@ -28,7 +28,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Navbar({ galleries }) {
+export default function Navbar({ galleries, logo }) {
   const [isOpen, setIsOpen] = useState(false)
   const [openCollapsible, setOpenCollapsible] = useState(null)
   const pathname = usePathname()
@@ -42,7 +42,7 @@ export default function Navbar({ galleries }) {
   return (
     <nav className="flex items-center justify-between h-16 px-4 border-b border-stone-800 shadow-md">
       <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Image src={`${process.env.NEXT_PUBLIC_AWS_S3_URL}/picsbytori-logo.png`} width={50} height={50} alt="pics by tori logo" className="w-full h-full border-b border-stone-800" priority/>
+        <Image src={logo.imageUrl} alt="pics by tori logo" width={50} height={50} style={{ objectFit: 'contain' }} priority/>
       </Link>
         <h1 className="hidden sm:block font-extrabold tracking-wider text-center text-transparent bg-clip-text bg-gradient-to-r from-stone-800 to-stone-700 text-2xl md:text-3xl drop-shadow-md">
           Victoria's Photography
