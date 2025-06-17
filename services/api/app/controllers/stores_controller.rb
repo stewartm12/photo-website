@@ -14,6 +14,10 @@ class StoresController < ApplicationController
                     .count
 
     @recent_galleries = Current.store.galleries.order(id: :desc).limit(5)
+    @photo_counts_by_gallery = Photo.joins("INNER JOIN collections ON collections.id = photos.imageable_id")
+                              .where(photos: { imageable_type: 'Collection' }, collections: { gallery_id: @recent_galleries.map(&:id) })
+                              .group("collections.gallery_id")
+                              .count
     @upcoming_appointments = Current.store.appointments.includes(:customer, :appointment_package).where(status: :pending).order(preferred_date_time: :desc).limit(5)
     @newest_customers = Current.store.customers.order(id: :desc).limit(3)
   end

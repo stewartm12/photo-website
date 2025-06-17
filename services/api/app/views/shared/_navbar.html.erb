@@ -19,7 +19,7 @@
     <% else %>
       <%= content_tag :div, class: 'hidden md:flex space-x-3' do %>
         <%= link_to 'Features', features_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(features_path)}" %>
-        <%= link_to 'Developers', developers_info_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(developers_info_path)}" %>
+        <%#= link_to 'Developers', developers_info_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(developers_info_path)}" %>
         <%= link_to 'FAQ', faqs_path, class: "hover:underline underline-offset-4 #{'underline text-caramel' if current_page?(faqs_path)}" %>
       <% end %>
       <%= content_tag :div, class: 'hidden md:flex space-x-2 items-center text-sm' do %>
@@ -69,7 +69,7 @@
       <%= content_tag :div, class: 'flex flex-col space-y-1' do %>
         <%= link_to 'Home', root_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
         <%= link_to 'Features', features_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
-        <%= link_to 'Developers', developers_info_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
+        <%#= link_to 'Developers', developers_info_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
         <%= link_to 'FAQs', faqs_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
         <%= link_to 'Log In', new_session_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
         <%= link_to 'Sign Up', new_registration_path, class: 'flex items-center space-x-2 text-sm hover:bg-stone-100 p-2 rounded-md' %>
