@@ -67,17 +67,19 @@ export default async function AboutMe() {
             />
           </div>
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-stone-800">Hello, I'm Victoria</h2>
+            <h2 className="text-3xl md:text-4xl font-semibold text-stone-800">The Girl Behind The Camera</h2>
             <Separator className="w-24 bg-stone-300" />
             <p className="text-lg text-stone-600 leading-relaxed">
-              I'm a photographer based in San Antonio, Texas with a passion for capturing authentic moments that tell
-              your unique story.
+              Hello, I'm Victoria! Based in San Antonio, Texas, born and raised. i've had a passion for photography
+              ever since i started photographingmy family on my Nintendo 3DS over 10 years ago. There's something
+              magical about freezing moments in time so you can go back and look at them years later. Thanks for
+              stopping by, I'd be honored to tell a piece of your story through my lens.
             </p>
-            <p className="text-lg text-stone-600 leading-relaxed">
+            {/* <p className="text-lg text-stone-600 leading-relaxed">
               My journey into photography began over 10 years ago when I received my first DSLR camera as a gift. What
               started as a hobby quickly evolved into a passion and eventually a fulfilling career that allows me to
               connect with amazing people and preserve their most precious memories.
-            </p>
+            </p> */}
             <div className="flex flex-wrap gap-2 pt-2">
               <Badge className="bg-stone-200 text-stone-800 hover:bg-stone-300">Portrait</Badge>
               <Badge className="bg-stone-200 text-stone-800 hover:bg-stone-300">Wedding</Badge>
@@ -89,7 +91,7 @@ export default async function AboutMe() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-caramel-600 text-white">
+      {/* <section className="py-16 md:py-24 bg-caramel-600 text-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 space-y-6">
@@ -127,7 +129,7 @@ export default async function AboutMe() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-16 md:py-20 px-4">
         <div className="max-w-5xl mx-auto text-center mb-12">
@@ -304,23 +306,23 @@ export default async function AboutMe() {
               <Coffee className="h-12 w-12 mx-auto mb-4 text-stone-700" />
               <h3 className="text-xl font-semibold mb-2">Coffee Enthusiast</h3>
               <p className="text-stone-600">
-                I'm a serious coffee lover and enjoy exploring local coffee shops wherever I travel.
+                I'm a serious coffee lover and enjoy stopping for a quick drink whenever I can. My favorite is a caramel macchiato!
               </p>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-lg transition-shadow">
               <Globe className="h-12 w-12 mx-auto mb-4 text-stone-700" />
-              <h3 className="text-xl font-semibold mb-2">Travel Addict</h3>
+              <h3 className="text-xl font-semibold mb-2">Gamer</h3>
               <p className="text-stone-600">
-                I've visited 14 countries so far and always bring my camera to document the journey.
+                Bought my own PC over 4 years ago and have been glued to that screen ever since. I love playing games like Valorant and Minecraft.
               </p>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-lg transition-shadow">
               <Award className="h-12 w-12 mx-auto mb-4 text-stone-700" />
-              <h3 className="text-xl font-semibold mb-2">Dog Lover</h3>
+              <h3 className="text-xl font-semibold mb-2">Animal Lover</h3>
               <p className="text-stone-600">
-                Proud dog mom to Bailey, my Golden Retriever who sometimes joins me on photoshoots!
+                I grew up with all kinds of animals, from dogs and cats to ducks, bunnies, and even turtles.
               </p>
             </Card>
           </div>

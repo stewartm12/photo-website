@@ -57,9 +57,9 @@ export default async function ContactPage({ searchParams }) {
         </div>
       </section>
 
-      <hr className="my-12 border-t border-gray-200 w-3/4 mx-auto" />
+      {/* <hr className="my-12 border-t border-gray-200 w-3/4 mx-auto" /> */}
 
-      <section className="mb-16">
+      {/* <section className="mb-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">The Booking Process</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
@@ -95,7 +95,7 @@ export default async function ContactPage({ searchParams }) {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <hr className="my-12 border-t border-gray-200 w-3/4 mx-auto" />
       </div>

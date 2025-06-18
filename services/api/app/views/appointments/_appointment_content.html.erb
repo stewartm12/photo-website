@@ -94,7 +94,7 @@
           <%= content_tag :p, 'customer details and contact information', class: 'text-sm text-gray-500' %>
         <% end %>
 
-        <%= link_to 'View Profile', store_customer_path(Current.store, @appointment.customer), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 h-9 rounded-md px-3' %>
+        <%= link_to 'View Profile', store_customer_path(Current.store, @appointment.customer), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 h-9 rounded-md px-3', data: { turbo_frame: '_top' } %>
       <% end %>
 
       <%= content_tag :div, class: 'p-6 pt-0' do %>
@@ -207,13 +207,13 @@
 
     <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
       <%= turbo_frame_tag 'appointment_quick_actions' do %>
-        <%= render 'appointment_quick_actions' %>
+        <%= render 'appointments/appointment_quick_actions' %>
       <% end %>
     <% end %>
 
     <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
       <%= turbo_frame_tag 'appointment_invoice' do %>
-        <%= render 'appointment_invoice' %>
+        <%= render 'appointments/appointment_invoice' %>
       <% end %>
     <% end %>
 
@@ -290,8 +290,7 @@
         <%= link_to edit_store_appointment_appointment_add_ons_path(Current.store, @appointment),
           class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-9 rounded-md px-3 cursor-pointer',
           data: { turbo_frame: 'modal' } do %>
-          <%= icon 'plus' %>
-          <%= content_tag :span, 'Add Add On' %>
+          <%= content_tag :span, 'Update Add Ons' %>
         <% end %>
       <% end %>
 

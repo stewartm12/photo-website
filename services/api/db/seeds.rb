@@ -8,14 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-if Rails.env.development? && Gallery.count.zero?
-  # Load gallery_seeds.rb and showcase_seeds.rb first
-  require Rails.root.join('db', 'seeds', 'gallery_seeds.rb')
-  require Rails.root.join('db', 'seeds', 'showcase_seeds.rb')
+# if Rails.env.development? && Gallery.count.zero?
+#   # Load gallery_seeds.rb and showcase_seeds.rb first
+#   require Rails.root.join('db', 'seeds', 'gallery_seeds.rb')
+#   require Rails.root.join('db', 'seeds', 'showcase_seeds.rb')
 
-  # Then load any other seed files, skipping the ones already loaded
-  Dir[Rails.root.join('db', 'seeds', '*.rb')].each do |file|
-    next if file.include?('gallery_seeds.rb') || file.include?('showcase_seeds.rb')
-    require file
-  end
-end
+#   # Then load any other seed files, skipping the ones already loaded
+#   Dir[Rails.root.join('db', 'seeds', '*.rb')].each do |file|
+#     next if file.include?('gallery_seeds.rb') || file.include?('showcase_seeds.rb')
+#     require file
+#   end
+# end
