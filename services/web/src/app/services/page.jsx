@@ -113,7 +113,7 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 px-4 max-w-5xl mx-auto">
+      {/* <section className="py-12 md:py-16 px-4 max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-2xl sm:text-3xl font-semibold text-stone-800 mb-4">Frequently Asked Questions</h2>
         </div>
@@ -149,7 +149,7 @@ export default async function ServicesPage() {
             answer="Yes! I serve the entire San Antonio area at no additional cost. For locations beyond San Antonio, a travel fee applies."
           />
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

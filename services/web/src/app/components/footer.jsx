@@ -52,7 +52,7 @@ export default function Footer() {
             >
               <SiInstagram className="w-6 h-6" />
             </a>
-            <a
+            {/* <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -67,7 +67,7 @@ export default function Footer() {
               className="hover:text-white transition-colors"
             >
               <SiX className="w-6 h-6" />
-            </a>
+            </a> */}
           </div>
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} Victoria's Photography. All rights reserved.

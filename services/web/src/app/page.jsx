@@ -48,7 +48,7 @@ export default async function Home() {
       <section className="py-16 md:py-24 px-4 max-w-5xl mx-auto">
         <div className="text-center space-y-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-stone-800">
-            Welcome to Victoria's Photography
+            Welcome to Victoria Gonzales Photography
           </h2>
           <p className="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto leading-relaxed">
             I don't just capture images—I preserve the emotions that make your day unforgettable. From the gentle touch
@@ -117,18 +117,18 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-semibold">Why Hire a Photographer?</h2>
+              <h2 className="text-3xl md:text-4xl font-semibold">Why Hire Me?</h2>
               <Separator className="w-24 bg-stone-400" />
               <p className="text-xl font-light text-stone-300 mb-4">Why choose Victoria's Photography...</p>
               <p className="text-lg text-stone-200 leading-relaxed">
                 Choosing the right photographer is crucial to capturing moments that matter most. When you choose me,
-                you're selecting someone dedicated not just to taking pictures, but to crafting visual stories that
-                resonate.
+                you're selecting someone dedicated and passionate about capturing and telling your story to hold on to forever.
+                I strive to create images that not only meet but exceed your expectations.
               </p>
-              <p className="text-lg text-stone-200 leading-relaxed">
+              {/* <p className="text-lg text-stone-200 leading-relaxed">
                 My approach blends technical expertise with a passion for storytelling, ensuring each photograph conveys
                 emotion and depth. I strive to create images that not only meet but exceed your expectations.
-              </p>
+              </p> */}
               <Link href="/about-me" className="cursor-pointer">
                 <Button variant="ghost" className="mt-6 text-white group-hover:scale-102 cursor-pointer">
                   Learn More  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
