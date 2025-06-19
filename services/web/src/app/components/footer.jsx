@@ -4,7 +4,7 @@ import { SiFacebook, SiInstagram, SiX } from "@icons-pack/react-simple-icons"
 
 export default function Footer() {
   return (
-    <footer className="bg-footer-100 text-white">
+    <footer className="bg-blue-900 text-white">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Tagline */}

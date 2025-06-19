@@ -46,7 +46,7 @@ export default async function AboutMe() {
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <div className="text-center px-6 py-6 bg-white/5 rounded-lg max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white">Get to Know Victoria</h1>
+            <h1 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-4xl sm:text-5xl font-bold text-white">Get to Know Victoria</h1>
             <p className="text-lg text-white/80 mt-2">
               The person behind the camera and the stories I love to tell
             </p>
@@ -91,7 +91,7 @@ export default async function AboutMe() {
         </div>
       </section>
 
-      {/* <section className="py-16 md:py-24 bg-caramel-600 text-white">
+      {/* <section className="py-16 md:py-24 bg-blacktext-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 space-y-6">
@@ -131,7 +131,7 @@ export default async function AboutMe() {
         </div>
       </section> */}
 
-      <section className="py-16 md:py-20 px-4">
+      {/* <section className="py-16 md:py-20 px-4">
         <div className="max-w-5xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-stone-800 mb-4">My Photography Journey</h2>
           <p className="text-lg text-stone-600 max-w-3xl mx-auto">
@@ -190,9 +190,9 @@ export default async function AboutMe() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="py-16 bg-footer-100">
+      <section className="py-16 bg-blue-900">
         <div className="max-w-5xl mx-auto px-4 text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">What My Clients Say</h2>
           <p className="text-lg text-white max-w-3xl mx-auto">
@@ -292,7 +292,7 @@ export default async function AboutMe() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-caramel-500">
+      <section className="py-16 md:py-20 bg-black">
         <div className="max-w-5xl mx-auto px-4 text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">Fun Facts About Me</h2>
           <p className="text-lg text-white max-w-3xl mx-auto">
@@ -348,7 +348,7 @@ function TimelineItem({ year, title, description, icon, side }) {
 
       {/* Center icon */}
       <div className="relative flex flex-col items-center">
-        <div className="w-12 h-12 rounded-full bg-footer-100 text-white flex items-center justify-center z-10">
+        <div className="w-12 h-12 rounded-full bg-blue-900 text-white flex items-center justify-center z-10">
           {icon}
         </div>
         <div className="absolute w-1 bg-stone-300 h-[200%] top-0 -z-10"></div>

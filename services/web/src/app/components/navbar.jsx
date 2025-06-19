@@ -40,12 +40,12 @@ export default function Navbar({ galleries, logo }) {
   const galleryNavItems = navItems(galleries)
 
   return (
-    <nav className="flex items-center justify-between h-16 px-4 border-b border-stone-800 shadow-md">
+    <nav className="flex items-center justify-between h-16 px-4 border-b border-stone-800 bg-black text-white shadow-md">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         <Image src={logo.imageUrl} alt="pics by tori logo" width={50} height={50} style={{ objectFit: 'contain' }} priority/>
       </Link>
-        <h1 className="hidden sm:block font-extrabold tracking-wider text-center text-transparent bg-clip-text bg-gradient-to-r from-stone-800 to-stone-700 text-2xl md:text-3xl drop-shadow-md">
-          Victoria's Photography
+        <h1 style={{ fontFamily: '"Chiron Sung HK", serif' }} className={`hidden sm:block font-extrabold tracking-wider text-center text-2xl md:text-3xl drop-shadow-md`}>
+          Victoria Gonzales Photography
         </h1>
       <div className="flex items-center justify-end">
         <div className="mr-4 hidden md:flex">
@@ -54,7 +54,7 @@ export default function Navbar({ galleries, logo }) {
               item.hasSubmenu ? (
                 <DropdownMenu key={item.name}>
                   <DropdownMenuTrigger
-                    className={`flex items-center cursor-pointer transition-colors hover:text-foreground/80 ${pathname === item.href ? "underline" : ""}`}
+                    className={`flex items-center cursor-pointer hover:underline ${pathname === item.href ? "underline" : ""}`}
                   >
                     {item.name} <ChevronDown className="ml-1 h-4 w-4" />
                   </DropdownMenuTrigger>
@@ -70,7 +70,7 @@ export default function Navbar({ galleries, logo }) {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`transition-colors hover:text-foreground/80 ${pathname === item.href ? "underline" : ""}`}
+                  className={`transition-colors hover:underline ${pathname === item.href ? "underline" : ""}`}
                 >
                   {item.name}
                 </Link>

@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function ServiceCard({ imgSrc, title, description, link }) {
   return (
     <Link href={link} className="group">
-      <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl max-w-xs mx-auto bg-caramel-400">
+      <Card className="overflow-hidden transition-all duration-300 hover:shadow-xl max-w-xs mx-auto bg-black">
         <div className="relative overflow-hidden aspect-square">
           <Image
             src={imgSrc}

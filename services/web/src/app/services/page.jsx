@@ -44,7 +44,7 @@ export default async function ServicesPage() {
 
       <PackageTabs galleries={galleries}/>
 
-      <section className="py-12 md:py-16 bg-caramel-500">
+      <section className="py-12 md:py-16 bg-black">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">What My Clients Say</h2>
