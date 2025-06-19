@@ -4,6 +4,7 @@ import { gallerySlugsQuery } from '@/graphql/queries/galleries';
 import { Roboto_Flex } from 'next/font/google';
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
+import Head from 'next/head'
 
 const roboto = Roboto_Flex({
   subsets: ["latin"]
@@ -72,6 +73,12 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <Head>
+      <link
+          href="https://fonts.googleapis.com/css2?family=Chiron+Sung+HK:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <body className={`${roboto.className} antialiased flex flex-col min-h-screen`} >
         <Navbar galleries={data.galleries} logo={data.store.photo} />
         <main className="flex-1">{children}</main>

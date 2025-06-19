@@ -39,7 +39,7 @@ export default async function Home() {
         <Slideshow photos={slideshowPhotos} />
         <div className="absolute inset-0 bg-black/30 flex items-center">
           <div className="text-center px-4 py-8 bg-white/10 rounded-lg mx-auto">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-white">Warm, Timeless, & Intimate</h1>
+            <h1 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-4xl sm:text-5xl font-bold mb-4 text-white">Warm, Timeless, & Intimate</h1>
             <p className="text-xl sm:text-2xl text-white/90 mx-auto">Preserve Every Emotion, Relive Every Moment</p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default async function Home() {
       
       <section className="py-16 md:py-24 px-4 max-w-5xl mx-auto">
         <div className="text-center space-y-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-stone-800">
+          <h2 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-2xl sm:text-3xl md:text-4xl font-semibold text-stone-800">
             Welcome to Victoria Gonzales Photography
           </h2>
           <p className="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto leading-relaxed">
@@ -55,15 +55,15 @@ export default async function Home() {
             of a hand to the tears, laughter, and every intimate moment in between, I artfully document the true essence
             of your love story.
           </p>
-          <Link href="/galleries/individual-family-portraits" className="cursor-pointer">
-            <Button className="mt-6 bg-caramel-500 hover:bg-caramel-600 text-white hover:scale-102 cursor-pointer">
+          <Link href="/galleries/individual-family-portraits">
+            <Button className="mt-6 text-white cursor-pointer">
               View My Portfolio <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
       </section>
 
-      <section className="py-16 bg-footer-100">
+      <section className="py-16 bg-blue-900">
         <div className="max-w-4xl mx-auto px-4">
           <Card className="border-none shadow-xl bg-white relative overflow-hidden">
             <CardContent className="pt-10 pb-8 px-6 md:px-10 relative z-10">
@@ -113,11 +113,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 text-white bg-caramel-600">
+      <section className="py-16 md:py-24 text-white bg-black">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-semibold">Why Hire Me?</h2>
+              <h2 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-3xl md:text-4xl font-semibold">Why Hire Me?</h2>
               <Separator className="w-24 bg-stone-400" />
               <p className="text-xl font-light text-stone-300 mb-4">Why choose Victoria's Photography...</p>
               <p className="text-lg text-stone-200 leading-relaxed">
@@ -136,7 +136,7 @@ export default async function Home() {
               </Link>
             </div>
             <div className="relative">
-              <div className="absolute -top-4 -right-4 w-full h-full border-2 border-stone-600 rounded-lg"></div>
+              <div className="absolute -top-4 -right-4 w-full h-full inset-ring-2 rounded-lg"></div>
               <HirePhoto
                 imgSrc={hirePhoto.imageUrl}
                 altText={"Why choose Victoria's Photography"}
@@ -148,7 +148,7 @@ export default async function Home() {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-semibold text-stone-800 text-center mb-12">Explore My Services</h2>
+          <h2 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-3xl md:text-4xl font-semibold text-stone-800 text-center mb-12">Explore My Services</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
@@ -178,13 +178,13 @@ export default async function Home() {
       <section className="py-16 bg-stone-100">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <Camera className="h-12 w-12 mx-auto mb-6 text-stone-700" />
-          <h2 className="text-3xl md:text-4xl font-semibold text-stone-800 mb-4">Ready to Capture Your Story?</h2>
+          <h2 style={{ fontFamily: '"Chiron Sung HK", serif' }} className="text-3xl md:text-4xl font-semibold text-stone-800 mb-4">Ready to Capture Your Story?</h2>
           <p className="text-lg text-stone-600 mb-8 max-w-2xl mx-auto">
             Let's create timeless memories together. Contact me today to discuss your photography needs and book your
             session.
           </p>
           <Link href="/contact" className="cursor-pointer">
-            <Button className="bg-caramel-500 hover:bg-caramel-600 text-white cursor-pointer">
+            <Button className="text-white cursor-pointer">
               Get In Touch   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
