@@ -11,5 +11,5 @@ pin 'stimulus-use' # @0.52.3
 pin 'dropzone' # @6.0.0
 pin 'just-extend' # @5.1.1
 pin '@rails/activestorage', to: '@rails--activestorage.js' # @8.0.200
-pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.12
-pin "sortablejs" # @1.15.6
+pin '@rails/request.js', to: '@rails--request.js.js' # @0.0.12
+pin 'sortablejs' # @1.15.6

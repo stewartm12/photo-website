@@ -13,7 +13,7 @@ class Gallery < ApplicationRecord
   before_validation :generate_slug, on: :create
   before_save :titleize_name, :capitalize_description
 
-  validates :name, :slug, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, :slug, presence: true, uniqueness: { case_sensitive: false, scope: :store_id }
 
   private
 

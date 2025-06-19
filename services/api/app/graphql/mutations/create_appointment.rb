@@ -79,7 +79,7 @@ module Mutations
     def build_appointment_add_ons(appointment, add_on_ids)
       return unless add_on_ids.present?
 
-      add_ons = AddOn.where(id: add_on_ids)
+      add_ons = context[:current_store].add_ons.where(id: add_on_ids)
 
       add_ons.each do |add_on|
         appointment.appointment_add_ons.build(

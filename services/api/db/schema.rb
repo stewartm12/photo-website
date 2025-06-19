@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_19_003320) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_19_224821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_19_003320) do
     t.boolean "limited", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gallery_id", "name"], name: "index_add_ons_on_gallery_id_and_name", unique: true
     t.index ["gallery_id"], name: "index_add_ons_on_gallery_id"
   end
 
@@ -140,8 +141,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_19_003320) do
     t.integer "collections_count", default: 0, null: false
     t.integer "packages_count", default: 0, null: false
     t.integer "add_ons_count", default: 0, null: false
-    t.index ["name"], name: "index_galleries_on_name", unique: true
-    t.index ["slug"], name: "index_galleries_on_slug", unique: true
+    t.index ["store_id", "name"], name: "index_galleries_on_store_id_and_name", unique: true
+    t.index ["store_id", "slug"], name: "index_galleries_on_store_id_and_slug", unique: true
     t.index ["store_id"], name: "index_galleries_on_store_id"
   end
 
@@ -193,6 +194,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_19_003320) do
     t.bigint "gallery_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gallery_id", "name"], name: "index_packages_on_gallery_id_and_name", unique: true
     t.index ["gallery_id"], name: "index_packages_on_gallery_id"
   end
 

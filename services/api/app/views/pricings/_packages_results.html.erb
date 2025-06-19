@@ -14,9 +14,7 @@
                 <%= icon 'pencil-square', class: 'size-5 text-blue-500 hover:text-blue-800' %>
               <% end %>
 
-              <%= button_to store_gallery_package_path(Current.store, gallery, package),
-                method: :delete,
-                data: { turbo_confirm: 'Are you sure you want to delete this collection?' } do %>
+              <%= button_to store_gallery_package_path(Current.store, gallery, package), method: :delete do %>
                 <%= icon 'trash', class: 'size-5 text-red-500 hover:text-red-800 cursor-pointer' %>
               <% end %>
             <% end %>

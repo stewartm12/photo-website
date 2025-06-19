@@ -1,7 +1,8 @@
 class Package < ApplicationRecord
   belongs_to :gallery, counter_cache: true
 
-  validates :name, :price, :gallery, presence: true
+  validates :price, :gallery, presence: true
+  validates :name, presence: true, uniqueness: { scope: :gallery_id }
   validates :outfit_change, inclusion: { in: [true, false] }
 
   def formatted_duration

@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @appointment&.persisted? %>
+  <%= turbo_stream.update 'appointments_results' do %>
+    <%= render 'appointments/appointments_results' %>
+  <% end %>
+<% end %>
