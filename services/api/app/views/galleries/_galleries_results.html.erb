@@ -58,7 +58,7 @@
               <%= content_tag :td, gallery.collections_count, class: 'px-4 py-3' %>
               <%= content_tag :td, gallery.collections.sum(&:photos_count), class: 'px-4 py-3' %>
               <%= content_tag :td, class: 'px-4 py-3' do %>
-                <%= gallery_badge_status(gallery) %>
+                <%= status_badge(gallery) %>
               <% end %>
               <%= content_tag :td, gallery.created_at.strftime('%-m/%-d/%Y'), class: 'px-4 py-3 text-gray-500' %>
               <%= content_tag :td, class: 'px-4 py-3' do %>

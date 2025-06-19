@@ -53,7 +53,7 @@ export const photosBySlugQuery = async (name) => {
 export const galleryPackageData = async () => {
   const query = `
     query {
-      galleries {
+      services {
         id
         name
         description
@@ -79,5 +79,5 @@ export const galleryPackageData = async () => {
     }
   `;
   const response = await fetchData(query);
-  return response.data.galleries;
+  return response.data.services;
 };

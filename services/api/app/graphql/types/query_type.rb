@@ -23,6 +23,8 @@ module Types
 
     field :galleries, [Types::GalleryType], null: false, description: 'Fetches all galleries.'
 
+    field :services, [Types::GalleryType], null: false, description: 'Fetches all galleries with their packages and add ons.'      
+
     field :gallery, Types::GalleryType, null: true, description: 'Fetches a gallery by slug.' do
       argument :slug, String, required: true, description: 'Slug of the gallery.'
     end
@@ -36,18 +38,22 @@ module Types
     field :autocomplete_location, resolver: Resolvers::AutocompleteLocation
 
     def galleries
-      current_store.galleries.includes(:packages, :add_ons, photo: { image_attachment: :blob }).where(active: true)
+      current_store.galleries.includes(photo: { image_attachment: :blob }).where(active: true)
+    end
+
+    def services
+      galleries.includes(:packages, :add_ons)
     end
 
     def gallery(slug:)
-      current_store.galleries.includes(:photo, collections: { photos: { image_attachment: :blob } }).find_by(slug: slug)
+      current_store.galleries.find_by(slug: slug)
     end
 
     def showcase(name:)
       current_store.showcases.includes(photos: { image_attachment: :blob }).find_by(name: name)
     end
 
-    def store()
+    def store
       current_store
     end
 

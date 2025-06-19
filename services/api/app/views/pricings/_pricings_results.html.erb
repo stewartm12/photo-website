@@ -21,7 +21,7 @@
             <%= content_tag :div, class: 'flex items-center gap-2' do %>
               <%= icon 'chevron-down', class: 'size-4' %>
               <%= content_tag :h3, gallery.name, class: 'text-lg font-medium' %>
-              <%= gallery_badge_status(gallery) %>
+              <%= status_badge(gallery) %>
             <% end %>
             <%= content_tag :div, class: 'flex items-center gap-2' do %>
               <%= turbo_frame_tag "add_on_packages_count_#{gallery.id}" do %>

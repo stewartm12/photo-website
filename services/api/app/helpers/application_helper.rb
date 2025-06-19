@@ -14,13 +14,13 @@ module ApplicationHelper
     end
   end
 
-  def gallery_badge_status(gallery)
+  def status_badge(record)
     status_classes = {
       true => { style: 'bg-green-200 text-green-800', label: 'Active' },
       false => { style: 'bg-gray-200 text-gray-800', label: 'Inactive' }
     }
 
-    status = status_classes[gallery.active]
+    status = status_classes[record.active]
 
     content_tag :div, class: "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent #{status[:style]}" do
       status[:label]

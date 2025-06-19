@@ -73,7 +73,7 @@ class CollectionsController < ApplicationController
   end
 
   def collection_params
-    params.expect(collection: %i[name shoot_date])
+    params.expect(collection: %i[name shoot_date active])
   end
 
   def load_collections
