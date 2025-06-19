@@ -5,6 +5,7 @@ module Types
     field :id, ID, null: false
     field :name, String, null: false
     field :gallery, Types::GalleryType, null: false
+    field :active, Boolean, null: false
     field :photos, [Types::PhotoType]
   end
 end

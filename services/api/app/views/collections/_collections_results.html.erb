@@ -28,6 +28,7 @@
             <%= content_tag :th, 'Collection Name', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Shoot Date', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Photos', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Status', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Actions', class: 'px-4 py-3 text-left' %>
           <% end %>
         <% end %>
@@ -44,6 +45,10 @@
               <% end %>
 
               <%= content_tag :td, collection.photos_count, class: 'px-4 py-3' %>
+
+              <%= content_tag :td, class: 'px-4 py-3' do %>
+                <%= status_badge(collection) %>
+              <% end %>
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex gap-2' do %>

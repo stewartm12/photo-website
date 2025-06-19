@@ -11,5 +11,9 @@ module Types
     field :packages, [Types::PackageType]
     field :add_ons, [Types::AddOnType]
     field :store, Types::StoreType
+
+    def collections
+      object.collections.includes(photos: { image_attachment: :blob }).where(active: true)
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_16_205631) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_19_003320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -111,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_16_205631) do
     t.datetime "updated_at", null: false
     t.date "shoot_date"
     t.integer "photos_count", default: 0, null: false
+    t.boolean "active", default: false, null: false
     t.index ["gallery_id", "name"], name: "index_collections_on_gallery_id_and_name", unique: true
     t.index ["gallery_id"], name: "index_collections_on_gallery_id"
   end

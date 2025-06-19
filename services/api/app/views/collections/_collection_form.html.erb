@@ -19,6 +19,17 @@
         <%= f.label :shoot_date, 'Shoot Date' %>
         <%= f.date_field :shoot_date %>
       <% end %>
+
+      <%= content_tag :div, class: 'flex items-center justify-between' do %>
+        <%= content_tag :div, class: 'space-y-0.5' do %>
+          <%= content_tag :span, 'Active', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70' %>
+          <%= content_tag :p, 'This will make the collection publicly visible', class: 'text-sm text-gray-500' %>
+        <% end %>
+        <%= f.label :active, class: 'relative inline-flex items-center cursor-pointer' do %>
+          <%= f.check_box :active, class: 'sr-only peer'%>
+          <%= content_tag :div, nil, class: 'w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-emerald-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600' %>
+        <% end %>
+      <% end %>
     <% end %>
 
     <%= content_tag :div, class: 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2' do %>
@@ -26,7 +37,7 @@
       <%= f.submit submit_text, class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white hover:cursor-pointer' %>
     <% end %>
 
-    <%= button_tag type: 'button', class: 'absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 hover:cursor-pointer', data: { action: 'modal#hideModal' } do %>
+    <%= button_tag type: 'button', class: 'absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100 cursor-pointer', data: { action: 'modal#hideModal' } do %>
       <%= icon 'x-mark' %>
     <% end %>
   <% end %>
