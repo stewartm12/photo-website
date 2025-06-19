@@ -28,6 +28,7 @@ class PackagesController < ApplicationController
   def destroy
     @package.destroy
     flash.now[:success] = 'Package deleted successfully'
+    # redirect_to root_path, status: :see_other
   end
 
   private

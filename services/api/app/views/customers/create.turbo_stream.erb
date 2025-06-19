@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @customer.persisted? %>
+  <%= turbo_stream.update 'customers_results' do %>
+    <%= render 'customers/customers_results' %>
+  <% end %>
+<% end %>

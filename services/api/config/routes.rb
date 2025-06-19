@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
     resource :store_membership, only: %i[show new create]
 
-    resources :appointments, only: %i[index show edit update] do
+    resources :appointments, only: %i[index show new create edit update] do
       resources :locations, only: %i[new create edit update]
       resource :appointment_add_ons, only: %i[edit update]
       resource :invoice, only: %i[create update] do
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :customers, only: %i[index show edit update]
+    resources :customers, only: %i[index show new create edit update]
     resources :pricings
     resource :settings, only: :show
     resources :showcases do

@@ -11,6 +11,21 @@ class CustomersController < ApplicationController
     @customer_appointments = @customer.appointments
   end
 
+  def new
+    @customer = Current.store.customers.new
+  end
+
+  def create
+    @customer = Current.store.customers.new(customer_params)
+
+    if @customer.save
+      @pagy, @customers = pagy(filtered_customers)
+      flash.now[:success] = 'Customer created successfully'
+    else
+      flash.now[:alert] = @customer.errors.full_messages.to_sentence
+    end
+  end
+
   def edit; end
 
   def update

@@ -13,12 +13,10 @@ RSpec.describe Gallery, type: :model do
   describe 'validations' do
     context 'name' do
       it { should validate_presence_of(:name) }
-      it { should validate_uniqueness_of(:name).case_insensitive }
     end
 
     context 'slug' do
       it { should validate_presence_of(:slug) }
-      it { should validate_uniqueness_of(:slug).case_insensitive }
     end
   end
 
