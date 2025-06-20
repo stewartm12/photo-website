@@ -23,8 +23,6 @@
   <% end %>
 <% end %>
 
-
-
 <% if @galleries.any? %>
   <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
     <%= content_tag :div, class: 'overflow-x-auto' do %>
@@ -46,7 +44,7 @@
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex items-center gap-3' do %>
                   <%= content_tag :div, class: 'w-[60px] h-[60px] overflow-hidden rounded' do %>
-                    <%= image_tag gallery.photo.image.variant(resize_to_fill: [60, 60]), class: 'object-cover w-full h-full' %>
+                    <%= image_tag url_for(gallery.photo.image.variant(resize_to_fill: [60, 60])), class: 'object-cover w-full h-full' %>
                   <% end %>
                   <%= content_tag :div, class: 'grid' do %>
                     <%= content_tag :span, gallery.name, class: 'font-medium' %>
