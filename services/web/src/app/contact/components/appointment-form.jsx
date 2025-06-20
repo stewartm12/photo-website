@@ -145,7 +145,7 @@ export default function AppointmentForm() {
             <Label htmlFor="gallery-select">Session Type</Label>
             <Select
               name="gallerySelect"
-              value={state.galleryId}
+              value={state.galleryId ?? undefined}
               onValueChange={(value) => dispatch({ type: "SET_FIELD", field: "galleryId", value: value })}
               >
               <SelectTrigger className="focus-visible:ring-primary"  id="gallery-select">

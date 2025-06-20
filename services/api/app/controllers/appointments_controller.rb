@@ -25,56 +25,22 @@ class AppointmentsController < ApplicationController
 
   def create
     customer = Current.store.customers.find_by(email: create_params[:customer_email])
-    package = Current.store.packages.find_by(id: create_params[:package_id])
-    add_on = Current.store.add_ons.find_by(id: create_params[:add_on_id])
 
     if customer.nil?
       flash.now[:alert] = 'Customer not found. Please create a customer first.' and return
     end
 
-    if package.nil?
-      flash.now[:alert] = 'Package not found. Please select a valid package.' and return
+    if create_params[:package_id].nil?
+      flash.now[:alert] = 'Package is required.' and return
     end
 
-    @appointment = Current.store.appointments.new(
-      customer: customer,
-      preferred_date_time: create_params[:preferred_date_time],
-      additional_notes: create_params[:additional_notes],
-      status: create_params[:status],
-      deposit: create_params[:deposit]
-    )
-
-    if add_on.present?
-      @appointment.appointment_add_ons.build(
-        quantity: 1,
-        name: add_on.name,
-        price: add_on.price,
-        limited: add_on.limited
-      )
-    end
-
-    @appointment.build_appointment_package(
-      name: package.name,
-      price: package.price,
-      edited_images: package.edited_images,
-      outfit_change: package.outfit_change,
-      duration: package.duration,
-      features: package.features,
-      gallery_name: package.gallery.name
-    )
-
-    if @appointment.save
-      @appointment.appointment_events.create(
-        event_type: :appointment_created,
-        user: Current.user,
-        message: "#{Current.user.full_name} booked an appointment on behalf of customer.",
-        metadata: { created_by: Current.user.full_name }
-      )
+    begin
+      @appointment = schedule_appointment(customer)
 
       @pagy, @appointments = pagy(filtered_appointments)
       flash.now[:success] = 'Appointment successfully created.'
-    else
-      flash.now[:alert] = @appointment.errors.full_messages.to_sentence
+    rescue ActiveRecord::RecordInvalid => e
+      flash.now[:alert] = e.record.errors.full_messages.to_sentence
     end
   end
 
@@ -126,5 +92,18 @@ class AppointmentsController < ApplicationController
     end
 
     appointments.order(id: :desc)
+  end
+
+  def schedule_appointment(customer)
+    ScheduleAppointment.new(store: Current.store, user: Current.user).call(
+        customer: customer,
+        package_id: create_params[:package_id],
+        add_on_ids: [create_params[:add_on_id]].compact,
+        preferred_date_time: create_params[:preferred_date_time],
+        additional_notes: create_params[:additional_notes],
+        status: create_params[:status],
+        deposit: create_params[:deposit],
+        metadata: { created_by: Current.user.full_name }
+      )
   end
 end
