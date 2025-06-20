@@ -4,7 +4,7 @@ class AppointmentMailerPreview < ActionMailer::Preview
     appointment = Appointment.last
 
     if appointment.present?
-      AppointmentMailer.new_appointment_email(appointment, appointment.customer)
+      AppointmentMailer.new_appointment_email(appointment, appointment.customer, appointment.store)
     else
       nil
     end
