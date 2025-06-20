@@ -37,6 +37,6 @@ class Appointment < ApplicationRecord
   private
 
   def notify_customer
-    AppointmentMailer.new_appointment_email(self, customer).deliver_later
+    AppointmentMailer.new_appointment_email(self, customer, store).deliver_later
   end
 end
