@@ -8,7 +8,7 @@ class ShowcasesController < ApplicationController
   end
 
   def show
-    @showcase = Current.store.showcases.includes(photos: { image_attachment: :blob }).find_by(id: params[:id])
+    @showcase = Current.store.showcases.includes(photos: { image_attachment: [blob: { variant_records: :blob }] }).find_by(id: params[:id])
 
     @showcase_photos = @showcase.photos.group_by(&:section_key)
     @showcase_sections = @showcase_photos.keys.sort

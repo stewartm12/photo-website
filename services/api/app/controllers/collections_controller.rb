@@ -8,7 +8,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = gallery.collections.includes(photos: { image_attachment: :blob }).find_by(id: params[:id])
+    @collection = gallery.collections.includes(photos: { image_attachment: [blob: { variant_records: :blob }] }).find_by(id: params[:id])
   end
 
   def new
