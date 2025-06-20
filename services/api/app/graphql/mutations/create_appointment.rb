@@ -15,20 +15,8 @@ module Mutations
     field :errors, [String]
 
     def resolve(args)
-      appointment = nil
-
-      ActiveRecord::Base.transaction do
-        customer = find_or_create_customer(args)
-        appointment = build_appointment(args, customer)
-
-        build_appointment_add_ons(appointment, args[:add_on_ids])
-        build_appointment_package(appointment, args[:package_id])
-        build_location(appointment, args[:address], args[:note]) if args[:address]
-
-        appointment.save!
-
-        appointment.appointment_events.create!(event_type: :appointment_created, message: 'Customer booked appointment online', metadata: { created_by: 'online booking' })
-      end
+      customer = find_or_create_customer(args)
+      appointment = schedule_appointment(customer, args)
 
       { appointment: appointment, errors: [] }
 
@@ -52,47 +40,17 @@ module Mutations
       customer
     end
 
-    def build_appointment(args, customer)
-      customer.appointments.new(
+    def schedule_appointment(customer, args)
+      ScheduleAppointment.new(store: context[:current_store]).call(
+        customer: customer,
+        package_id: args[:package_id],
+        add_on_ids: args[:add_on_ids],
         preferred_date_time: args[:preferred_date_time],
         additional_notes: args[:additional_notes],
-        store: context[:current_store]
+        address: args[:address],
+        note: args[:note],
+        metadata: { created_by: 'online booking' }
       )
-    end
-
-    def build_appointment_package(appointment, package_id)
-      return unless package_id
-
-      package = context[:current_store].packages.find_by(id: package_id)
-
-      appointment.build_appointment_package(
-        name: package.name,
-        price: package.price,
-        edited_images: package.edited_images,
-        outfit_change: package.outfit_change,
-        duration: package.duration,
-        features: package.features,
-        gallery_name: package.gallery.name
-      )
-    end
-
-    def build_appointment_add_ons(appointment, add_on_ids)
-      return unless add_on_ids.present?
-
-      add_ons = context[:current_store].add_ons.where(id: add_on_ids)
-
-      add_ons.each do |add_on|
-        appointment.appointment_add_ons.build(
-          quantity: 1,
-          name: add_on.name,
-          price: add_on.price,
-          limited: add_on.limited
-        )
-      end
-    end
-
-    def build_location(appointment, address, note)
-      appointment.locations.build(address: address, note: note)
     end
   end
 end
