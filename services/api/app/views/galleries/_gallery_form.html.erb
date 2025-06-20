@@ -55,7 +55,7 @@
             <%= content_tag :div, class: 'space-y-4', data: { controller: :preview} do %>
               <%= content_tag :div, class: 'flex aspect-video flex-col items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50' do %>
                 <% if @gallery&.photo&.image&.attached? %>
-                  <%= image_tag image_url(@gallery.photo.image.variant(resize_to_fill: [800, 450])), data: { preview_target: 'preview'}, class: 'object-cover w-full h-full' %>
+                  <%= image_tag @gallery.photo.image.variant(resize_to_fill: [800, 450]), data: { preview_target: 'preview'}, class: 'object-cover w-full h-full' %>
                 <% else %>
                   <%= image_tag '', data: { preview_target: 'preview' }, class: 'hidden object-cover w-full h-full' %>
                   <%= content_tag :div, class: 'flex flex-col items-center gap-1 text-center', data: { preview_target: 'fallback' } do %>
