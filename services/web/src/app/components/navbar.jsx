@@ -28,7 +28,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Navbar({ galleries, logo }) {
+export default function Navbar({ galleries=[], logo={} }) {
   const [isOpen, setIsOpen] = useState(false)
   const [openCollapsible, setOpenCollapsible] = useState(null)
   const pathname = usePathname()
@@ -50,7 +50,7 @@ export default function Navbar({ galleries, logo }) {
       <div className="flex items-center justify-end">
         <div className="mr-4 hidden md:flex">
           <div className="flex items-center space-x-4 text-sm font-medium">
-          {galleryNavItems.map((item) =>
+          {galleryNavItems?.map((item) =>
               item.hasSubmenu ? (
                 <DropdownMenu key={item.name}>
                   <DropdownMenuTrigger
@@ -93,7 +93,7 @@ export default function Navbar({ galleries, logo }) {
                   <SheetDescription>Navigation Menu</SheetDescription>
                 </SheetHeader>
                 <nav className="flex flex-col gap-4 mt-6">
-                  {galleryNavItems.map((item, index) => (
+                  {galleryNavItems && galleryNavItems.map((item, index) => (
                     <Fragment key={item.name}>
                       {item.hasSubmenu ? (
                         <Collapsible
