@@ -33,7 +33,7 @@
       <% end %>
 
       <%= content_tag :div, class: 'flex gap-2' do %>
-        <%= button_tag type: 'button', data: { action: 'photo-selector#downloadSelected', photo_selector_target: 'downloadBtn' }, class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer', disabled: true do %>
+        <%= button_tag type: 'button', data: { action: 'photo-selector#downloadSelected', photo_selector_target: 'downloadBtn' }, class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer' do %>
           <%= icon 'arrow-down' %>
           <%= content_tag :span, 'Download' %>
         <% end %>

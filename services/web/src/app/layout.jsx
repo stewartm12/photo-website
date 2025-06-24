@@ -64,7 +64,10 @@ async function storeData() {
     const response = await gallerySlugsQuery();
     return response;
   } catch {
-    return [];
+    return {
+      galleries: [],
+      store: {}
+    };
   }
 }
 
