@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
   def index
-    @stores = Current.user.stores
+    @stores = Current.user.stores.includes(photo: { image_attachment: :blob }).order(created_at: :desc)
   end
 
   def show
