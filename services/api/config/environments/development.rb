@@ -9,13 +9,9 @@ Rails.application.configure do
   # White-listing the frontend web domain to allow requests from the Rails server.
   config.hosts << /api:\d+/
 
-  # Configuring action mailer with mailgun
-  # config.action_mailer.delivery_method = :mailgun
-
-  # config.action_mailer.mailgun_settings = {
-  #   api_key: ENV['MAILGUN_API_KEY'],
-  #   domain: ENV['MAILGUN_DOMAIN']
-  # }
+  # Configuring action mailer with letter opener
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   # Raises error if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
@@ -72,6 +68,8 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+
+  config.active_job.queue_adapter = :solid_queue
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

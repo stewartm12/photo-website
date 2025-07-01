@@ -110,6 +110,8 @@ GEM
     bullet (8.0.7)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crack (1.0.0)
@@ -204,6 +206,12 @@ GEM
       thor (~> 1.3)
       zeitwerk (>= 2.6.18, < 3.0)
     language_server-protocol (3.17.0.4)
+    launchy (3.1.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
+      logger (~> 1.6)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
     lint_roller (1.1.0)
     logger (1.7.0)
     loofah (2.24.1)
@@ -229,6 +237,16 @@ GEM
       logger
     mini_mime (1.1.5)
     minitest (5.25.5)
+    mission_control-jobs (1.0.2)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
+      irb (~> 1.13)
+      railties (>= 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.8.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
@@ -508,7 +526,9 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  letter_opener
   mailgun-ruby
+  mission_control-jobs
   pagy
   pg (~> 1.1)
   propshaft

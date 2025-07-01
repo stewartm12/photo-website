@@ -26,9 +26,7 @@ class User < ApplicationRecord
   end
 
   def send_invitation_email(email, store)
-    transaction do
-      InvitationMailer.invite(self, email, store).deliver_later
-    end
+    SendEmailInvitationJob.perform_later(self, email, store)
   end
 
   private

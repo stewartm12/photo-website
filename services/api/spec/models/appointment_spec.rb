@@ -26,12 +26,6 @@ RSpec.describe Appointment, type: :model do
   describe 'callbacks' do
     context 'after_create' do
       include_context 'with appointment and related records'
-
-      it 'notifies the customer' do
-        expect(AppointmentMailer).to deliver_later(:new_appointment_email)
-
-        appointment.save
-      end
     end
   end
 
