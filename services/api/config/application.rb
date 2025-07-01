@@ -39,5 +39,8 @@ module Api
     config.active_record.encryption.primary_key = ENV['RAILS_ENCRYPTION_KEY']
     config.active_record.encryption.deterministic_key = ENV['RAILS_ENCRYPTION_DETERMINISTIC_KEY']
     config.active_record.encryption.key_derivation_salt = ENV['RAILS_ENCRYPTION_KEY_DERIVATION_SALT']
+
+    config.mission_control.jobs.base_controller_class = 'AdminController'
+    config.mission_control.jobs.http_basic_auth_enabled = false
   end
 end

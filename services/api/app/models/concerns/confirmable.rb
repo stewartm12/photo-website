@@ -21,9 +21,7 @@ module Confirmable
   end
 
   def send_confirmation_email
-    transaction do
-      UsersMailer.account_confirmation(self).deliver_later
-      update!(confirmation_sent_at: Time.current)
-    end
+    SendEmailConfirmationJob.perform_later(self)
+    update(confirmation_sent_at: Time.current)
   end
 end

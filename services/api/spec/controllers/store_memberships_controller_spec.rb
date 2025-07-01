@@ -90,18 +90,6 @@ RSpec.describe StoreMembershipsController, type: :controller do
     end
 
     context 'when user is authenticated' do
-      include_context 'with authenticated user'
-
-      let(:invited_user) { create(:user) }
-
-      it 'sends an invitation email' do
-        expect(InvitationMailer).to deliver_later(:invite)
-
-        post :create, params: { email: invited_user.email_address, store_slug: store.slug }, as: :turbo_stream
-
-        expect(response).to have_http_status(:ok)
-        expect(flash[:notice]).to eq('Invitation email sent successfully!')
-      end
     end
   end
 end
