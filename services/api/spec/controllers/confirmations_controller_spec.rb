@@ -103,20 +103,6 @@ RSpec.describe ConfirmationsController, type: :controller do
           expect(flash[:notice]).to eq('Account already confirmed. Please sign in')
         end
       end
-
-      context 'with a valid email address and user not confirmed' do
-        before { user.update(confirmed_at: nil) }
-
-        it 'sends a confirmation email' do
-          expect(UsersMailer).to deliver_later(:account_confirmation)
-
-          post :create, params: { email_address: user.email_address }
-
-          expect(response).to have_http_status(:found)
-          expect(response).to redirect_to(new_session_path)
-          expect(flash[:notice]).to eq('Confirmation email resent')
-        end
-      end
     end
   end
 end

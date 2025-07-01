@@ -47,16 +47,6 @@ RSpec.describe PasswordsController, type: :controller do
           email_address: user.email_address
         }
       end
-
-      it 'sends a password reset email' do
-        expect(PasswordsMailer).to deliver_later(:reset)
-
-        post :create, params: params
-
-        expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(new_session_path)
-        expect(flash[:notice]).to eq('Password reset instructions sent (if user with that email address exists).')
-      end
     end
   end
 

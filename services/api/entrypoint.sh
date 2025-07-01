@@ -14,5 +14,8 @@ bundle exec rake db:seed
 # Start tailwind watcher in the background
 bundle exec rails tailwindcss:watch[always] &
 
+# Start Solid Queue job processor in the background
+bin/rails solid_queue:start &
+
 # Start Rails server
 exec bundle exec rails s -p 3000 -b '0.0.0.0'
