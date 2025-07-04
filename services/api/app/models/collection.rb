@@ -4,6 +4,7 @@ class Collection < ApplicationRecord
   attr_accessor :photos_changed
 
   has_many :photos, as: :imageable, dependent: :destroy
+  has_many :user_downloads, dependent: :destroy
   belongs_to :gallery, counter_cache: true
 
   validates :name, presence: true

@@ -85,15 +85,15 @@ production:
 
   cache:
     <<: *primary_production
-    migrations_paths: db/cache_migrate
+  #   migrations_paths: db/cache_migrate
     # database: api_production_cache
 
   queue:
     <<: *primary_production
-    migrations_paths: db/queue_migrate
+  #   migrations_paths: db/queue_migrate
     # database: api_production_queue
 
   cable:
     <<: *primary_production
-    migrations_paths: db/cable_migrate
+  #   migrations_paths: db/cable_migrate
     # database: api_production_cable

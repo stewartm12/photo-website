@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_29_172744) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_192834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -231,6 +231,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_29_172744) do
     t.index ["store_id"], name: "index_showcases_on_store_id"
   end
 
+  create_table "solid_cable_messages", force: :cascade do |t|
+    t.binary "channel", null: false
+    t.binary "payload", null: false
+    t.datetime "created_at", null: false
+    t.bigint "channel_hash", null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
+  end
+
   create_table "solid_cache_entries", force: :cascade do |t|
     t.binary "key", null: false
     t.binary "value", null: false
@@ -387,6 +397,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_29_172744) do
     t.index ["domain"], name: "index_stores_on_domain", unique: true
     t.index ["owner_id"], name: "index_stores_on_owner_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
+  end
+
+  create_table "user_downloads", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "collection_id"
+    t.datetime "expires_at", null: false
+    t.string "file_path", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_user_downloads_on_collection_id"
+    t.index ["user_id"], name: "index_user_downloads_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
