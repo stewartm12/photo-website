@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { showFlash } from "helpers/inline_flash"
 
 // Connects to data-controller="photo-selector"
 export default class extends Controller {
@@ -27,17 +28,21 @@ export default class extends Controller {
   
     const params = new URLSearchParams();
     selectedIds.forEach(id => params.append('photo_ids[]', id));
-
+  
     const url = `/${this.storeSlugValue}/galleries/${this.galleryIdValue}/collections/${this.collectionIdValue}/photos/download?${params.toString()}`;
   
-    // Trigger download by creating and clicking a hidden link
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'photos.zip'; // Hint to browser about filename
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    this.clearSelections();
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+    .then((response) => {
+      if (response.ok) {
+        this.clearSelections();
+        showFlash("notice", "Download request submitted. The file will be ready in the Downloads tab within a few minutes.");
+      } else {
+        showFlash("alert", "Something went wrong while requesting the download.");
+      }
+    })
+    .catch(() => {
+      showFlash("alert", "Network error while sending download request.");
+    });
   }
 
   handleDeleteClick(event) {

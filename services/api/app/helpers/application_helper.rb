@@ -98,4 +98,20 @@ module ApplicationHelper
       content_tag(:option, add_on.name, value: add_on.id, data: { price: add_on.price })
     end.join.html_safe
   end
+
+  def expires_in_label(download)
+    return "Expired" if download.expired?
+
+    seconds_left = download.expires_at.to_i - Time.current.to_i
+
+    if seconds_left < 60
+      "#{seconds_left} second(s)"
+    elsif seconds_left < 3600
+      "#{(seconds_left / 60)} minute(s)"
+    elsif seconds_left < 86_400
+      "#{(seconds_left / 3600)} hour(s)"
+    else
+      "#{(seconds_left / 86_400)} day(s)"
+    end
+  end
 end

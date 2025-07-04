@@ -53,7 +53,7 @@
       <%= content_tag :div, class: 'grid gap-2' do %>
         <%= f.fields_for :photo, Photo.new do |pf| %>
           <%= pf.label :image, 'Logo' %>
-          <%= pf.file_field :image, required: true, direct_upload: true %>
+          <%= pf.file_field :image, required: form_method == :post, direct_upload: true %>
         <% end %>
       <% end %>
     <% end %>
