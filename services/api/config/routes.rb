@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
     resource :store_membership, only: %i[show new create]
 
+    resources :user_downloads, only: %i[index show]
+
     resources :appointments, only: %i[index show new create edit update] do
       resources :locations, only: %i[new create edit update]
       resource :appointment_add_ons, only: %i[edit update]
