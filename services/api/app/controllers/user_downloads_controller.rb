@@ -9,7 +9,7 @@ class UserDownloadsController < ApplicationController
     download = Current.user.user_downloads.find(params[:id])
 
     if download.expired? || !File.exist?(download.file_path)
-      redirect_to photo_downloads_path, alert: "This download is no longer available."
+      redirect_to store_user_downloads_path(Current.store,), alert: "This download is no longer available."
     else
       send_file download.file_path,
                 filename: File.basename(download.file_path),
