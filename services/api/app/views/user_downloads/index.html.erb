@@ -31,7 +31,7 @@
                 <%= content_tag :span, download.collection.name %>
               <% end %>
 
-              <%= content_tag :td, "Expires in #{expires_in_label(download)}", class: 'px-4 py-3 text-red-500' %>
+              <%= content_tag :td, expires_in_label(download), class: 'px-4 py-3 text-red-500' %>
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :span, download.created_at.strftime("%B %d, %Y") %>
