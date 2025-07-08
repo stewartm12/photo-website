@@ -5,7 +5,7 @@ class UserDownloadsController < ApplicationController
     @pagy, @downloads = pagy(
       Current.user.user_downloads
       .not_expired
-      .includes(:collection)
+      .includes(:collection, zip_file_attachment: :blob)
       .order(created_at: :desc)
     )
   end

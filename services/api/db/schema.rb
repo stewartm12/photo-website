@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_192834) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_08_213159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -403,7 +403,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_192834) do
     t.bigint "user_id", null: false
     t.bigint "collection_id"
     t.datetime "expires_at", null: false
-    t.string "file_path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_user_downloads_on_collection_id"

@@ -39,9 +39,9 @@
 
               <%= content_tag :td, class: 'px-4 py-3' do %>
                 <%= content_tag :div, class: 'flex gap-2' do %>
-                  <%= link_to "Download", store_user_download_path(Current.store, download),
-                    class: "text-blue-600 hover:underline",
-                    data: { turbo: false } %>
+                  <% if download.available? && download.zip_file.attached? %>
+                    <%= link_to 'Download', download.zip_file_url, class: 'text-blue-600 hover:underline', data: { turbo: false } %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
