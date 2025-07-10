@@ -1,7 +1,7 @@
 class Photo < ApplicationRecord
   belongs_to :imageable, polymorphic: true
 
-  has_one_attached :image
+  has_one_attached :image, dependent: :purge_later
 
   validates :file_key, presence: true, uniqueness: true
   validate :acceptable_image

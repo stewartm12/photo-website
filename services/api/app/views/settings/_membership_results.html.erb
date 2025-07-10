@@ -1,0 +1,32 @@
+<%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4 mb-6' do %>
+  <% @store_memberships.each do |membership| %>
+    <%= content_tag :div, class: 'flex items-center justify-between p-4 border border-gray-400 rounded-lg bg-white' do %>
+      <%= content_tag :div, class: 'flex items-center space-x-3' do %>
+        <%= content_tag :div, class: 'flex-1 min-w-0' do %>
+          <%= content_tag :div, class: 'flex items-center space-x-2' do %>
+            <%= content_tag :h4, membership.user.full_name, class: 'font-medium truncate' %>
+
+            <% if @store.owner == membership.user %>
+              <%= content_tag :p, 'Owner', class: 'inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold hover:bg-200/80 bg-yellow-100 text-yellow-800 text-xs' %>
+            <% end %>
+          <% end %>
+
+          <%= content_tag :p, membership.user.email_address, class: 'text-sm text-gray-500 truncate' %>
+          <%= content_tag :div do %>
+            <%= content_tag :p, "Joined #{membership.created_at.strftime('%B %d, %Y')}", class: 'text-sm text-gray-500' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <% if @store.owner != membership.user %>
+        <%= link_to 'Remove', store_user_path(@store, membership.user),
+          class: 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold border-transparent bg-red-100 text-red-700 hover:bg-red-200' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'flex items-center justify-between mt-6' do %>
+  <%== pagy_info(@pagy) %>
+  <%== pagy_nav(@pagy) %>
+<% end %>
