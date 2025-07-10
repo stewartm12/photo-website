@@ -1,0 +1,5 @@
+<%= render_flash_stream %>
+
+<%= turbo_stream.update 'membership_results' do %>
+  <%= render 'settings/membership_results' %>
+<% end %>
