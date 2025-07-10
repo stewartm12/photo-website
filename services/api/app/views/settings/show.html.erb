@@ -66,6 +66,40 @@
   <% end %>
 
   <%= content_tag :div, class: 'rounded-lg border bg-white border-gray-400 shadow-sm' do %>
+    <%= content_tag :div, class: 'p-6 flex flex-row items-center justify-between space-y-0 pb-4' do %>
+      <%= content_tag :div, class: 'flex items-center space-x-3' do %>
+        <%= icon 'users' %>
+        <%= content_tag :div do %>
+          <%= content_tag :h3, 'Team Members', class: 'font-semibold tracking-tight text-lg' %>
+          <%= content_tag :p, 'Users who have access to your store', class: 'text-sm text-gray-500' %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :span, "#{Current.store.users.count} Member(s)", class: 'inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold border-transparent bg-gray-200 hover:bg-gray-200/80 text-sm' %>
+    <% end %>
+
+    <%= content_tag :div, class: 'p-6 pt-0' do %>
+      <%= form_with url: store_settings_path(@store), method: :get,
+        data: {
+          turbo_frame: 'membership_results',
+          turbo_action: 'advance',
+          controller: 'submit',
+          action: 'input->submit#submit'
+        } do |f| %>
+        <%= content_tag :div, class: 'flex flex-col sm:flex-row gap-4 mb-6' do %>
+          <%= content_tag :div, class: 'relative flex-1' do %>
+            <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search users...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= turbo_frame_tag 'membership_results' do %>
+        <%= render 'settings/membership_results' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag :div, class: 'rounded-lg border bg-white border-gray-400 shadow-sm' do %>
     <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
       <%= content_tag :h3, class: 'text-2xl font-semibold leading-none tracking-tight flex items-center' do %>
         <%= icon 'chart-bar', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)]' %>
