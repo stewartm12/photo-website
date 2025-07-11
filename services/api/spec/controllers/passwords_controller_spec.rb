@@ -132,8 +132,8 @@ RSpec.describe PasswordsController, type: :controller do
       context 'with valid token' do
         let(:params) do
           {
-            password: 'password',
-            password_confirmation: 'password',
+            password: 'Password123!',
+            password_confirmation: 'Password123!',
             token: user.password_reset_token
           }
         end

@@ -40,11 +40,11 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     context 'when user is not authenticated' do
-      let(:user) { create(:user, email_address: 'test@example.com', password: 'password123') }
+      let(:user) { create(:user, email_address: 'test@example.com', password: 'Password123!') }
       let(:params) do
         {
           email_address: user.email_address,
-          password: 'password123'
+          password: 'Password123!'
         }
       end
 

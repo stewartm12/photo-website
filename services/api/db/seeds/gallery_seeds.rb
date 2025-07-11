@@ -4,8 +4,8 @@ user = User.create!(
   email_address: 'johndoe@test.com',
   confirmed_at: Time.now,
   confirmation_sent_at: Time.now,
-  password: 'password',
-  password_confirmation: 'password'
+  password: 'Password123!',
+  password_confirmation: 'Password123!'
 )
 
 store = Store.create!(name: 'Test Store', domain: 'test-store', owner: user, email: 'store@email.com')
