@@ -28,6 +28,16 @@
         <%= content_tag :p, 'Used to send emails to clients from this address', class: 'text-gray-500 text-sm' %>
       <% end %>
 
+      <%= content_tag :div, class: 'grid gap-2' do %>
+        <%= f.label :time_zone, class: 'block text-sm font-medium'%>
+        <%= f.select :time_zone,
+          options_for_select(Store::TIME_ZONES, store.time_zone || 'UTC'),
+          { required: true },
+          class: 'w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm'
+        %>
+        <%= content_tag :p, 'Used to send emails to clients from this address', class: 'text-gray-500 text-sm' %>
+      <% end %>
+
       <% if form_method == :post %>
         <%= content_tag :div, class: 'grid gap-2' do %>
           <%= f.label :domain, 'Store Domain', class: 'block text-sm font-medium' %>

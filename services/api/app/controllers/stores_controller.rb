@@ -14,9 +14,9 @@ class StoresController < ApplicationController
                     .count
 
     @recent_galleries = Current.store.galleries.order(id: :desc).limit(5)
-    @photo_counts_by_gallery = Photo.joins("INNER JOIN collections ON collections.id = photos.imageable_id")
+    @photo_counts_by_gallery = Photo.joins('INNER JOIN collections ON collections.id = photos.imageable_id')
                               .where(photos: { imageable_type: 'Collection' }, collections: { gallery_id: @recent_galleries.map(&:id) })
-                              .group("collections.gallery_id")
+                              .group('collections.gallery_id')
                               .count
     @upcoming_appointments = Current.store.appointments.includes(:customer, :appointment_package).where(status: :pending).order(preferred_date_time: :desc).limit(5)
     @newest_customers = Current.store.customers.order(id: :desc).limit(3)
@@ -31,7 +31,6 @@ class StoresController < ApplicationController
     @store.owner = Current.user
 
     ActiveRecord::Base.transaction do
-
       if (photo_param = create_params.dig(:photo, :image))
         @store.build_photo_from_image(photo_param, store_slug: @store.slug)
       end
@@ -66,10 +65,10 @@ class StoresController < ApplicationController
   private
 
   def create_params
-    params.expect(store: [:name, :domain, :email, photo: [:image]])
+    params.expect(store: [:name, :domain, :email, :time_zone, photo: [:image]])
   end
 
   def update_params
-    params.expect(store: [:email, photo: [:image]])
+    params.expect(store: [:email, :time_zone, photo: [:image]])
   end
 end

@@ -20,6 +20,16 @@ class Store < ApplicationRecord
   validates :name, :domain, :slug, presence: true
   validates :domain, :slug, uniqueness: { case_sensitive: false }
 
+  TIME_ZONES = [
+    'Pacific Time (US & Canada)',
+    'Mountain Time (US & Canada)',
+    'Central Time (US & Canada)',
+    'Eastern Time (US & Canada)',
+    'UTC'
+  ].freeze
+
+  validates :time_zone, inclusion: { in: TIME_ZONES, message: '%{value} is not an accepted time zone as of right now.' }
+
   def to_param
     slug
   end
