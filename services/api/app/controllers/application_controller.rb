@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_store_from_slug
 
+  around_action :set_time_zone
+
   def redirect_signed_in_user
     return unless authenticated?
 
@@ -20,5 +22,9 @@ class ApplicationController < ActionController::Base
 
     store = Current.user.stores.find_by!(slug: params[:store_slug])
     Current.store = store
+  end
+
+  def set_time_zone(&block)
+    Time.use_zone(Current.store&.time_zone || 'UTC', &block)
   end
 end

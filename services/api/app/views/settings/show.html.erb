@@ -59,6 +59,13 @@
                 <%= content_tag :p, @store.email, class: 'text-lg font-semibold' %>
               <% end %>
             <% end %>
+
+            <%= content_tag :div do %>
+              <%= turbo_frame_tag 'store-time-zone' do %>
+                <%= content_tag :span, 'Time Zone', class: 'text-sm font-medium text-gray-500' %>
+                <%= content_tag :p, @store.time_zone, class: 'text-lg font-semibold' %>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
