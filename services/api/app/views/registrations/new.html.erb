@@ -1,15 +1,11 @@
-<%= content_tag :div, class: "min-h-screen flex flex-col space-y-2 items-center justify-center bg-gray-100" do %>
-  <%= link_to root_path, class: 'flex items-center text-sm text-gray-500 hover:underline' do %>
-    <%= icon "arrow-left", class: "size-4" %> Back to Home Page
-  <% end %>
+<%= content_tag :div, class: 'min-h-screen flex flex-col space-y-2 items-center justify-center bg-gray-100' do %>
+  <%= content_tag :div, class: 'w-full max-w-md bg-white backdrop-blur p-6 rounded-xl shadow-lg' do %>
+    <%= content_tag :h2, 'Sign Up', class: 'text-3xl font-semibold text-center mb-6' %>
 
-  <%= content_tag :div, class: "w-full max-w-md bg-white backdrop-blur p-6 rounded-xl shadow-lg" do %>
-    <%= content_tag :h2, "Sign Up", class: "text-3xl font-semibold text-center mb-6" %>
-
-    <%= form_with url: registration_path, model: @user, class: "space-y-4" do |f| %>
+    <%= form_with url: registration_path, model: @user, data: { controller: 'registration' }, class: 'space-y-4' do |f| %>
       <%= content_tag :div, class: 'grid grid-cols-2 gap-4' do %>
         <%= content_tag :div, class: 'space-y-2' do %>
-          <%= f.label :first_name, 'First Name', class: "block text-sm font-medium" %>
+          <%= f.label :first_name, 'First Name', class: 'block text-sm font-medium' %>
           <%= f.text_field :first_name,
             required: true,
             autofocus: true,
@@ -19,7 +15,7 @@
           %>
         <% end %>
         <%= content_tag :div, class: 'space-y-2' do %>
-          <%= f.label :last_name, 'Last Name', class: "block text-sm font-medium" %>
+          <%= f.label :last_name, 'Last Name', class: 'block text-sm font-medium' %>
           <%= f.text_field :last_name,
             required: true,
             autofocus: true,
@@ -31,7 +27,7 @@
       <% end %>
 
       <%= content_tag :div, class: 'space-y-2' do %>
-        <%= f.label :email_address, 'Email Address', class: "block text-sm font-medium" %>
+        <%= f.label :email_address, 'Email Address', class: 'block text-sm font-medium' %>
         <%= f.email_field :email_address,
           required: true,
           autofocus: true,
@@ -42,33 +38,77 @@
       <% end %>
 
       <%= content_tag :div, class: 'space-y-2' do %>
-        <%= f.label :password, 'Password', class: "block text-sm font-medium" %>
-        <%= f.password_field :password,
-          required: true,
-          autocomplete: 'new-password',
-          placeholder: '••••••••',
-          maxlength: 72
-        %>
+        <%= f.label :password, 'Password', class: 'block text-sm font-medium' %>
+
+        <%= content_tag :div, class: 'relative' do %>
+          <%= f.password_field :password,
+            required: true,
+            autocomplete: 'new-password',
+            placeholder: '••••••••',
+            maxlength: 72,
+            data: {
+            registration_target: 'password',
+            action: 'input->registration#update'
+          }
+          %>
+          <%= content_tag :button, 'Show', type: :button,
+            class: 'absolute inset-y-0 right-0 px-3 text-sm text-gray-500 hover:cursor-pointer',
+            data: { action: 'registration#toggleVisibility' } %>
+        <% end %>
       <% end %>
 
       <%= content_tag :div, class: 'space-y-2' do %>
-        <%= f.label :password_confirmation, 'Password Confirmation', class: "block text-sm font-medium" %>
-        <%= f.password_field :password_confirmation,
-          required: true,
-          autocomplete: 'new-password',
-          placeholder: '••••••••',
-          maxlength: 72
-        %>
+        <%= f.label :password_confirmation, 'Password Confirmation', class: 'block text-sm font-medium' %>
+
+        <%= content_tag :div, class: 'relative' do %>
+          <%= f.password_field :password_confirmation,
+            required: true,
+            autocomplete: 'new-password',
+            placeholder: '••••••••',
+            maxlength: 72,
+            data: {
+            registration_target: 'passwordConfirmation',
+            action: 'input->registration#update'
+          }
+          %>
+          <%= content_tag :button, 'Show', type: :button,
+            class: 'absolute inset-y-0 right-0 px-3 text-sm text-gray-500 hover:cursor-pointer',
+            data: { action: 'registration#toggleVisibility' } %>
+        <% end %>
       <% end %>
 
-      <%= content_tag :div, class: "mt-6" do %>
-        <%= f.submit "Sign Up", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+      <%= content_tag :div, class: 'mt-3 p-3 bg-gray-50 rounded-lg border border-gray-400' do %>
+        <%= content_tag :p, 'Password must include:', class: 'text-sm font-medium text-gray-700 mb-2' %>
+        <%= content_tag :ul, class: 'space-y-1' do %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'At least 11 characters', class: 'text-gray-500', data: { registration_target: 'checkLength' } %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'Contains uppercase letter (A-Z)', class: 'text-gray-500', data: { registration_target: 'checkUpper' } %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'Contains lowercase letter (a-z)', class: 'text-gray-500', data: { registration_target: 'checkLower' } %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'Contains a number (0-9)', class: 'text-gray-500', data: { registration_target: 'checkNumber' } %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'Contains at least one special character (e.g. !@#$%^&*)', class: 'text-gray-500', data: { registration_target: 'checkSpecial' } %>
+          <% end %>
+          <%= content_tag :li, class: 'flex items-center gap-2 text-sm' do %>
+            <%= content_tag :span, 'Passwords match', class: 'text-gray-500', data: { registration_target: 'match' } %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, class: 'mt-6' do %>
+        <%= f.submit 'Sign Up', class: 'w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer' %>
       <% end %>
     <% end %>
 
-    <%= content_tag :div, class: "mt-4 text-center text-sm" do %>
+    <%= content_tag :div, class: 'mt-4 text-center text-sm' do %>
       <%= content_tag :p do %>
-        Already have an account? <%= link_to 'Sign In', new_session_path, class: "hover:underline" %>
+        Already have an account? <%= link_to 'Sign In', new_session_path, class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
       <% end %>
     <% end %>
   <% end %>

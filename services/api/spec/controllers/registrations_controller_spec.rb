@@ -46,8 +46,8 @@ RSpec.describe RegistrationsController, type: :controller do
           first_name: 'John',
           last_name: 'Doe',
           email_address: 'john@gmail.com',
-          password: 'password123',
-          password_confirmation: 'password123'
+          password: 'Password123!',
+          password_confirmation: 'Password123!'
         } }
       end
 

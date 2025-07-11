@@ -1,13 +1,9 @@
-<%= content_tag :div, class: "min-h-screen flex flex-col space-y-2 items-center justify-center bg-gray-100" do %>
-  <%= link_to root_path, class: 'flex items-center text-sm text-gray-500 hover:underline' do %>
-    <%= icon "arrow-left", class: "size-4" %> Back to Home Page
-  <% end %>
-
-  <%= content_tag :div, class: "w-full max-w-sm bg-white p-6 rounded-xl shadow-lg" do %>
-    <%= content_tag :h2, "Sign In", class: "text-3xl font-semibold text-center text-primary mb-6" %>
+<%= content_tag :div, class: 'min-h-screen flex flex-col space-y-2 items-center justify-center bg-gray-100' do %>
+  <%= content_tag :div, class: 'w-full max-w-sm bg-white p-6 rounded-xl shadow-lg' do %>
+    <%= content_tag :h2, 'Sign In', class: 'text-3xl font-semibold text-center text-primary mb-6' %>
     <%= form_with url: session_path do |f| %>
-      <%= content_tag :div, class: "mb-4" do %>
-        <%= f.label :email_address, "Email Address", class: "block text-sm font-medium" %>
+      <%= content_tag :div, class: 'mb-4' do %>
+        <%= f.label :email_address, 'Email Address', class: 'block text-sm font-medium' %>
         <%= f.email_field :email_address,
           required: true,
           autofocus: true,
@@ -16,31 +12,36 @@
         %>
       <% end %>
 
-      <%= content_tag :div, class: "mb-6" do %>
+      <%= content_tag :div, class: 'mb-6', data: { controller: 'session' } do %>
         <%= content_tag :div, class: 'flex items-center justify-between' do %>
-          <%= f.label :password, "Password", class: "block text-sm font-medium" %>
+          <%= f.label :password, 'Password', class: 'block text-sm font-medium' %>
           <%= link_to 'Forgot password?', new_password_path, class: 'text-xs text-primary hover:underline' %>
         <% end %>
 
-        <%= f.password_field :password,
-          required: true,
-          autocomplete: 'current-password',
-          placeholder: '••••••••',
-          maxlength: 72
-        %>
+        <%= content_tag :div, class: 'relative' do %>
+          <%= f.password_field :password,
+            required: true,
+            autocomplete: 'current-password',
+            placeholder: '••••••••',
+            maxlength: 72
+          %>
+          <%= content_tag :button, 'Show', type: :button,
+            class: 'absolute inset-y-0 right-0 px-3 text-sm text-gray-500 hover:cursor-pointer',
+            data: { action: 'session#toggleVisibility' } %>
+        <% end %>
       <% end %>
 
-      <%= content_tag :div, class: "flex items-center justify-between" do %>
-        <%= f.submit "Sign In", class: "w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer" %>
+      <%= content_tag :div, class: 'flex items-center justify-between' do %>
+        <%= f.submit 'Sign In', class: 'w-full py-2 px-4 bg-primary text-white rounded-lg shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary cursor-pointer' %>
       <% end %>
     <% end %>
 
-    <%= content_tag :div, class: "mt-4 text-center" do %>
+    <%= content_tag :div, class: 'mt-4 text-center' do %>
       <%= content_tag :p, class: 'text-sm' do %>
-        Don't have an account? <%= link_to 'Sign Up', new_registration_path, class: "hover:underline" %>
+        Don't have an account? <%= link_to 'Sign Up', new_registration_path, class: 'text-[oklch(66.14%_0.0661_72.71)] hover:underline' %>
       <% end %>
 
-      <%= link_to 'Resend Confirmation Email', new_confirmation_path, class: "text-xs text-muted hover:underline" %>
+      <%= link_to 'Resend Confirmation Email', new_confirmation_path, class: 'text-xs text-muted hover:underline' %>
     <% end %>
   <% end %>
 <% end %>
