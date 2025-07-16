@@ -48,8 +48,7 @@ module Mutations
         preferred_date_time: args[:preferred_date_time],
         additional_notes: args[:additional_notes],
         address: args[:address],
-        note: args[:note],
-        metadata: { created_by: 'online booking' }
+        note: args[:note]
       )
     end
   end

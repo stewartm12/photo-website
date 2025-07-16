@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = Current.store.appointments.find_by(id: params[:id])
+    @appointment = Current.store.appointments.includes(appointment_events: :user).find_by(id: params[:id])
   end
 
   def new
@@ -102,8 +102,7 @@ class AppointmentsController < ApplicationController
         preferred_date_time: create_params[:preferred_date_time],
         additional_notes: create_params[:additional_notes],
         status: create_params[:status],
-        deposit: create_params[:deposit],
-        metadata: { created_by: Current.user.full_name }
+        deposit: create_params[:deposit]
       )
   end
 end
