@@ -43,7 +43,7 @@
 
             <%= content_tag :div do %>
               <%= content_tag :h3, 'Time', class: 'font-medium' %>
-              <% scheduled_time =  @appointment.preferred_date_time.present? ? @appointment.preferred_date_time.strftime('%I:%M %p') : 'TBD' %>
+              <% scheduled_time =  @appointment.preferred_date_time.present? ? @appointment.preferred_date_time.strftime('%I:%M %p %Z') : 'TBD' %>
               <%= content_tag :p, scheduled_time %>
             <% end %>
           <% end %>
@@ -145,7 +145,7 @@
       <% end %>
 
       <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'space-y-4' do %>
+        <%= content_tag :div, id: dom_id(@appointment, :events_list), class: 'space-y-4' do %>
           <% @appointment.appointment_events.each do |event| %>
             <%= content_tag :div, class: 'relative pl-6 pb-4' do %>
               <%= content_tag :div, nil, class: 'absolute left-[11px] top-[24px] bottom-0 w-[2px] bg-gray-200' %>
@@ -157,7 +157,9 @@
                   <%= content_tag :span, "by #{by_person}", class: 'text-sm text-gray-500' %>
                 <% end %>
                 <%= content_tag :p, event.created_at.strftime("%B %d, %Y, %I:%M %p"), class: 'text-sm text-gray-500' %>
-                <%= content_tag :p, event.message, class: 'mt-1' %>
+                <%= content_tag :div, class: 'text-sm' do %>
+                  <%= simple_format(event.message) %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>

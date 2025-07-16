@@ -5,6 +5,7 @@ class InvoicesController < ApplicationController
     @invoice = AppointmentInvoiceGenerator.new(Current.store, @appointment).call
 
     if @invoice.persisted?
+      @event = @appointment.appointment_events.last
       flash.now[:success] = 'Invoice created succesfully'
     else
       flash.now[:alert] = @invoice.errors.full_messages.to_sentence
@@ -19,6 +20,7 @@ class InvoicesController < ApplicationController
     end
 
     invoice.update(status: invoice_params[:status], paid_amount: invoice.amount_due, paid_at: Time.current)
+    @event = @appointment.appointment_events.last
     flash.now[:success] = 'Invoice updated successfully'
   end
 
