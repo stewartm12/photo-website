@@ -8,4 +8,22 @@
   <%= turbo_stream.update 'appointment_invoice' do %>
     <%= render 'appointments/appointment_invoice' %>
   <% end %>
+
+  <%= turbo_stream.append dom_id(@appointment, :events_list) do %>
+    <%= content_tag :div, id: dom_id(@appointment, :events_list) do %>
+      <%= content_tag :div, class: 'relative pl-6 pb-4' do %>
+        <%= content_tag :div, nil, class: 'absolute left-[11px] top-[24px] bottom-0 w-[2px] bg-gray-200' %>
+        <%= content_tag :div, nil, class: 'absolute left-0 top-1 h-[22px] w-[22px] rounded-full border-4 border-white bg-[oklch(66.14%_0.0661_72.71)]' %>
+        <%= content_tag :div do %>
+          <%= content_tag :div, class: 'flex items-center gap-2' do %>
+            <%= content_tag :p, @event.event_type.humanize, class: 'font-medium' %>
+            <% by_person = @event.user.present? ? @event.user.full_name : @event.metadata['created_by'] %>
+            <%= content_tag :span, "by #{by_person}", class: 'text-sm text-gray-500' %>
+          <% end %>
+          <%= content_tag :p, @event.created_at.strftime("%B %d, %Y, %I:%M %p"), class: 'text-sm text-gray-500' %>
+          <%= simple_format(@event.message) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

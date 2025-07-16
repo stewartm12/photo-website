@@ -14,20 +14,11 @@ class AppointmentAddOnsController < ApplicationController
   end
 
   def update
-    Appointment.transaction do
-      appointment.appointment_add_ons.destroy_all
-
-      app_add_on_params.values.each do |app_add_on|
-        add_on = AddOn.find(app_add_on[:add_on_id])
-
-        appointment.appointment_add_ons.create!(
-          name: add_on.name,
-          price: add_on.price,
-          limited: add_on.limited,
-          quantity: app_add_on[:quantity]
-        )
-      end
-    end
+    Appointments::UpdateAddOns.new(
+      appointment: appointment,
+      add_on_params: app_add_on_params,
+      current_user: Current.user
+    ).call
 
     flash.now[:success] = 'Add-ons updated successfully.'
   rescue => e
@@ -37,9 +28,13 @@ class AppointmentAddOnsController < ApplicationController
   private
 
   def app_add_on_params
-    params.expect(appointment: {
-      appointment_add_ons_attributes: [%i[add_on_id quantity]]
-    }).dig(:appointment_add_ons_attributes) || {}
+    if params[:appointment].present?
+      params.expect(appointment: {
+        appointment_add_ons_attributes: [%i[add_on_id quantity]]
+      }).dig(:appointment_add_ons_attributes) || {}
+    else
+      {}
+    end
   end
 
   def appointment

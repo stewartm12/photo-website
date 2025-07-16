@@ -11,16 +11,12 @@ RSpec.describe AppointmentEvent, type: :model do
       expect(described_class.event_types.keys).to match_array(
         %w[
           appointment_created
-          status_changed
-          appointment_rescheduled
-          add_on_added
-          add_on_removed
+          appointment_updated
+          add_on_updated
           location_added
-          location_removed
           location_updated
-          note_updated
-          customer_updated
-          package_changed
+          invoice_created
+          invoice_updated
         ]
       )
     end
