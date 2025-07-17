@@ -22,7 +22,6 @@ class SettingsController < ApplicationController
   end
 
   def set_store
-    @store = Store.includes(appointments: %i[appointment_add_ons appointment_package])
-                  .find_by(slug: params[:store_slug])
+    @store = Store.find_by(slug: params[:store_slug])
   end
 end
