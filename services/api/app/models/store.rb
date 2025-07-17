@@ -34,6 +34,13 @@ class Store < ApplicationRecord
     slug
   end
 
+  def revenue
+    appointments
+     .joins(:invoice)
+     .where(invoices: { status: 'paid' })
+     .sum('invoices.subtotal')
+  end
+
   private
 
   def generate_slug

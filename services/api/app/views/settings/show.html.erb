@@ -138,7 +138,7 @@
 
         <%= content_tag :div, class: 'text-center p-4 border border-gray-400 rounded-lg' do %>
           <%= icon 'currency-dollar', class: 'size-8 mx-auto mb-2 text-yellow-600' %>
-          <%= content_tag :p, number_to_currency(@store.appointments.sum(&:total_price), unit: '$', precision: 2), class: 'text-2xl font-bold' %>
+          <%= content_tag :p, number_to_currency(@store.revenue, unit: '$', precision: 2), class: 'text-2xl font-bold' %>
           <%= content_tag :p, 'Revenue', class: 'text-sm text-gray-500' %>
         <% end %>
       <% end %>
