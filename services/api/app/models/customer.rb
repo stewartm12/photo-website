@@ -13,6 +13,13 @@ class Customer < ApplicationRecord
     "#{first_name} #{last_name}".strip
   end
 
+  def total_spent
+    appointments
+     .joins(:invoice)
+     .where(invoices: { status: 'paid' })
+     .sum('invoices.subtotal')
+  end
+
   private
 
   def capitalize_names

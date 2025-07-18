@@ -48,8 +48,6 @@ class Invoice < ApplicationRecord
       "Amount paid #{to}"
     when :paid_at
       "Paid at #{format_time(to)}"
-    else
-      "Changed #{attr} from '#{from.inspect}' -> '#{to.inspect}'"
     end
   end
 

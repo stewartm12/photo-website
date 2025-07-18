@@ -1,6 +1,10 @@
 module Eventeable
   extend ActiveSupport::Concern
 
+  def generate_change_message(attr, from, to)
+    "Changed #{attr} from '#{from.inspect}' -> '#{to.inspect}'"
+  end
+
   def log_event(event_type, message, metadata: {})
     metadata = metadata.merge(created_by: Current.user.full_name) if Current.user.present?
 

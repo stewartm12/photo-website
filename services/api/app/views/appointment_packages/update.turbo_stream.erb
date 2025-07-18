@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @appointment_package.errors.empty? %>
+  <%= turbo_stream.update 'appointment_display' do %>
+    <%= render 'appointments/appointment_content' %>
+  <% end %>
+<% end %>
