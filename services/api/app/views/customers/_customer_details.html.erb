@@ -105,7 +105,7 @@
     <%= content_tag :div, class: 'p-6 pt-0 space-y-6' do %>
       <%= content_tag :div do %>
         <%= content_tag :h3, 'Total Spent', class: 'text-[oklch(66.14%_0.0661_72.71)]' %>
-        <%= content_tag :span, number_to_currency(@customer_appointments.sum(&:total_price), unit: '$', precision: 2), class: 'text-3xl font-bold' %>
+        <%= content_tag :span, number_to_currency(@customer.total_spent, unit: '$', precision: 2), class: 'text-3xl font-bold' %>
       <% end %>
 
       <%= content_tag :div do %>
@@ -135,7 +135,7 @@
           <% end %>
 
           <%= content_tag :tbody, class: '[&_tr:last-child]:border-0' do %>
-            <% @customer_appointments.order(id: :desc).each do |appointment| %>
+            <% @appointments.each do |appointment| %>
               <%= content_tag :tr, class: 'border-b border-gray-300 hover:bg-gray-100' do %>
                 <%= content_tag :td, "##{appointment.id}", class: 'p-4 align-middle' %>
                 <%= content_tag :td, class: 'p-4 align-middle' do %>

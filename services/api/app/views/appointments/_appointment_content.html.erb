@@ -113,12 +113,14 @@
                 <%= content_tag :p, '|', class: 'text-gray-700' %>
                 <%= link_to "https://mail.google.com/mail/?view=cm&fs=1&to=#{@appointment.customer.email}&su=Subject+here&body=Body+text+here",
                   target: '_blank',
+                  title: 'Email via Gmail',
                   rel: 'noopener' do %>
                   <%= icon 'envelope', class: 'size-4 text-red-400 self-center hover:underline' %>
                 <% end %>
                 <%= content_tag :p, '|', class: 'text-gray-700' %>
                 <%= link_to "https://outlook.office.com/mail/deeplink/compose?to=#{@appointment.customer.email}&subject=Subject+here&body=Body+text+here",
                   target: '_blank',
+                  title: 'Email via Outlook',
                   rel: 'noopener' do %>
                   <%= icon 'envelope', class: 'size-4 text-blue-400 self-center hover:underline' %>
                 <% end %>
@@ -177,13 +179,11 @@
       <%= content_tag :div, class: 'p-6 pt-0' do %>
         <%= content_tag :div, class: 'space-y-3 text-sm' do %>
           <%= content_tag :div, class: 'flex justify-between' do %>
-            <%= content_tag :span, 'Created', class: 'text-gray-500' %>
-            <%= content_tag :span, @appointment.created_at.strftime("%B %d, %Y, %I:%M %p") %>
-          <% end %>
-
-          <%= content_tag :div, class: 'flex justify-between' do %>
-            <%= content_tag :span, 'Last Updated', class: 'text-gray-500' %>
-            <%= content_tag :span, @appointment.updated_at.strftime("%B %d, %Y, %I:%M %p") %>
+            <%= content_tag :span, 'Package & Gallery', class: 'text-gray-500' %>
+            <%= content_tag :div, class: 'flex items-center gap-2' do %>
+                <%= content_tag :span, "#{@appointment.appointment_package.name}" %>
+                <%= content_tag :p, "(#{@appointment.appointment_package.gallery_name})", class: 'text-sm text-gray-500' %>
+              <% end %>
           <% end %>
 
           <%= content_tag :div, class: 'flex justify-between' do %>
@@ -197,6 +197,16 @@
               <%= content_tag :span, number_to_currency(@appointment.deposit, unit: "$", precision: 2), class: 'font-medium' %>
               <%= deposit_badge_status(@appointment.deposit) %>
             <% end %>
+          <% end %>
+
+          <%= content_tag :div, class: 'flex justify-between' do %>
+            <%= content_tag :span, 'Created', class: 'text-gray-500' %>
+            <%= content_tag :span, @appointment.created_at.strftime("%B %d, %Y, %I:%M %p") %>
+          <% end %>
+
+          <%= content_tag :div, class: 'flex justify-between' do %>
+            <%= content_tag :span, 'Last Updated', class: 'text-gray-500' %>
+            <%= content_tag :span, @appointment.updated_at.strftime("%B %d, %Y, %I:%M %p") %>
           <% end %>
 
           <%= content_tag :div, class: 'flex justify-between' do %>
@@ -230,7 +240,8 @@
           <%= content_tag :div, class: 'flex items-start gap-3' do %>
             <%= content_tag :div do %>
               <%= content_tag :div, class: 'flex items-center gap-2' do %>
-                <%= content_tag :span, @appointment.appointment_package.name %>
+                <%= content_tag :span, "#{@appointment.appointment_package.name}" %>
+                <%= content_tag :p, "(#{@appointment.appointment_package.gallery_name})", class: 'text-sm text-gray-500' %>
               <% end %>
             <% end %>
           <% end %>
@@ -258,9 +269,17 @@
     <% end %>
 
     <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6' do %>
-        <%= content_tag :h3, 'Package', class: 'text-2xl font-semibold leading-none tracking-tight' %>
-        <%= content_tag :p, 'Selected photography package', class: 'text-sm text-gray-500' %>
+      <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center justify-between' do %>
+        <%= content_tag :div do %>
+          <%= content_tag :h3, 'Package', class: 'text-2xl font-semibold leading-none tracking-tight' %>
+          <%= content_tag :p, 'Selected photography package', class: 'text-sm text-gray-500' %>
+        <% end %>
+
+        <%= link_to edit_store_appointment_appointment_package_path(Current.store, @appointment),
+          class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-gray-300 bg-white hover:bg-gray-100 h-9 rounded-md px-3 cursor-pointer',
+          data: { turbo_frame: 'modal' } do %>
+          <%= content_tag :span, 'Update Package' %>
+        <% end %>
       <% end %>
 
       <%= content_tag :div, class: 'p-6 pt-0 space-y-2' do %>
@@ -270,7 +289,10 @@
           <% end %>
 
           <%= content_tag :div do %>
-            <%= content_tag :h3, @appointment.appointment_package.name, class: 'font-medium' %>
+            <%= content_tag :div, class: 'flex items-center gap-2' do %>
+              <%= content_tag :h3, @appointment.appointment_package.name, class: 'font-medium' %>
+              <%= content_tag :p, "(#{@appointment.appointment_package.gallery_name})", class: 'text-sm text-gray-500' %>
+            <% end %>
             <%= content_tag :p, 'selected package for the appointment',class: 'text-sm text-gray-500 mt-1' %>
           <% end %>
         <% end %>
@@ -286,7 +308,7 @@
       <%= content_tag :div, class: 'space-y-1.5 p-6 flex flex-row items-center justify-between' do %>
         <%= content_tag :div do %>
           <%= content_tag :h3, 'Add Ons', class: 'text-2xl font-semibold leading-none tracking-tight' %>
-          <%= content_tag :p, 'Additional Services Selected', class: 'text sm text-gray-500' %>
+          <%= content_tag :p, 'Additional Services Selected', class: 'text-sm text-gray-500' %>
         <% end %>
 
         <%= link_to edit_store_appointment_appointment_add_ons_path(Current.store, @appointment),

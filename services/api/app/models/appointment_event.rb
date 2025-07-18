@@ -9,6 +9,7 @@ class AppointmentEvent < ApplicationRecord
     location_added: 'location_added',
     location_updated: 'location_updated',
     invoice_created: 'invoice_created',
-    invoice_updated: 'invoice_updated'
+    invoice_updated: 'invoice_updated',
+    package_updated: 'package_updated'
   }
 end

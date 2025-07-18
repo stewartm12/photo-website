@@ -8,7 +8,9 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @customer_appointments = @customer.appointments
+    @appointments = @customer.appointments
+      .includes(:appointment_package, :appointment_add_ons)
+      .order(id: :desc)
   end
 
   def new
