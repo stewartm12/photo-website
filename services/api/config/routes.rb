@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     resources :appointments, only: %i[index show new create edit update] do
       resources :locations, only: %i[new create edit update]
       resource :appointment_add_ons, only: %i[edit update]
+      resource :appointment_package, only: %i[edit update]
       resource :invoice, only: %i[create update] do
         get :download, on: :member
       end

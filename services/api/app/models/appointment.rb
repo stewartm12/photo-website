@@ -79,8 +79,6 @@ class Appointment < ApplicationRecord
       "Changed deposit from $#{'%.2f' % from} -> $#{'%.2f' % to}"
     when :additional_notes
       "Additional Notes has been updated from '#{from}' -> '#{to}'"
-    else
-      "Changed #{attr} from '#{from.inspect}' -> '#{to.inspect}'"
     end
   end
 

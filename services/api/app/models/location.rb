@@ -35,8 +35,6 @@ class Location < ApplicationRecord
       "Updated address from '#{from}' -> '#{to}'"
     when :note
       "Changed appointment time from '#{from}' -> '#{to}'"
-    else
-      "Changed #{attr} from '#{from.inspect}' -> '#{to.inspect}'"
     end
   end
 end

@@ -17,6 +17,7 @@ RSpec.describe AppointmentEvent, type: :model do
           location_updated
           invoice_created
           invoice_updated
+          package_updated
         ]
       )
     end
