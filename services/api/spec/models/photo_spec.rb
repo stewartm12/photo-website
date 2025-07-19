@@ -6,7 +6,7 @@ RSpec.describe Photo, type: :model do
 
     context 'file_key' do
       it { should validate_presence_of(:file_key) }
-      it { should validate_uniqueness_of(:file_key) }
+      it { should validate_uniqueness_of(:file_key).scoped_to(:imageable_type, :imageable_id) }
     end
   end
 

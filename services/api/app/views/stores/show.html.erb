@@ -7,65 +7,15 @@
   <% end %>
 
   <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8' do %>
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
-        <%= content_tag :h3, 'Galleries', class: 'tracking-tight text-sm font-medium text-gray-500' %>
-      <% end %>
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-center' do %>
-          <%= icon 'table-cells', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
-          <%= content_tag :span, @total_galleries, class: 'text-2xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'metric_data', title: 'Total Galleries', svg_icon: 'table-cells', data: @total_galleries %>
 
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
-        <%= content_tag :h3, 'Collections', class: 'tracking-tight text-sm font-medium text-gray-500' %>
-      <% end %>
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-center' do %>
-          <%= icon 'folder-open', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
-          <%= content_tag :span, @total_collections, class: 'text-2xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'metric_data', title: 'Total Collections', svg_icon: 'folder-open', data: @total_collections %>
 
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
-        <%= content_tag :h3, 'Photos', class: 'tracking-tight text-sm font-medium text-gray-500' %>
-      <% end %>
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-center' do %>
-          <%= icon 'photo', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
-          <%= content_tag :span, @total_photos, class: 'text-2xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'metric_data', title: 'Total Photos', svg_icon: 'photo', data: @total_photos %>
 
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
-        <%= content_tag :h3, 'Appointments', class: 'tracking-tight text-sm font-medium text-gray-500' %>
-      <% end %>
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-center' do %>
-          <%= icon 'calendar', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
-          <%= content_tag :span, @total_appointments, class: 'text-2xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'metric_data', title: 'Total Appointments', svg_icon: 'calendar', data: @total_appointments %>
 
-    <%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
-      <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
-        <%= content_tag :h3, 'Customers', class: 'tracking-tight text-sm font-medium text-gray-500' %>
-      <% end %>
-      <%= content_tag :div, class: 'p-6 pt-0' do %>
-        <%= content_tag :div, class: 'flex items-center' do %>
-          <%= icon 'users', class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
-          <%= content_tag :span, @total_customers, class: 'text-2xl font-bold' %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'metric_data', title: 'Total Customers', svg_icon: 'users', data: @total_customers %>
   <% end %>
 
   <%= content_tag :div, class: 'grid grid-cols-1 lg:grid-cols-3 gap-8' do %>
@@ -83,17 +33,22 @@
         <% end %>
 
         <%= content_tag :div, class: 'p-6 pt-0' do %>
-          <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
-            <% @recent_galleries.each do |gallery| %>
-              <%= content_tag :div, class: 'flex border border-gray-300 rounded-lg overflow-hidden' do %>
-                <%= content_tag :div, class: 'flex-1 p-3' do %>
-                  <%= content_tag :h3, gallery.name, class: 'font-medium' %>
-                  <% photo_count = @photo_counts_by_gallery[gallery.id] || 0 %>
-                  <%= content_tag :p, "#{photo_count} photos", class: 'text-sm text-gray-500' %>
-                  <%= link_to 'View Collections', store_gallery_collections_path(Current.store, gallery), class: 'inline-flex items-center justify-center gap-2 text-sm font-medium underline-offset-4 hover:underline rounded-md p-0 h-auto text-[oklch(66.14%_0.0661_72.71)]' %>
+          <% if @recent_galleries.present? %>
+            <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 gap-4' do %>
+              <% @recent_galleries.each do |gallery| %>
+                <%= content_tag :div, class: 'flex border border-gray-300 rounded-lg overflow-hidden' do %>
+                  <%= content_tag :div, class: 'flex-1 p-3' do %>
+                    <%= content_tag :h3, gallery.name, class: 'font-medium' %>
+                    <%= content_tag :p, "#{photo_count_for(gallery)} photos", class: 'text-sm text-gray-500' %>
+                    <%= link_to 'View Collections', store_gallery_collections_path(Current.store, gallery), class: 'inline-flex items-center justify-center gap-2 text-sm font-medium underline-offset-4 hover:underline rounded-md p-0 h-auto text-[oklch(66.14%_0.0661_72.71)]' %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
+          <% else %>
+            <%= render 'shared/empty_state',
+              title: 'No existing galleries yet in your store.',
+              description: '' %>
           <% end %>
         <% end %>
       <% end %>
@@ -107,23 +62,29 @@
         <% end %>
 
         <%= content_tag :div, class: 'p-6 pt-0' do %>
-          <%= content_tag :div, class: 'space-y-4' do %>
-            <% @upcoming_appointments.each do |appt| %>
-              <%= content_tag :div, class: 'flex items-start' do %>
-                <%= content_tag :div, class: 'bg-[oklch(95%_0.03_72.71)] p-2 rounded-md mr-3' do %>
-                  <%= icon 'calendar', class: 'size-5 text-[oklch(66.14%_0.0661_72.71)]' %>
-                <% end %>
-
-                <%= content_tag :div do %>
-                  <%= content_tag :h4, appt.appointment_package.gallery_name, class: 'font-medium' %>
-                  <%= content_tag :div, class: 'text-sm text-gray-500 flex items-center mt-1' do %>
-                    <%= icon 'clock', class: 'size-3 mr-1' %>
-                    <%= content_tag :p, appt.preferred_date_time&.strftime("%B %d, %Y at %I:%M %p") || 'TBD' %>
+          <% if @upcoming_appointments.present? %>
+            <%= content_tag :div, class: 'space-y-4' do %>
+              <% @upcoming_appointments.each do |appt| %>
+                <%= content_tag :div, class: 'flex items-start' do %>
+                  <%= content_tag :div, class: 'bg-[oklch(95%_0.03_72.71)] p-2 rounded-md mr-3' do %>
+                    <%= icon 'calendar', class: 'size-5 text-[oklch(66.14%_0.0661_72.71)]' %>
                   <% end %>
-                  <%= content_tag :p, appt.customer.full_name, class: 'text-sm text-gray-500' %>
+
+                  <%= content_tag :div do %>
+                    <%= link_to appt.appointment_package.gallery_name, store_appointment_path(Current.store, appt), class: 'font-medium hover:underline' %>
+                    <%= content_tag :div, class: 'text-sm text-gray-500 flex items-center mt-1' do %>
+                      <%= icon 'clock', class: 'size-3 mr-1' %>
+                      <%= content_tag :p, appt.preferred_date_time&.strftime("%B %d, %Y at %I:%M %p") || 'TBD' %>
+                    <% end %>
+                    <%= content_tag :p, appt.customer.full_name, class: 'text-sm text-gray-500' %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
+          <% else %>
+            <%= render 'shared/empty_state',
+              title: 'No appointments scheduled yet.',
+              description: '' %>
           <% end %>
         <% end %>
 
@@ -142,15 +103,21 @@
         <% end %>
 
         <%= content_tag :div, class: 'p-6 pt-0' do %>
-          <%= content_tag :div, class: 'space-y-4' do %>
-            <% @newest_customers.each do |customer| %>
-              <%= content_tag :div, class: 'flex items-center' do %>
-                <%= content_tag :div do %>
-                  <%= content_tag :h4, customer.full_name, class: 'font-medium' %>
-                  <%= content_tag :p, customer.email, class: 'text-sm text-gray-500' %>
+        <% if @newest_customers.present? %>
+            <%= content_tag :div, class: 'space-y-4' do %>
+              <% @newest_customers.each do |customer| %>
+                <%= content_tag :div, class: 'flex items-center' do %>
+                  <%= content_tag :div do %>
+                    <%= link_to customer.full_name, store_customer_path(Current.store, customer), class: 'font-medium hover:underline' %>
+                    <%= content_tag :p, customer.email, class: 'text-sm text-gray-500' %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
+          <% else %>
+            <%= render 'shared/empty_state',
+              title: 'No customers yet in your store.',
+              description: '' %>
           <% end %>
         <% end %>
 

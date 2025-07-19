@@ -114,4 +114,8 @@ module ApplicationHelper
       "Expires in #{(seconds_left / 86_400)} day(s)"
     end
   end
+
+  def photo_count_for(gallery)
+    @photo_counts_by_gallery[gallery.id] || 0
+  end
 end

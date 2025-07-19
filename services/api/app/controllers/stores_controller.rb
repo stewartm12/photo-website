@@ -1,4 +1,6 @@
 class StoresController < ApplicationController
+  before_action :set_store, only: %i[edit update]
+
   def index
     @stores = Current.user.stores.includes(photo: { image_attachment: :blob }).order(created_at: :desc)
   end
@@ -8,18 +10,16 @@ class StoresController < ApplicationController
     @total_collections = Current.store.collections.count
     @total_appointments = Current.store.appointments.count
     @total_customers = Current.store.customers.count
-    @total_photos = Photo.joins('INNER JOIN collections ON collections.id = photos.imageable_id')
-                    .joins('INNER JOIN galleries ON galleries.id = collections.gallery_id')
-                    .where(photos: { imageable_type: 'Collection' }, galleries: { store_id: Current.store.id })
-                    .count
-
     @recent_galleries = Current.store.galleries.order(id: :desc).limit(5)
-    @photo_counts_by_gallery = Photo.joins('INNER JOIN collections ON collections.id = photos.imageable_id')
-                              .where(photos: { imageable_type: 'Collection' }, collections: { gallery_id: @recent_galleries.map(&:id) })
-                              .group('collections.gallery_id')
-                              .count
-    @upcoming_appointments = Current.store.appointments.includes(:customer, :appointment_package).where(status: :pending).order(preferred_date_time: :desc).limit(5)
     @newest_customers = Current.store.customers.order(id: :desc).limit(3)
+    @upcoming_appointments = Current.store.appointments.includes(:customer, :appointment_package).where(status: :pending).order(preferred_date_time: :desc).limit(5)
+    @total_photos = photos_for_store.count
+    gallery_ids = @recent_galleries.map(&:id)
+
+    @photo_counts_by_gallery = photos_for_store
+      .where(collections: { gallery_id: gallery_ids })
+      .group('collections.gallery_id')
+      .count
   end
 
   def new
@@ -27,8 +27,7 @@ class StoresController < ApplicationController
   end
 
   def create
-    @store = Store.new(create_params.except(:photo))
-    @store.owner = Current.user
+    @store = Store.new(create_params.except(:photo).merge(owner: Current.user))
 
     ActiveRecord::Base.transaction do
       if (photo_param = create_params.dig(:photo, :image))
@@ -44,13 +43,9 @@ class StoresController < ApplicationController
     flash.now[:alert] = e.record.errors.full_messages.to_sentence
   end
 
-  def edit
-    @store = Store.find_by(slug: params[:store_slug])
-  end
+  def edit; end
 
   def update
-    @store = Store.find_by(slug: params[:store_slug])
-
     if (photo_param = update_params.dig(:photo, :image))
       @store.update_photo_image(photo_param, store_slug: @store.slug)
     end
@@ -70,5 +65,16 @@ class StoresController < ApplicationController
 
   def update_params
     params.expect(store: [:email, :time_zone, photo: [:image]])
+  end
+
+  def set_store
+    @store = Current.store
+  end
+
+  def photos_for_store
+    Photo
+      .joins('INNER JOIN collections ON collections.id = photos.imageable_id')
+      .joins('INNER JOIN galleries ON galleries.id = collections.gallery_id')
+      .where(photos: { imageable_type: 'Collection' }, galleries: { store_id: Current.store.id })
   end
 end

@@ -3,7 +3,7 @@ class Photo < ApplicationRecord
 
   has_one_attached :image, dependent: :purge_later
 
-  validates :file_key, presence: true, uniqueness: true
+  validates :file_key, presence: true, uniqueness: { scope: %i[imageable_type imageable_id] }
   validate :acceptable_image
 
   acts_as_list top_of_list: 0
