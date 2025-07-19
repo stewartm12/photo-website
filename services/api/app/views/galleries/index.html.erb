@@ -16,6 +16,31 @@
     <% end %>
   <% end %>
 
+  <%= form_with url: store_galleries_path(Current.store), method: :get,
+    data: {
+      turbo_frame: 'galleries_results',
+      turbo_action: 'advance',
+      controller: 'submit',
+      action: 'input->submit#submit'
+    } do |f| %>
+    <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 md:flex-row md:items-center md:justify-between mb-8 ' do %>
+      <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+        <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search galleries...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+      <% end %>
+      <%= content_tag :div, class: 'flex flex-wrap gap-2' do %>
+        <%= content_tag :div, class: 'flex items-center gap-2' do %>
+          <%= content_tag :span, 'Sort By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+          <%= f.select :sort, options_for_select([['Name', 'name'], ['Updated At', 'updated_at']],  params[:sort]), { include_blank: 'Select' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+          <%= f.select :order, options_for_select([['Ascending', 'asc'], ['Descending', 'desc']],  params[:order]), { include_blank: 'Order' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+        <% end %>
+        <%= content_tag :div, class: 'flex items-center gap-2' do %>
+          <%= content_tag :span, 'Filter By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+          <%= f.select :status, options_for_select([['Active', true], ['Inactive', false]], params[:status]), { include_blank: 'Select Status' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <%= turbo_frame_tag 'galleries_results' do %>
     <%= render 'galleries/galleries_results' %>
   <% end %>

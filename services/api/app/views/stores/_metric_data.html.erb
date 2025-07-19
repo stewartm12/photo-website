@@ -1,0 +1,11 @@
+<%= content_tag :div, class: 'rounded-lg border border-gray-300 bg-white shadow-sm' do %>
+  <%= content_tag :div, class: 'flex flex-col space-y-1.5 p-6 pb-2' do %>
+    <%= content_tag :h3, title, class: 'tracking-tight text-sm font-medium text-gray-500' %>
+  <% end %>
+  <%= content_tag :div, class: 'p-6 pt-0' do %>
+    <%= content_tag :div, class: 'flex items-center' do %>
+      <%= icon svg_icon, class: 'size-8 text-[oklch(66.14%_0.0661_72.71)] mr-2' %>
+      <%= content_tag :span, data, class: 'text-2xl font-bold' %>
+    <% end %>
+  <% end %>
+<% end %>
