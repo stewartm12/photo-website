@@ -10,9 +10,9 @@ class StoreMembershipsController < ApplicationController
     if user.nil? || store.nil?
       redirect_to stores_path, alert: 'Invalid or expired confirmation link' and return
     end
-  
+
     membership = StoreMembership.new(user: Current.user, store: store)
-  
+
     if membership.save
       redirect_to stores_path, notice: "You have successfully joined #{store.name}!"
     else

@@ -14,6 +14,8 @@ class Store < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
 
+  before_create :capitalize_names
+
   before_validation :generate_slug, on: :create
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -45,5 +47,9 @@ class Store < ApplicationRecord
 
   def generate_slug
     self.slug = name.parameterize
+  end
+
+  def capitalize_names
+    self.name = self.name&.titleize
   end
 end

@@ -12,14 +12,10 @@ class GalleriesController < ApplicationController
   end
 
   def create
+    flash.now[:alert] = 'Please upload an image.' and return unless image_param.present?
+
     @gallery = Current.store.galleries.new(gallery_params)
-    photo_param = gallery_params.dig(:photo_attributes, :image)
-
-    unless photo_param.present?
-      flash.now[:alert] = 'Please upload an image.' and return
-    end
-
-    @gallery.build_photo_from_image(photo_param, store_slug: Current.store.slug)
+    @gallery.build_photo_from_image(image_param, store_slug: Current.store.slug)
 
     if @gallery.save
       redirect_to store_galleries_path(Current.store), success: 'Gallery created successfully.'
@@ -31,8 +27,7 @@ class GalleriesController < ApplicationController
   def edit; end
 
   def update
-    if (image_param = gallery_params.dig(:photo_attributes, :image))
-
+    if image_param
       @gallery.update_photo_image(image_param, store_slug: Current.store.slug)
     end
 
@@ -46,17 +41,20 @@ class GalleriesController < ApplicationController
   def destroy
     @gallery.destroy
     flash.now[:success] = 'Gallery deleted!'
-    @pagy, @galleries = pagy(filtered_galleries)
   end
 
   private
 
   def set_gallery
-    @gallery = Current.store.galleries.find_by(id: params[:id])
+    @gallery = Current.store.galleries.find(params[:id])
   end
 
   def gallery_params
     params.expect(gallery: [:name, :description, :active, photo_attributes: %i[image]])
+  end
+
+  def image_param
+    gallery_params.dig(:photo_attributes, :image)
   end
 
   def search_params
