@@ -12,7 +12,7 @@
   <% end %>
 <% end %>
 
-<% if @galleries.any? %>
+<% if @galleries.present? %>
   <%= content_tag :div, class: 'space-y-4' do %>
     <% @galleries.each do |gallery| %>
       <%= content_tag :details, class: 'rounded-lg border border-gray-400 bg-stone-100 shadow-sm overflow-hidden group/details' do %>

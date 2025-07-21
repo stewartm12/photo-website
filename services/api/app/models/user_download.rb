@@ -24,7 +24,7 @@ class UserDownload < ApplicationRecord
 
   def seconds_until_expiration
     return 0 unless expires_at?
-  
+
     [expires_at - Time.current, 0].max
   end
 
