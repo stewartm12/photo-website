@@ -14,7 +14,7 @@ class Store < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
 
-  before_create :capitalize_names
+  before_create :capitalize_name
 
   before_validation :generate_slug, on: :create
 
@@ -49,7 +49,7 @@ class Store < ApplicationRecord
     self.slug = name.parameterize
   end
 
-  def capitalize_names
+  def capitalize_name
     self.name = self.name&.titleize
   end
 end

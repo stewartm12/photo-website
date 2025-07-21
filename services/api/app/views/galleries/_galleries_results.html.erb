@@ -1,12 +1,12 @@
-<% if @galleries.any? %>
+<% if @galleries.present? %>
   <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
     <%= content_tag :div, class: 'overflow-x-auto' do %>
       <%= content_tag :table, class: 'w-full' do %>
         <%= content_tag :thead do %>
           <%= content_tag :tr, class: 'border-b border-gray-300 bg-stone-200' do %>
             <%= content_tag :th, 'Gallery', class: 'px-4 py-3 text-left' %>
-            <%= content_tag :th, 'Collections #', class: 'px-4 py-3 text-left' %>
-            <%= content_tag :th, 'Photos #', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Collections Count', class: 'px-4 py-3 text-left' %>
+            <%= content_tag :th, 'Photos Count', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Status', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Created', class: 'px-4 py-3 text-left' %>
             <%= content_tag :th, 'Actions', class: 'px-4 py-3 text-left' %>

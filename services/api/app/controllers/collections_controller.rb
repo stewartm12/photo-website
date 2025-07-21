@@ -8,7 +8,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @collection = gallery.collections.includes(photos: { image_attachment: [blob: { variant_records: :blob }] }).find_by(id: params[:id])
+    @collection = gallery.collections.with_eager_loaded_photos.find(params[:id])
   end
 
   def new
@@ -61,15 +61,15 @@ class CollectionsController < ApplicationController
   private
 
   def set_collection
-    @collection = gallery.collections.find_by(id: params[:id])
+    @collection = gallery.collections.find(params[:id])
   end
 
   def gallery
-    @gallery ||= Current.store.galleries.find_by(id: params[:gallery_id])
+    @gallery ||= Current.store.galleries.find(params[:gallery_id])
   end
 
   def search_params
-    params.permit(:name, :sort, :order)
+    params.permit(:name, :sort, :order, :store_slug, :gallery_id)
   end
 
   def collection_params

@@ -4,7 +4,7 @@
     <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
     <%= link_to 'Galleries', store_galleries_path(Current.store), class: 'text-gray-500 hover:text-gray-700' %>
     <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
-    <%= link_to @gallery.name, store_gallery_collections_path(Current.store, @gallery), class: 'text-gray-500 hover:text-gray-700'  %>
+    <%= link_to "#{@gallery.name} Collections", store_gallery_collections_path(Current.store, @gallery), class: 'text-gray-500 hover:text-gray-700'  %>
     <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
     <%= link_to @collection.name, store_gallery_collection_path(Current.store, @gallery, @collection), class: 'text-gray-500 hover:text-gray-700'  %>
     <%= icon 'chevron-right', class: 'text-gray-500 size-3' %>
@@ -15,10 +15,6 @@
     <%= content_tag :div do %>
       <%= content_tag :h1, 'Upload Photos', class: 'text-2xl font-bold' %>
       <%= content_tag :p, "Add photos to '#{@collection.name}'", class: 'text-gray-500' %>
-    <% end %>
-
-    <%= content_tag :div, class: 'flex gap-3 mt-4 md:mt-0' do %>
-      <%= link_to 'Back to collections', store_gallery_collection_path(Current.store, @gallery, @collection), class: 'inline-flex items-center gap-2 whitespace-nowrap rounded-md text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 h-10 px-4 py-2 w-full justify-start cursor-pointer' %>
     <% end %>
   <% end %>
 

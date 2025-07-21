@@ -12,7 +12,7 @@
   <% end %>
 <% end %>
 
-<% if @customers.any? %>
+<% if @customers.present? %>
   <%= content_tag :div, class: 'rounded-lg border border-gray-400 shadow-sm overflow-hidden' do %>
     <%= content_tag :div, class: 'overflow-x-auto' do %>
       <%= content_tag :table, class: 'w-full' do %>

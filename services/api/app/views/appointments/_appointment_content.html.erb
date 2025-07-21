@@ -62,7 +62,7 @@
                 <%= content_tag :p, location_address, class: 'font-medium' %>
                 <%= content_tag :p, @appointment.locations.first&.note, class: 'text-sm text-gray-500 mt-1' %>
               <% end %>
-              <% if @appointment.locations.any? %>
+              <% if @appointment.locations.present? %>
                 <%= link_to edit_store_appointment_location_path(Current.store, @appointment, @appointment.locations.first), class: 'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-gray-100 hover:text-gray-600 h-10 w-10 text-gray-500 cursor-pointer', data: { turbo_frame: 'modal' } do %>
                   <%= icon 'pencil-square' %>
                 <% end %>

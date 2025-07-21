@@ -9,12 +9,12 @@ class PhotosController < ApplicationController
 
   def create
     ProcessUploadedPhotosJob.perform_later(@collection.id, photo_params, Current.store.slug)
-  
+
     redirect_to store_gallery_collection_path(Current.store, gallery, @collection), success: 'Your photos are being uploaded.'
   end
 
   def update
-    @photo = Photo.find_by(id: update_params[:id])
+    @photo = Photo.find(update_params[:id])
     @photo.insert_at(update_params[:position].to_i)
 
     head :no_content

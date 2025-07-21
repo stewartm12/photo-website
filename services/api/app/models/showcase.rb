@@ -1,5 +1,6 @@
 class Showcase < ApplicationRecord
   include PhotoUploadable
+  include PhotoIncludable
 
   attr_accessor :photos_changed
 
