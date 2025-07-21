@@ -58,7 +58,7 @@ class GalleriesController < ApplicationController
   end
 
   def search_params
-    params.permit(:name, :status, :sort, :order)
+    params.permit(:name, :status, :sort, :order, :store_slug)
   end
 
   def filtered_galleries
@@ -69,14 +69,14 @@ class GalleriesController < ApplicationController
   end
 
   def safe_sort_order
-    allowed_columns = %w[name updated_at]
+    allowed_columns = %w[id name updated_at]
     allowed_directions = %w[asc desc]
 
     column = search_params[:sort]
     direction = search_params[:order]
 
-    column = allowed_columns.include?(column) ? column : 'name'
-    direction = allowed_directions.include?(direction) ? direction : 'asc'
+    column = allowed_columns.include?(column) ? column : 'id'
+    direction = allowed_directions.include?(direction) ? direction : 'desc'
 
     { column => direction.to_sym }
   end

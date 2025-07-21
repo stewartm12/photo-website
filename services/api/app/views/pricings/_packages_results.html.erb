@@ -1,5 +1,5 @@
 <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' do %>
-  <% if gallery.packages.any? %>
+  <% if gallery.packages.present? %>
     <% gallery.packages.each do |package| %>
       <%= content_tag :div, class: 'rounded-lg border border-gray-400 bg-white shadow-sm relative' do %>
         <% if package.popular? %>

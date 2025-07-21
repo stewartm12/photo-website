@@ -14,7 +14,28 @@
     <% end %>
     <%= link_to new_store_gallery_collection_path(Current.store, @gallery), class: 'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium [&_svg]:size-4 h-10 px-4 py-2 bg-[oklch(66.14%_0.0661_72.71)] hover:bg-[oklch(60%_0.0661_72.71)] text-white', data: { turbo_frame: 'modal' } do %>
       <%= icon 'plus' %>
-      <%= content_tag :span, 'Create Collection' %>
+      <%= content_tag :span, 'New Collection' %>
+    <% end %>
+  <% end %>
+
+  <%= form_with url: store_gallery_collections_path(Current.store, @gallery), method: :get,
+    data: {
+      turbo_frame: 'collections_results',
+      turbo_action: 'advance',
+      controller: 'submit',
+      action: 'input->submit#submit'
+    } do |f| %>
+    <%= content_tag :div, class: 'flex flex-col gap-4 rounded-lg border border-gray-400 bg-white p-4 md:flex-row md:items-center md:justify-between mb-8 ' do %>
+      <%= content_tag :div, class: 'relative w-full sm:max-w-xs' do %>
+        <%= f.search_field :name, value: params[:name], autocomplete: 'name', placeholder: 'Search collections...', class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+      <% end %>
+      <%= content_tag :div, class: 'flex flex-wrap gap-2' do %>
+        <%= content_tag :div, class: 'flex items-center gap-2' do %>
+          <%= content_tag :span, 'Sort By:', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 whitespace-nowrap' %>
+          <%= f.select :sort, options_for_select([['Collection Name', 'name'], ['Shoot Date', 'shoot_date']],  params[:sort]), { include_blank: 'Select' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+          <%= f.select :order, options_for_select([['Ascending', 'asc'], ['Descending', 'desc']],  params[:order]), { include_blank: 'Order' }, class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100' %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 

@@ -1,4 +1,4 @@
-<% if gallery.add_ons.any? %>
+<% if gallery.add_ons.present? %>
   <%= content_tag :div, class: 'overflow-hidden border border-gray-400 rounded-md' do %>
     <%= content_tag :table, class: 'w-full' do %>
       <%= content_tag :thead do %>
