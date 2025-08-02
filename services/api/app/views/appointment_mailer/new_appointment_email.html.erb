@@ -1,7 +1,10 @@
 <%= content_tag :div, style: 'max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);' do %>
-  <%= content_tag :h1, 'Appointment Confirmation', style: 'color: #2c3e50; text-align: center;' %>
+  
+  <%= content_tag :div, style: 'text-align: center; margin-bottom: 20px;' do %>
+      <%= image_tag url_for(@store.photo.image.variant(resize_to_fill: [100, 100])), alt: "#{@store.name} Logo", style: "width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" %>
+    <% end %>
 
-  <%= content_tag :p, 'Dear #{@customer.full_name},', style: 'font-family: Arial, sans-serif; color: #333;' %>
+  <%= content_tag :p, "Hi #{@customer.full_name},", style: 'font-family: Arial, sans-serif; color: #333;' %>
 
   <%= content_tag :p, 'Thank you for booking an appointment with us! Your appointment has been successfully scheduled.', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
@@ -42,6 +45,6 @@
   <%= content_tag :p, 'Looking forward to speaking with you soon!', style: 'font-family: Arial, sans-serif; color: #333;' %>
 
   <%= content_tag :div, style: 'margin-top: 20px; text-align: center; font-size: 14px; color: #7f8c8d;' do %>
-    <%= content_tag :p, "&copy; #{Time.current.year} Victoria's Photography. All rights reserved.".html_safe %>
+    <%= content_tag :p, "&copy; #{Time.current.year} #{@store.name}. All rights reserved.".html_safe %>
   <% end %>
 <% end %>

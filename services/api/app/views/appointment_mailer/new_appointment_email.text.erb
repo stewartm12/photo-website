@@ -1,13 +1,11 @@
-Appointment Confirmation
+Hi <%= @customer.full_name %>,
 
-Dear <%= @customer.full_name %>,
+Thank you for booking an appointment with <%= @store.name %>! Your request has been received and scheduled.
 
-Thank you for booking an appointment with us! Your appointment has been successfully scheduled.
-
-We will review your request and get in touch with you within 48 hours to confirm any additional details.
+We will review your submission and reach out within 48 hours to finalize any session details.
 
 Appointment Details:
---------------------
+---------------------
 Customer Name: <%= @customer.full_name %>
 Phone Number: <%= @customer.phone_number.presence || 'N/A' %>
 Session Type: <%= @appointment.appointment_package.gallery_name %> (<%= @appointment.appointment_package.name %>)
@@ -16,5 +14,5 @@ Additional Notes: <%= @appointment.additional_notes.presence || 'No additional n
 
 Looking forward to speaking with you soon!
 
-----------------------------------
-© <%= Time.current.year %> Victoria's Photography. All rights reserved.
+— <%= @store.name %>
+<%= Time.current.year %> All rights reserved.
