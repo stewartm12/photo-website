@@ -1,4 +1,14 @@
-Welcome, <%= @user.full_name %>
+Welcome, <%= @user.full_name %>!
 
-Please, confirm your account by clicking the link below:
+Thanks for signing up with PixCloud.
+
+To activate your account, please confirm your email address by visiting the link below:
+
+Confirm your account:
 <%= confirmation_url(token: @user.generate_confirmation_token) %>
+
+If the link doesn’t work, copy and paste it into your browser.
+
+If you didn’t create an account, you can safely ignore this message.
+
+© <%= Time.current.year %> PixCloud Platform
