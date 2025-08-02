@@ -1,6 +1,19 @@
 Hello,
-<%= @user.full_name %> has invited you to join their store on our platform.
 
-Click on the link below to accept the invitation:
+<%= @user.full_name %> has invited you to join their store, "<%= @store.name %>", on our platform.
 
+As a store member, you’ll be able to:
+- Collaborate on managing sessions
+- View and manage appointments
+- Coordinate with clients through a shared dashboard
+
+To get started, please follow the link below to accept the invitation and create your account (or log in if you already have one):
+
+Accept Invitation:
 <%= store_store_membership_url(@store, token: @user.generate_invitation_token) %>
+
+If the link above doesn’t work, copy and paste it into your browser.
+
+---
+
+© <%= Time.current.year %> <%= @store.name %>
