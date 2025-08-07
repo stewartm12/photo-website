@@ -25,7 +25,7 @@
         <% end %>
 
         <%= content_tag :div, class: 'grid gap-2' do %>
-          <%= f.label :duration %>
+          <%= f.label :duration, 'Duration (minutes)' %>
           <%= f.number_field :duration, step: 1, min: 1 %>
         <% end %>
       <% end %>
