@@ -23,17 +23,21 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+RUN addgroup --system --gid 1001 nodejs \
+  && adduser --system --uid 1001 --home /home/nextjs nextjs
 
 COPY --from=builder /app/public ./public
 
-RUN mkdir -p .next
-RUN chown nextjs:nodejs .next
+RUN mkdir -p .next && chown nextjs:nodejs .next
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 
-USER nextjs
+# Set HOME explicitly and fix permissions
+ENV HOME=/home/nextjs
+RUN mkdir -p $HOME && chown -R nextjs:nodejs $HOME
+
+# USER nextjs
 
 EXPOSE 3000
 
