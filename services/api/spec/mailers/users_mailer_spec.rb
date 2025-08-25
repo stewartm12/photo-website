@@ -7,7 +7,7 @@ RSpec.describe UsersMailer, type: :mailer do
     it "sends the email to the newly created user" do
       email = UsersMailer.account_confirmation(user).deliver_now
 
-      expect(email.subject).to eq('Welcome to PixCloud! Please confirm your account.')
+      expect(email.subject).to eq('Welcome to Pics Cloud! Please confirm your account.')
       expect(email.to).to eq([user.email_address])
     end
   end
