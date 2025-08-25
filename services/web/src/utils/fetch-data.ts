@@ -12,8 +12,9 @@ type GraphQLResponse<T> = {
 export const fetchData = async <T>(query: string, variables?: Record<string, unknown>): Promise<GraphQLResponse<T>> => {
   const isServer = typeof window === 'undefined';
   const apiUrl = isServer
-  ? process.env.RAILS_API_URL // 'http://api:3000/graphql'
-  : 'http://localhost:3001/graphql';
+  ? process.env.SERVER_RAILS_API_URL
+  : process.env.WINDOW_RAILS_API_URL;
+
   const accessToken = process.env.API_ACCESS_TOKEN;
   const storeDomain = process.env.STORE_DOMAIN_URL;
 
