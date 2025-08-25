@@ -1,11 +1,11 @@
 <%= content_tag :div, class: "max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md text-base", style: "font-family: Arial, sans-serif;" do %>
   <%= content_tag :div, style: "text-align: center; margin-bottom: 20px;" do %>
-    <%= image_tag image_url('logo-transparent-svg.svg'), alt: 'Pix Cloud Logo', style: "width: 100px; height: auto; border-radius: 50%;" %>
+    <%= image_tag image_url('logo-transparent-svg.svg'), alt: 'Pics Cloud Logo', style: "width: 100px; height: auto; border-radius: 50%;" %>
   <% end %>
 
   <%= content_tag :h1, "Welcome, #{@user.full_name}", class: "text-xl font-semibold text-gray-800 mb-4 text-center" %>
 
-  <%= content_tag :p, "Thanks for signing up with PixCloud!", class: "text-gray-700 mb-3" %>
+  <%= content_tag :p, "Thanks for signing up with Pics Cloud!", class: "text-gray-700 mb-3" %>
 
   <%= content_tag :p, "To activate your account and start using our services, please confirm your email address by clicking the button below:", class: "text-gray-700 mb-3" %>
 
@@ -21,5 +21,5 @@
 
   <%= content_tag :p, "If you didn’t create an account, you can ignore this message.", class: "text-gray-500 text-sm" %>
 
-  <%= content_tag :p, "&copy; #{Time.current.year} PixCloud", class: "text-gray-500 text-sm mt-2" %>
+  <%= content_tag :p, "&copy; #{Time.current.year} Pics Cloud", class: "text-gray-500 text-sm mt-2" %>
 <% end %>
