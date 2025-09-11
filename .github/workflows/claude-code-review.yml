@@ -2,7 +2,7 @@ name: Claude Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, ready_for_review, reopened]
     # Optional: Only run on specific file changes
     # paths:
     #   - "src/**/*.ts"
@@ -36,19 +36,63 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
-            
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
+            Perform a comprehensive code review of the repository, taking into account that the root directory contains a `services` folder:
+            - `services/api` → Ruby on Rails backend
+            - `services/web` → Next.js frontend
+
+            ### General Guidelines
+            - **Rails code** should follow Sandi Metz’s principles: small classes, small methods, single responsibility, clear object boundaries, and clean, maintainable Ruby code.
+            - **Next.js/React code** should follow modern React and Next.js best practices:
+              - Functional components and hooks where appropriate
+              - Clear separation of concerns (UI vs. data fetching)
+              - Efficient rendering (avoid unnecessary re-renders)
+              - Maintainable folder and component structure
+              - Proper use of TypeScript types (if applicable)
+              - Adequate error handling and edge-case coverage
+
+            ### Focus Areas
+
+            1. **Code Quality**
+              - Clean, maintainable, and idiomatic code for Rails and Next.js
+              - Proper error handling and edge cases
+              - Code readability, modularity, and adherence to best practices
+
+            2. **Security**
+              - Identify potential vulnerabilities in backend and frontend
+              - Validate input and output sanitization
+              - Review authentication, authorization, and API security
+
+            3. **Performance**
+              - Identify potential performance bottlenecks in Rails or Next.js
+              - Review database queries for efficiency in Rails
+              - Check frontend rendering, API calls, and caching strategies
+
+            4. **Testing**
+              - Verify adequate test coverage (unit, integration, end-to-end)
+              - Review test quality and edge cases
+              - Check for missing test scenarios
+
+            5. **Documentation**
+              - Ensure code is properly documented
+              - Verify README or API docs are updated for new features
+              - Frontend components and pages are documented where necessary
+
+            ### Output Requirements
+            - Write a detailed, constructive review that includes both inline and top-level comments.
+            - **Rails (backend) review:** Save in `services/api/reviews/YYYY-MM-DD-Claude-CR.md`
+            - **Next.js (frontend) review:** Save in `services/web/reviews/YYYY-MM-DD-Claude-CR.md`
+            - Each file should contain a clear, structured summary of the review results, with separate sections for the respective codebase and all focus areas.
+            - Highlight **Critical Findings** at the top if there are major issues.
+
+            Provide detailed feedback using inline comments for specific issues.  
+            Use top-level comments for general observations, praise, or guidance on architecture improvements.
+
           
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.anthropic.com/en/docs/claude-code/sdk#command-line for available options
           claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
-
