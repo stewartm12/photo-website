@@ -85,7 +85,7 @@ export const galleryPackageData = async ():Promise<ServiceResponse> => {
       }
     }
   `;
-  const response = await fetchData<ServiceResponse>(query, ['galleries', 'packages', 'addOns']);
+  const response = await fetchData<ServiceResponse>(query, ['services', 'galleries', 'packages', 'addOns']);
   if (!response.data) throw new Error("No data returned from GraphQL");
   return response.data;
 };
