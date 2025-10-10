@@ -7,9 +7,9 @@ class FrontendCacheRevalidationJob < ApplicationJob
     raise ArgumentError, 'Provide either tags or path' if tags.nil? && path.nil?
 
     body = if tags
-      { tags: tags }
+      { tags: tags, secret: ENV['FRONTEND_REVALIDATION_SECRET'] }
     else
-      { path: path }
+      { path: path, secret: ENV['FRONTEND_REVALIDATION_SECRET'] }
     end
 
     response = HTTParty.post(
