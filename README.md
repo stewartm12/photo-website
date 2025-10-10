@@ -4,6 +4,9 @@ This repository contains two services:
 
 ## 🖼️ Web (Frontend - Next.js)
 
+**Live Site:** [https://photography-portfolio-mu-six.vercel.app/](https://photography-portfolio-mu-six.vercel.app/)
+
+
 Located in the `/web` directory, a beautiful website built with **Next.js** to showcase the work of a photographer. The site includes:
 
 - 📷 **Galleries & Collections** — Displays curated sets of photos.
@@ -15,6 +18,8 @@ This site is the public-facing portfolio where clients can view the photographer
 ---
 
 ## 🛠️ API Portal (Backend - Rails)
+
+**Live Site:** [https://pics-cloud.com/](https://pics-cloud.com/)
 
 Located in the `/api` directory, this is a full **Ruby on Rails** application that serves as a private admin portal. Key features include:
 

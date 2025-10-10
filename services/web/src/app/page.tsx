@@ -160,7 +160,7 @@ export default async function HomePage() {
                 <ServiceCard
                   imgUrl={servicePhoto2.imageUrl}
                   title={"Contact Me"}
-                  description={"Let&#39;s get you booked"}
+                  description={"Book your session today"}
                   link="/appointment"
                 />
 
