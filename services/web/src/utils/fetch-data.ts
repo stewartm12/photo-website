@@ -17,7 +17,7 @@ export const fetchData = async <T>(query: string, tags?: string[], variables?: R
 
   const accessToken = process.env.API_ACCESS_TOKEN;
   const storeDomain = process.env.STORE_DOMAIN_URL;
-  console.log("fetchData", { apiUrl, accessToken, storeDomain });
+
   if (typeof apiUrl == "undefined" || typeof accessToken == "undefined" || typeof storeDomain == "undefined") {
     throw new Error(`apiUrl:${apiUrl} / accessToken:${accessToken} / storeDomain:${storeDomain}`);
   }
