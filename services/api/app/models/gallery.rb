@@ -46,7 +46,7 @@ class Gallery < ApplicationRecord
                       "gallery:#{previous_changes['slug'][1]}"
       end
 
-      tags = ['navbar']
+      tags = %w[navbar services]
       tags << gallery_tag if gallery_tag
       FrontendCacheRevalidationJob.perform_later(tags: tags) if saved_change_to_name?
     end
