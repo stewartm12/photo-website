@@ -21,7 +21,7 @@ class DownloadPhotosJob < ApplicationJob
     end
 
     download = UserDownload.create!(user: user, collection: collection, expires_at: 1.day.from_now)
-    download.zip_file.attach( io: File.open(tmp_path), filename: filename, content_type: 'application/zip')
+    download.zip_file.attach(io: File.open(tmp_path), filename: filename, content_type: 'application/zip')
 
     File.delete(tmp_path) if File.exist?(tmp_path)
   end

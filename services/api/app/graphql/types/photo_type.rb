@@ -13,13 +13,15 @@ module Types
     end
 
     def image_url(size: nil)
-      return nil unless object.image.attached?
+      return object.file_key unless object.image.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(object.image)
+      # return nil unless object.image.attached?
 
-      if Rails.env.development?
-        cached_url_for("photo:url:#{object.id}")
-      else
-        cached_signed_url(object, size)
-      end
+      # if Rails.env.development?
+      #   cached_url_for("photo:url:#{object.id}")
+      # else
+      #   cached_signed_url(object, size)
+      # end
     end
 
     def imageable
