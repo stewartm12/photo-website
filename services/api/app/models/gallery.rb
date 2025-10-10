@@ -45,7 +45,7 @@ class Gallery < ApplicationRecord
       elsif previous_changes.key?('slug')
                       "gallery:#{previous_changes['slug'][1]}"
       end
-      debugger
+
       tags = ['navbar']
       tags << gallery_tag if gallery_tag
       FrontendCacheRevalidationJob.perform_later(tags: tags) if saved_change_to_name?
