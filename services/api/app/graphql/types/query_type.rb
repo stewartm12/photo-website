@@ -42,7 +42,7 @@ module Types
     end
 
     def services
-      galleries.includes(:packages, :add_ons).where(active: true)
+      galleries.includes(:packages, :add_ons)
     end
 
     def gallery(slug:)
