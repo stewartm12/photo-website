@@ -20,7 +20,7 @@ export const showcaseQuery = async(name: string): Promise<Showcase> => {
   `;
   
   const variables = { name };
-  const response = await fetchData<{showcase: Showcase}>(query, variables);
+  const response = await fetchData<{showcase: Showcase}>(query, [`showcase:${name}`, 'photos'], variables);
   if (!response.data) throw new Error("No data returned from GraphQL");
   return response.data.showcase;
 };

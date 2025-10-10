@@ -10,6 +10,10 @@ class Photo < ApplicationRecord
 
   scope :ordered, -> { order(:position) }
 
+  before_destroy :store_old_imageable
+
+  after_commit :revalidate_frontend_cache, on: %i[create update]
+
   ACCEPTABLE_IMAGE_TYPES = %w[
     image/jpeg
     image/png
@@ -30,5 +34,20 @@ class Photo < ApplicationRecord
     if image.byte_size > 10.megabytes
       errors.add(:image, 'is too big (max 10MB)')
     end
+  end
+
+  def store_old_imageable
+    @old_type = imageable_type
+    @old_imageable = imageable
+  end
+
+  def revalidate_frontend_cache
+    if destroyed?
+      tags = @old_type == 'Showcase' ? ["showcase:#{@old_imageable.name}"] : [@old_type.downcase.pluralize]
+    else
+      tags = imageable_type == 'Showcase' ? ["showcase:#{imageable.name}"] : [imageable_type.downcase.pluralize]
+    end
+
+    FrontendCacheRevalidationJob.perform_later(tags: tags)
   end
 end

@@ -19,7 +19,7 @@ export const gallerySlugsQuery = async ():Promise<GallerySlugsResponse> => {
       }
     }
   `;
-  const response = await fetchData<GallerySlugsResponse>(query);
+  const response = await fetchData<GallerySlugsResponse>(query, ['stores', 'navbar']);
   if (!response.data) throw new Error("No data returned from GraphQL");
   return response.data;
 };
@@ -52,7 +52,7 @@ export const photosBySlugQuery = async (slug: string):Promise<GalleryWithCollect
   `;
 
   const variables = { slug };
-  const response = await fetchData<GalleryWithCollectionsResponse>(query, variables);
+  const response = await fetchData<GalleryWithCollectionsResponse>(query, [`gallery:${slug}`, 'galleries', 'collections', 'photos'], variables);
   if (!response.data) throw new Error("No data returned from GraphQL");
   return response.data;
 };
@@ -85,7 +85,7 @@ export const galleryPackageData = async ():Promise<ServiceResponse> => {
       }
     }
   `;
-  const response = await fetchData<ServiceResponse>(query);
+  const response = await fetchData<ServiceResponse>(query, ['galleries', 'packages', 'addOns']);
   if (!response.data) throw new Error("No data returned from GraphQL");
   return response.data;
 };
