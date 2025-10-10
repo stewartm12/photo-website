@@ -8,9 +8,21 @@ Located in the `/web` directory, a beautiful website built with **Next.js** to s
 
 - 📷 **Galleries & Collections** — Displays curated sets of photos.
 - 🧰 **Services Page** — Lists photography services offered.
-- ✉️ **Contact Page** — A form for users to get in touch or book sessions.
+- ✉️ **Appointment Page** — A form for users to get in touch or book sessions.
 
 This site is the public-facing portfolio where clients can view the photographer’s work and get in contact.
+
+### ⚡ Smart Caching & Revalidation
+
+The frontend is **fully cached** using Next.js’ built-in data caching and tagging system.  
+Each page and GraphQL query is cached automatically to deliver **instant load times** and **seamless navigation**.
+
+When content is updated in the Rails admin portal (e.g., a gallery name changes, a new collection is added, or a photo is deleted), the Rails backend automatically sends a **revalidation request** to the Next.js API route.  
+This triggers a **selective cache refresh** on the frontend, ensuring visitors always see the latest content — without rebuilding or redeploying the site.
+
+This approach provides the best of both worlds:
+- **Static-like performance** with cached responses.
+- **Dynamic freshness** via real-time revalidation from the backend.
 
 ---
 
@@ -22,24 +34,19 @@ Located in the `/api` directory, this is a full **Ruby on Rails** application th
 - 🖼️ **Photo & Gallery Tools** — Upload and organize photos into collections and galleries.
 - 🔐 **Merchant Access & Authentication** — Merchants are authenticated and receive API tokens.
 - ⚙️ **GraphQL API Endpoint** — A robust API for integration with the frontend.
-- 📚 **Auto-generated API Documentation** — Makes it easy for collaborators to understand and use the API.
+- 🔄 **Frontend Cache Revalidation** — Automatically notifies the Next.js frontend when data changes.
 
 This backend is designed as a powerful content and appointment management tool for the photographer to run their business efficiently.
 
-> **Note:** The API portal is currently under active development.  
-> At this stage, it includes only the essential GraphQL endpoints to:
-> - Fetch galleries
-> - Create appointments
+> **Note:** The API portal for developers is currently under active development.
 
-Additional features and endpoints will be added progressively. 
-
----
+Additional features and endpoints will be added progressively.
 
 ## 🔧 Tech Stack
 
 | Service | Stack |
 |--------|-------|
-| Web | Next.js, React, Tailwind CSS |
+| Web | Next.js, React, Tailwind CSS, Typescript |
 | API | Ruby on Rails, PostgreSQL, GraphQL, Tailwind CSS |
 
 ---
@@ -119,7 +126,36 @@ MAPBOX_ACCESS_TOKEN=your_mapbox_token
 The Mapbox URL is already configured in the codebase and will use this token for authentication.
 ```
 
-### 4. Build and Run Services with Docker
+### 4. AWS S3 Configuration
+
+AWS S3 is used for photo and asset storage on the **Rails backend**.
+You’ll need to set up your own S3 bucket and credentials to enable uploads and image rendering.
+
+#### 4.1 Create an S3 Bucket
+
+1. Sign in to your [AWS Management Console](https://aws.amazon.com/console/).  
+2. Navigate to **S3** → **Create bucket**.  
+3. Choose a **unique bucket name** and your preferred **AWS region** (e.g., `us-east-1`).  
+4. Leave default settings or adjust public access options as needed for your development setup.
+
+#### 4.2 Retrieve Access Keys
+
+1. Go to your [IAM Management Console](https://console.aws.amazon.com/iam/).  
+2. Under **Users**, select or create a user with **AmazonS3FullAccess** (for local development only).  
+3. Create a new **Access Key** and save the **Access Key ID** and **Secret Access Key**.
+
+#### 4.3 Update Rails Environment
+
+Add the AWS credentials and bucket info to your `rails.local.env` file:
+
+```env
+AWS_ACCESS_KEY=your_access_key_id
+AWS_SECRET_ACCESS_KEY=your_secret_access_key
+AWS_REGION=your_bucket_region
+AWS_BUCKET=your_bucket_name
+```
+
+### 5. Build and Run Services with Docker
 
 From the project root directory, run:
 
@@ -127,7 +163,7 @@ From the project root directory, run:
 docker-compose up --build
 ```
 
-### 5. Running Commands in Docker Containers
+### 6. Running Commands in Docker Containers
 
 To interact with the Docker containers, you can use the following commands:
 
@@ -149,15 +185,6 @@ There is no need to run `rails db:setup` or `rails db:seed` manually, as these t
 Actively working on expanding the capabilities of the API and admin portal. Here are some of the planned enhancements:
 
 - **User & Store Authentication**  
-  We will integrate authentication using the Rails 8 built-in authentication generator.  
-  This will enable users and stores to securely sign up and log in.
-
   - As part of this enhancement, each store will be issued its own unique API token.  
     This approach will replace the use of a global secret token, allowing for more secure and granular authentication.  
     Incoming requests can then be verified against their respective store tokens.
-
-- **Rails Admin Portal for Users**  
-  A dedicated portal will be developed for users to manage their content.  
-  Features will include:
-  - Uploading and organizing photos and galleries
-  - Viewing and managing appointments
