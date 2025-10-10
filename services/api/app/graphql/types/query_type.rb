@@ -23,7 +23,7 @@ module Types
 
     field :galleries, [Types::GalleryType], null: false, description: 'Fetches all galleries.'
 
-    field :services, [Types::GalleryType], null: false, description: 'Fetches all galleries with their packages and add ons.'      
+    field :services, [Types::GalleryType], null: false, description: 'Fetches all galleries with their packages and add ons.'
 
     field :gallery, Types::GalleryType, null: true, description: 'Fetches a gallery by slug.' do
       argument :slug, String, required: true, description: 'Slug of the gallery.'

@@ -39,7 +39,7 @@ export const createAppointment = async (input: CreateAppointmentInput) => {
     }
   `;
 
-  const result: CreateAppointmentResponse = await fetchData(mutation, { input });
+  const result: CreateAppointmentResponse = await fetchData(mutation, [], { input });
 
 const data = result.data;
 

@@ -13,6 +13,7 @@ class Collection < ApplicationRecord
 
   before_create :capitalize_name
   after_commit :update_photos_count, on: %i[update]
+  after_commit :revalidate_frontend_cache, on: %i[create update destroy]
 
   private
 
@@ -24,5 +25,11 @@ class Collection < ApplicationRecord
 
   def capitalize_name
     self.name = self.name&.titleize
+  end
+
+  def revalidate_frontend_cache
+    if previous_changes.key?('name') || previous_changes.key?('shoot_date') || previous_changes.key?('active') || destroyed?
+      FrontendCacheRevalidationJob.perform_later(tags: ['collections'])
+    end
   end
 end

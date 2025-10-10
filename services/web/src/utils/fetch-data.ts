@@ -9,7 +9,7 @@ type GraphQLResponse<T> = {
   errors?: GraphQLError[];
 };
 
-export const fetchData = async <T>(query: string, variables?: Record<string, unknown>): Promise<GraphQLResponse<T>> => {
+export const fetchData = async <T>(query: string, tags?: string[], variables?: Record<string, unknown>): Promise<GraphQLResponse<T>> => {
   const isServer = typeof window === 'undefined';
   const apiUrl = isServer
   ? process.env.SERVER_RAILS_API_URL
@@ -17,7 +17,7 @@ export const fetchData = async <T>(query: string, variables?: Record<string, unk
 
   const accessToken = process.env.API_ACCESS_TOKEN;
   const storeDomain = process.env.STORE_DOMAIN_URL;
-
+  console.log("fetchData", { apiUrl, accessToken, storeDomain });
   if (typeof apiUrl == "undefined" || typeof accessToken == "undefined" || typeof storeDomain == "undefined") {
     throw new Error(`apiUrl:${apiUrl} / accessToken:${accessToken} / storeDomain:${storeDomain}`);
   }
@@ -33,6 +33,7 @@ export const fetchData = async <T>(query: string, variables?: Record<string, unk
       query,
       variables,
     }),
+    next: { tags } // Caching with tags (only in Next.js 13+ on the server side)
   });
 
   const result = await response.json();
